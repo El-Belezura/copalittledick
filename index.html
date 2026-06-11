@@ -410,7 +410,7 @@ const estado = {
       foto: 'momo.png', 
       descricao: 'Estrategista nato. Analisa a pressão atmosférica e o corte da grama.', 
       pontos: 3, 
-      palpites: [{ jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'2x0', tipo: 'coluna' }] 
+      palpites: [{ jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'2x0', tipo: 'exato' }] 
     },
     { 
       id: 2, 
@@ -479,7 +479,7 @@ audio.muted = true;
 function iniciarAutoplayComFade() {
   audio.play().then(() => {
     audio.muted = false; audio.volume = 0;
-    audioBtn.textContent = '⏸'; audioStatus.textContent = 'Trilha da Copa Ativa';
+    audioBtn.textCont = '⏸'; audioStatus.textCont = 'Trilha da Copa Ativa';
     let vol = 0;
     const fadeInterval = setInterval(() => {
       if (vol < 0.25) { vol += 0.02; audio.volume = Math.min(vol, 0.25); } 
