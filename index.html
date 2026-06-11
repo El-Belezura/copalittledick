@@ -163,6 +163,27 @@ section { margin-bottom: 56px; }
 .progress-bar { background:rgba(255,255,255,.07); border-radius:4px; height:6px; width:120px; overflow:hidden; }
 .progress-fill { height:100%; border-radius:4px; background:linear-gradient(90deg,var(--verde),var(--amarelo)); transition:width .6s ease; }
 
+/* ── PALPITES EXPAND ── */
+.palpites-row { display:none; }
+.palpites-row.open { display:table-row; }
+.palpites-inner {
+  padding:16px; background:rgba(0,0,0,0.25);
+  border-radius:0 0 var(--radius) var(--radius);
+}
+.palpite-item {
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  padding:8px 0; border-bottom:1px solid var(--borda); font-size:13px; flex-wrap:wrap;
+}
+.palpite-item:last-child { border-bottom:none; }
+.badge-ok  { background:#00A651; color:#fff; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:700; white-space:nowrap; }
+.badge-err { background:#C0392B; color:#fff; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:700; white-space:nowrap; }
+.btn-ver {
+  background:none; border:1px solid var(--borda); color:var(--muted);
+  font-size:11px; padding:4px 10px; border-radius:20px; cursor:pointer;
+  transition:all .2s; font-family:'Inter',sans-serif;
+}
+.btn-ver:hover { border-color:var(--verde); color:var(--verde); }
+
 /* ── PRÓXIMOS JOGOS ── */
 .jogos-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:14px; }
 .jogo-card {
@@ -230,8 +251,6 @@ section { margin-bottom: 56px; }
 .card-participante:hover {
   transform: translateY(-5px); border-color: var(--verde);
 }
-
-/* Wrapper da Imagem Retangular Ocupando Todo o Topo do Card */
 .card-photo-wrapper {
   width: 100%; height: 210px; position: relative;
   background: var(--azul-mid);
@@ -239,7 +258,6 @@ section { margin-bottom: 56px; }
 .card-photo-wrapper img {
   width: 100%; height: 100%; object-fit: cover;
 }
-/* Efeito Fade para mesclar a foto perfeitamente com as cores escuras do card */
 .card-photo-wrapper::after {
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(to bottom, transparent 55%, var(--azul-card) 100%);
@@ -250,9 +268,42 @@ section { margin-bottom: 56px; }
   justify-content: center; font-size: 48px; font-weight: 700;
   color: var(--amarelo); font-family: 'Bebas Neue', sans-serif;
 }
-
 .card-nome { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--amarelo); letter-spacing: 1px; padding: 0 16px; }
 .card-desc { font-size: 13px; color: var(--muted); line-height: 1.4; min-height: 55px; padding: 0 16px; }
+
+/* ── GERENCIAR (Escondido temporariamente por CSS se quiseres focar no visual) ── */
+.admin-panel {
+  background:var(--azul-card); border-radius:var(--radius);
+  border:1px solid var(--borda); overflow:hidden;
+}
+.admin-tabs { display:flex; border-bottom:1px solid var(--borda); }
+.admin-tab {
+  flex:1; padding:14px; text-align:center; cursor:pointer;
+  font-size:13px; font-weight:600; color:var(--muted);
+  transition:all .2s; border:none; background:none;
+  font-family:'Inter',sans-serif; letter-spacing:.5px;
+  text-transform:uppercase;
+}
+.admin-tab.ativo { color:var(--amarelo); border-bottom:2px solid var(--amarelo); background:rgba(255,221,0,.05); }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+.form-row-3 { grid-template-columns:1fr 1fr 1fr; }
+.form-group { display:flex; flex-direction:column; gap:6px; }
+.form-group label { font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.8px; }
+.form-group input, .form-group select {
+  background:var(--azul-mid); border:1px solid var(--borda);
+  border-radius:var(--radius-sm); color:var(--texto); padding:10px 14px; font-size:14px;
+}
+.tab-pane { display:none; }
+.tab-pane.ativo { display:block; }
+
+/* ── TOAST ── */
+.toast {
+  position:fixed; bottom:24px; right:24px;
+  background:var(--verde); color:#fff; padding:13px 20px; border-radius:var(--radius-sm);
+  font-weight:600; font-size:14px; transform:translateY(80px); opacity:0;
+  transition:all .3s cubic-bezier(.34,1.56,.64,1); z-index:999;
+}
+.toast.show { transform:translateY(0); opacity:1; }
 
 /* ── EMPTY STATE ── */
 .empty { text-align:center; padding:32px; color:var(--muted); font-size:14px; }
@@ -263,39 +314,15 @@ footer {
   text-align:center; padding:20px; font-size:13px; color:var(--muted);
 }
 footer strong { color:var(--verde); }
-
-/* ── AUDIO CONTROL FLOATER ── */
-.audio-control {
-  position: fixed; bottom: 24px; left: 24px; z-index: 1000;
-  background: var(--azul-card); border: 1px solid var(--borda);
-  padding: 10px 16px; border-radius: 30px; display: flex;
-  align-items: center; gap: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-}
-.audio-btn {
-  background: var(--verde); border: none; color: white;
-  width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
-  font-size: 16px; display: flex; align-items: center; justify-content: center;
-}
-.audio-text { font-size: 12px; color: var(--texto); font-weight: 500; }
-
-@media (max-width:680px) {
-  .podio { gap:8px; }
-  .podio-base { width:82px; }
-  .ranking-table thead { display:none; }
-  .progress-bar { width:80px; }
-  .jogos-grid { grid-template-columns:1fr; }
-  .resultado-card { flex-direction:column; align-items:flex-start; }
-}
 </style>
 </head>
 <body>
 
-<!-- 🎵 Trilha instrumental clássica da copa -->
 <audio id="bg-music" src="https://archive.org/download/fifa-world-cup-2010-official-anthem/FIFA%20World%20Cup%202014%20Official%20Anthem.mp3" loop crossorigin="anonymous"></audio>
 
 <div class="audio-control">
   <button class="audio-btn" id="audio-toggle" onclick="toggleAudio()">▶</button>
-  <span class="audio-text" id="audio-status">Música Ativada</span>
+  <span class="audio-text" id="audio-status">Música Desativada</span>
 </div>
 
 <header>
@@ -312,6 +339,7 @@ footer strong { color:var(--verde); }
       <a href="#proximos">Próximos</a>
       <a href="#resultados">Resultados</a>
       <a href="#participantes">Participantes</a>
+      <a href="#gerenciar">Gerenciar</a>
     </nav>
   </div>
 </header>
@@ -322,37 +350,77 @@ footer strong { color:var(--verde); }
 
 <main>
 
-  <!-- RANKING -->
   <section id="ranking">
     <div class="section-title">🏆 Classificação Geral</div>
     <div id="podio-container" class="podio"></div>
     <table class="ranking-table">
       <thead>
         <tr>
-          <th>#</th><th>Jogador</th><th>Acertos</th><th>Progresso</th>
+          <th>#</th><th>Jogador</th><th>Acertos</th><th>Progresso</th><th></th>
         </tr>
       </thead>
       <tbody id="ranking-body"></tbody>
     </table>
   </section>
 
-  <!-- PRÓXIMOS JOGOS -->
   <section id="proximos">
     <div class="section-title">📅 Próximos Jogos</div>
     <div class="jogos-grid" id="proximos-grid"></div>
   </section>
 
-  <!-- RESULTADOS -->
   <section id="resultados">
     <div class="section-title">⚽ Jogos Realizados</div>
     <div id="resultados-list"></div>
   </section>
 
-  <!-- PARTICIPANTES (ROLANTE) -->
   <section id="participantes">
     <div class="section-title">🏃‍♂️ Elenco do Bolão</div>
     <div class="carousel-container">
       <div class="carousel-track" id="carousel-track"></div>
+    </div>
+  </section>
+
+  <section id="gerenciar">
+    <div class="section-title">⚙️ Gerenciar Bolão</div>
+    <div class="admin-panel">
+      <div class="admin-tabs">
+        <button class="admin-tab ativo" onclick="switchTab('palpites')">📝 Palpites</button>
+        <button class="admin-tab" onclick="switchTab('jogos')">📅 Jogos</button>
+        <button class="admin-tab" onclick="switchTab('fotos')">📸 Fotos</button>
+      </div>
+      <div class="admin-panel-body">
+        <div class="tab-pane ativo" id="tab-palpites">
+          <div class="form-row">
+            <div class="form-group"><label>Jogador</label><select id="p-jogador"></select></div>
+            <div class="form-group"><label>Jogo</label><input type="text" id="p-jogo" placeholder="Ex: Brasil x México"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Palpite</label><input type="text" id="p-palpite" placeholder="Ex: 2x1"></div>
+            <div class="form-group"><label>Resultado Real</label><input type="text" id="p-resultado" placeholder="Ex: 2x0"></div>
+          </div>
+          <button class="btn btn-primary" onclick="adicionarPalpite()">✅ Adicionar Palpite</button>
+        </div>
+        
+        <div class="tab-pane" id="tab-jogos">
+          <div class="form-row form-row-3">
+            <div class="form-group"><label>Time 1</label><input type="text" id="j-time1" placeholder="🇧🇷 Brasil"></div>
+            <div class="form-group"><label>Time 2</label><input type="text" id="j-time2" placeholder="🇿🇦 África do Sul"></div>
+            <div class="form-group"><label>Fase</label><input type="text" id="j-fase" placeholder="Grupo A"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Data</label><input type="date" id="j-data"></div>
+            <div class="form-group"><label>Hora</label><input type="time" id="j-hora"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Resultado</label><input type="text" id="j-resultado" placeholder="Ex: 2x0"></div>
+          </div>
+          <button class="btn btn-primary" onclick="adicionarJogo()">➕ Adicionar Jogo</button>
+        </div>
+
+        <div class="tab-pane" id="tab-fotos">
+          <div class="foto-grid" id="foto-grid"></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -362,40 +430,17 @@ footer strong { color:var(--verde); }
   <p>⚽ Bolão Copa do Mundo 2026 &nbsp;·&nbsp; <strong>USA · México · Canadá</strong> &nbsp;·&nbsp; Feito com muito futebol e amizade 🏆</p>
 </footer>
 
+<div class="toast" id="toast"></div>
+
 <script>
-// ═══════════════════════════════════════════
-//  DADOS DO BOLÃO (Caminhos locais da pasta)
-// ═══════════════════════════════════════════
-const estado = {
+const STORAGE_KEY = 'bolao2026_v1';
+
+const estadoInicial = {
   jogadores: [
-    { 
-      id: 1, 
-      nome: 'Momô dos Macarrões', 
-      foto: 'MOMO.jpg', 
-      descricao: 'Estrategista nato. Analisa a pressão atmosférica e o corte da grama antes de chutar o placar.',
-      acertos: 3 
-    },
-    { 
-      id: 2, 
-      nome: 'jao Larangeta', 
-      foto: 'JAO.jpg', 
-      descricao: 'Só aposta em zebra e jura que entende de futebol alternativo. O terror das casas de aposta.',
-      acertos: 1 
-    },
-    { 
-      id: 3, 
-      nome: 'Julin Bê Xoginho', 
-      foto: 'julin.jpg', 
-      descricao: 'Mestre dos placares magros. Para ele, todo jogo da Copa é categoricamente 1x0 ou 0x0.',
-      acertos: 2 
-    },
-    { 
-      id: 4, 
-      nome: 'Henrick Receita Federal', 
-      foto: 'HENRICK.jpg', 
-      descricao: 'Audita cada ponto ganho. Não acertou nenhum ainda, mas promete uma reviravolta histórica.',
-      acertos: 0 
-    }
+    { id: 1, nome: 'Momô dos Macarrões', foto: 'MOMO.jpg', descricao: 'Estrategista nato. Analisa a pressão atmosférica e o corte da grama.', acertos: 3, palpites: [{ jogo:'🇲🇽 México x 🇿🇦 África do Sul', palpite:'2x0', resultado:'2x0', acertou:true }] },
+    { id: 2, nome: 'jao Larangeta', foto: 'JAO.jpg', descricao: 'Só aposta em zebra e jura que entende de futebol alternativo.', acertos: 1, palpites: [{ jogo:'🇲🇽 México x 🇿🇦 África do Sul', palpite:'1x1', resultado:'2x0', acertou:false }] },
+    { id: 3, nome: 'Julin Bê Xoginho', foto: 'julin.jpg', descricao: 'Mestre dos placares magros. Para ele todo jogo da Copa é 1x0 ou 0x0.', acertos: 2, palpites: [{ jogo:'🇲🇽 México x 🇿🇦 África do Sul', palpite:'1x0', resultado:'2x0', acertou:false }] },
+    { id: 4, nome: 'Henrick Receita Federal', foto: 'HENRICK.jpg', descricao: 'Audita cada ponto ganho. Promete uma reviravolta histórica.', acertos: 0, palpites: [] },
   ],
   proximos: [
     { id: 1, time1:'🇰🇷 Coreia do Sul', time2:'🇨🇿 Tchéquia',     fase:'Grupo A', data:'2026-06-11', hora:'23:00', resultado:'' },
@@ -403,87 +448,72 @@ const estado = {
     { id: 3, time1:'🇺🇸 Estados Unidos', time2:'🇵🇾 Paraguai',      fase:'Grupo D', data:'2026-06-12', hora:'22:00', resultado:'' },
     { id: 4, time1:'🇶🇦 Catar',         time2:'🇨🇭 Suíça',         fase:'Grupo B', data:'2026-06-13', hora:'16:00', resultado:'' },
     { id: 5, time1:'🇧🇷 Brasil',        time2:'🇲🇦 Marrocos',      fase:'Grupo C', data:'2026-06-13', hora:'19:00', resultado:'' },
-    { id: 6, time1:'🇭🇹 Haiti',         time2:'🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escócia',      fase:'Grupo C', data:'2026-06-13', hora:'22:00', resultado:'' },
-    { id: 7, time1:'🇦🇺 Austrália',     time2:'🇹🇷 Turquia',       fase:'Grupo D', data:'2026-06-14', hora:'01:00', resultado:'' },
-    { id: 8, time1:'🇩🇪 Alemanha',      time2:'🇨🇼 Curaçao',       fase:'Grupo E', data:'2026-06-14', hora:'14:00', resultado:'' },
-    { id: 9, time1:'🇳🇱 Holanda',       time2:'🇯🇵 Japão',         fase:'Grupo F', data:'2026-06-14', hora:'17:00', resultado:'' },
-    { id: 10, time1:'🇨🇮 Costa do Marfim',time2:'🇪🇨 Equador',       fase:'Grupo E', data:'2026-06-14', hora:'20:00', resultado:'' },
-    { id: 11, time1:'🇸🇪 Suécia',        time2:'🇹🇳 Tunísia',       fase:'Grupo F', data:'2026-06-14', hora:'23:00', resultado:'' }
   ],
   realizados: [
     { id: 100, time1:'🇲🇽 México', time2:'🇿🇦 África do Sul', resultado:'2x0', data:'2026-06-11' }
-  ]
+  ],
+  nextId: 20,
 };
 
+function carregar() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(estadoInicial));
+  } catch { return JSON.parse(JSON.stringify(estadoInicial)); }
+}
+function salvar() { localStorage.setItem(STORAGE_KEY, JSON.stringify(estado)); }
+
+let estado = carregar();
+
+// Força sincronização do carrossel caso existam dados locais antigos sem descrição
+if (!estado.jogadores[0].descricao) {
+  estado = JSON.parse(JSON.stringify(estadoInicial));
+  salvar();
+}
+
 // ═══════════════════════════════════════════
-//  SISTEMA DE ÁUDIO INTELIGENTE (FADE-IN)
+//  MÚSICA AUTOPLAY COM FADE-IN
 // ═══════════════════════════════════════════
 const audio = document.getElementById('bg-music');
 const audioBtn = document.getElementById('audio-toggle');
 const audioStatus = document.getElementById('audio-status');
-
 audio.muted = true;
-audio.loop = true;
 
 function iniciarAutoplayComFade() {
   audio.play().then(() => {
-    audio.muted = false;
-    audio.volume = 0;
-    audioBtn.textContent = '⏸';
-    audioStatus.textContent = 'Trilha da Copa Ativa';
-    
+    audio.muted = false; audio.volume = 0;
+    audioBtn.textContent = '⏸'; audioStatus.textContent = 'Trilha da Copa Ativa';
     let vol = 0;
     const fadeInterval = setInterval(() => {
-      if (vol < 0.25) {
-        vol += 0.02;
-        audio.volume = Math.min(vol, 0.25);
-      } else {
-        clearInterval(fadeInterval);
-      }
+      if (vol < 0.25) { vol += 0.02; audio.volume = Math.min(vol, 0.25); } 
+      else { clearInterval(fadeInterval); }
     }, 150);
-  }).catch(() => {
-    audioStatus.textContent = 'Mova o mouse ou clique para som 🎵';
-  });
+  }).catch(() => { audioStatus.textContent = 'Mova a tela para o som 🎵'; });
 }
-
 window.addEventListener('DOMContentLoaded', iniciarAutoplayComFade);
 ['click', 'mouseover', 'touchstart'].forEach(evt => {
   document.addEventListener(evt, function ativarSom() {
-    if (audio.paused || audio.volume === 0) {
-      iniciarAutoplayComFade();
-    }
+    if (audio.paused || audio.volume === 0) { iniciarAutoplayComFade(); }
     document.removeEventListener(evt, ativarSom);
   }, { once: true });
 });
-
 function toggleAudio() {
-  if (audio.paused) {
-    audio.play(); audio.volume = 0.25; audioBtn.textContent = '⏸'; audioStatus.textContent = 'Tocando música';
-  } else {
-    audio.pause(); audioBtn.textContent = '▶'; audioStatus.textContent = 'Música pausada';
-  }
+  if (audio.paused) { audio.play(); audio.volume = 0.25; audioBtn.textContent = '⏸'; } 
+  else { audio.pause(); audioBtn.textContent = '▶'; }
 }
 
 // ═══════════════════════════════════════════
-//  FUNÇÕES DE RENDERIZAÇÃO
+//  RENDERIZADORES CORRIGIDOS (SUPORTAM NOMES LOCAIS)
 // ═══════════════════════════════════════════
-function iniciais(nome) {
-  return nome.split(' ').slice(0,2).map(w => w[0].toUpperCase()).join('');
-}
+function iniciais(nome) { return nome.split(' ').slice(0,2).map(w => w[0].toUpperCase()).join(''); }
 
-// Aceita qualquer formato de imagem local da pasta ou web externa
-function avatarCircularHTML(jogador, size) {
-  if (jogador.foto) {
-    return `<img src="${jogador.foto}" alt="${jogador.nome}" style="width:${size}px;height:${size}px;object-fit:cover;border-radius:50%;">`;
-  }
+function avatarHTML(jogador, size) {
+  if (jogador.foto) { return `<img src="${jogador.foto}" alt="${jogador.nome}" style="width:${size}px;height:${size}px;object-fit:cover;border-radius:50%;">`; }
   return iniciais(jogador.nome);
 }
 
-// Renderiza a foto retangular grande no topo com efeito de fade na base
 function fotoCardHTML(jogador) {
-  if (jogador.foto) {
-    return `<div class="card-photo-wrapper"><img src="${jogador.foto}" alt="${jogador.nome}"></div>`;
-  }
+  if (jogador.foto) { return `<div class="card-photo-wrapper"><img src="${jogador.foto}" alt="${jogador.nome}"></div>`; }
   return `<div class="card-photo-wrapper"><div class="card-photo-fallback">${iniciais(jogador.nome)}</div></div>`;
 }
 
@@ -492,106 +522,102 @@ function renderRanking() {
   const max = Math.max(...sorted.map(j => j.acertos), 1);
 
   const podio = document.getElementById('podio-container');
-  const top = sorted.slice(0, Math.min(3, sorted.length));
-  const medals = ['🥇','🥈','🥉'];
-  const heights = [88,66,48];
-  
-  podio.innerHTML = top.map((j, i) => `
+  podio.innerHTML = sorted.slice(0, Math.min(3, sorted.length)).map((j, i) => `
     <div class="podio-item">
-      <span class="podio-medal">${medals[i]}</span>
-      <div class="podio-avatar" style="${i===0?'width:86px;height:86px;':''}${i===1?'width:70px;height:70px;':''}${i===2?'width:66px;height:66px;'}">${avatarCircularHTML(j, i===0?86:i===1?70:66)}</div>
+      <span>${['🥇','🥈','🥉'][i]}</span>
+      <div class="podio-avatar" style="${i===0?'width:86px;height:86px;':i===1?'width:70px;height:70px;':'width:66px;height:66px;'}">${avatarHTML(j, i===0?86:i===1?70:66)}</div>
       <div class="podio-nome">${j.nome}</div>
       <div class="podio-pts">${j.acertos} <small>acertos</small></div>
-      <div class="podio-base" style="height:${heights[i]}px">${i+1}</div>
+      <div class="podio-base" style="height:${[88,66,48][i]}px">${i+1}</div>
     </div>
   `).join('');
 
   const tbody = document.getElementById('ranking-body');
   tbody.innerHTML = sorted.map((j, i) => {
-    const posClass = i===0?'top1':i===1?'top2':i===2?'top3':'';
     const pct = (j.acertos / max * 100).toFixed(0);
     const lider = i===0 && j.acertos > 0 ? '<span class="badge-lider">Líder</span>' : '';
-
+    const temPalpites = j.palpites && j.palpites.length > 0;
+    
     return `
       <tr>
-        <td><div class="rank-pos ${posClass}">${i+1}</div></td>
+        <td><div class="rank-pos">${i+1}</div></td>
         <td>
           <div class="rank-player">
-            <div class="rank-avatar" style="width:42px; height:42px;">${avatarCircularHTML(j, 42)}</div>
+            <div class="rank-avatar" style="width:42px;height:42px;font-size:14px;">${avatarHTML(j, 42)}</div>
             <div><span class="rank-nome">${j.nome}</span>${lider}</div>
           </div>
         </td>
-        <td><div class="rank-acertos${j.acertos===0?' zero':''}">${j.acertos}</div></td>
+        <td><div class="rank-acertos">${j.acertos}</div></td>
         <td><div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div></td>
+        <td>${temPalpites ? `<button class="btn-ver" onclick="togglePalpites('p${j.id}')">Ver palpites ▾</button>` : ''}</td>
       </tr>
+      ${temPalpites ? `<tr class="palpites-row" id="p${j.id}"><td colspan="5"><div class="palpites-inner">
+        ${j.palpites.map(p => `<div class="palpite-item"><span>${p.jogo}</span><span>Palpite: <b>${p.palpite}</b></span><span>Real: <b>${p.resultado}</b></span><span class="badge-${p.acertou?'ok':'err'}">${p.acertou?'✓ ACERTOU':'× ERROU'}</span></div>`).join('')}
+      </div></td></tr>` : ''}
     `;
   }).join('');
 }
 
 function renderProximos() {
-  const grid = document.getElementById('proximos-grid');
-  grid.innerHTML = estado.proximos.map(j => {
-    const dt = new Date(j.data + 'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
-    return `
-      <div class="jogo-card">
-        <div class="jogo-fase">${j.fase}</div>
-        <div class="jogo-times">
-          <div class="jogo-time"><span class="jogo-time-nome">${j.time1}</span></div>
-          <span class="jogo-vs">VS</span>
-          <div class="jogo-time"><span class="jogo-time-nome">${j.time2}</span></div>
-        </div>
-        <div class="jogo-meta">
-          <span class="jogo-data-badge">📅 ${dt}</span>
-          <span>⏰ ${j.hora}</span>
-        </div>
+  document.getElementById('proximos-grid').innerHTML = estado.proximos.map(j => `
+    <div class="jogo-card">
+      <div class="jogo-fase">${j.fase}</div>
+      <div class="jogo-times">
+        <div class="jogo-time"><span class="jogo-time-nome">${j.time1}</span></div>
+        <span class="jogo-vs">VS</span>
+        <div class="jogo-time"><span class="jogo-time-nome">${j.time2}</span></div>
       </div>
-    `;
-  }).join('');
-}
-
-function renderResultados() {
-  const list = document.getElementById('resultados-list');
-  list.innerHTML = estado.realizados.map(j => {
-    const dt = new Date(j.data + 'T12:00:00').toLocaleDateString('pt-BR');
-    return `
-      <div class="resultado-card">
-        <div class="resultado-times">${j.time1}</div>
-        <div class="resultado-placar">${j.resultado}</div>
-        <div class="resultado-times">${j.time2}</div>
-        <div class="resultado-data">📅 ${dt}</div>
-      </div>
-    `;
-  }).join('');
-}
-
-function renderCarrossel() {
-  const track = document.getElementById('carousel-track');
-  const listaDuplicada = [...estado.jogadores, ...estado.jogadores];
-  
-  track.innerHTML = listaDuplicada.map(j => `
-    <div class="card-participante">
-      ${fotoCardHTML(j)}
-      <div class="card-nome">${j.nome}</div>
-      <div class="card-desc">${j.descricao || 'Pronto para os palpites!'}</div>
+      <div class="jogo-meta"><span>📅 ${new Date(j.data+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}</span><span>⏰ ${j.hora}</span></div>
     </div>
   `).join('');
 }
 
-function renderTudo() {
-  renderRanking();
-  renderProximos();
-  renderResultados();
-  renderCarrossel();
+function renderResultados() {
+  document.getElementById('resultados-list').innerHTML = estado.realizados.map(j => `
+    <div class="resultado-card">
+      <div class="resultado-times">${j.time1}</div><div class="resultado-placar">${j.resultado}</div><div class="resultado-times">${j.time2}</div>
+    </div>
+  `).join('');
 }
 
-const sections = document.querySelectorAll('section[id]');
-const navLinks = document.querySelectorAll('nav a');
-window.addEventListener('scroll', () => {
-  let cur = '';
-  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 110) cur = s.id; });
-  navLinks.forEach(a => a.classList.toggle('ativo', a.getAttribute('href') === '#' + cur));
-});
+function renderCarrossel() {
+  // Corrigida a função interna para chamar "iniciais(j.nome)" sem travar
+  document.getElementById('carousel-track').innerHTML = [...estado.jogadores, ...estado.jogadores].map(j => `
+    <div class="card-participante">
+      ${fotoCardHTML(j)}
+      <div class="card-nome">${j.nome}</div>
+      <div class="card-desc">${j.descricao || 'Pronto para palpitar!'}</div>
+    </div>
+  `).join('');
+}
 
+function renderFotos() {
+  document.getElementById('foto-grid').innerHTML = estado.jogadores.map(j => `
+    <div class="foto-item">
+      <div class="foto-avatar" onclick="document.getElementById('foto-input-${j.id}').click()">${avatarHTML(j, 60)}</div>
+      <span>${j.nome.split(' ')[0]}</span>
+      <input type="file" id="foto-input-${j.id}" class="foto-input" accept="image/*" onchange="trocarFoto(${j.id}, this)">
+    </div>
+  `).join('');
+}
+
+function populateSelects() {
+  document.getElementById('p-jogador').innerHTML = estado.jogadores.map(j => `<option value="${j.id}">${j.nome}</option>`).join('');
+}
+
+function togglePalpites(id) {
+  const row = document.getElementById(id); if (!row) return;
+  const isOpen = row.classList.contains('open');
+  document.querySelectorAll('.palpites-row.open').forEach(r => r.classList.remove('open'));
+  if (!isOpen) row.classList.add('open');
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('ativo'));
+  document.getElementById('tab-' + tab).classList.add('ativo');
+}
+
+function renderTudo() { renderRanking(); renderProximos(); renderResultados(); renderCarrossel(); renderFotos(); populateSelects(); }
 renderTudo();
 </script>
 </body>
