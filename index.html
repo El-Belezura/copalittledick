@@ -212,7 +212,7 @@ section { margin-bottom: 56px; }
 }
 .jogo-card:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(0,0,0,.35); }
 .jogo-fase { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--verde); margin-bottom:12px; }
-.jogo-times { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:14px; }
+.jogos-times { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:14px; }
 .jogo-time { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; }
 .jogo-time-nome { font-weight:700; font-size:13px; text-align:center; }
 .jogo-vs { font-family:'Bebas Neue',sans-serif; font-size:18px; color:var(--muted); }
@@ -239,20 +239,20 @@ section { margin-bottom: 56px; }
   border:1px solid rgba(255,221,0,.2); padding:4px 16px; border-radius:var(--radius-sm);
 }
 
-/* ── CARROSSEL DE PARTICIPANTES (FOTO GIGANTE + FADE COPA) ── */
+/* ── CARROSSEL DE PARTICIPANTES ── */
 .carousel-container {
   width: 100%; overflow: hidden; position: relative; padding: 20px 0;
 }
 .carousel-track {
   display: flex; gap: 24px; width: max-content;
-  animation: scroll 28s linear infinite;
+  animation: scroll 32s linear infinite;
 }
 .carousel-track:hover {
   animation-play-state: paused;
 }
 @keyframes scroll {
   0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-280px * 4 - 24px * 4)); }
+  100% { transform: translateX(calc(-280px * 6 - 24px * 6)); } /* Ajustado para 6 participantes */
 }
 .card-participante {
   background: var(--azul-card); border: 1px solid var(--borda);
@@ -294,7 +294,7 @@ footer {
 }
 footer strong { color:var(--verde); }
 
-/* ── AUDIO CONTROL FLOATER ── */
+/* ── AUDIO FLOATER ── */
 .audio-control {
   position: fixed; bottom: 24px; left: 24px; z-index: 1000;
   background: var(--azul-card); border: 1px solid var(--borda);
@@ -346,7 +346,6 @@ footer strong { color:var(--verde); }
   <section id="ranking">
     <div class="section-title">🏆 Classificação Geral</div>
     
-    <!-- Painel Visual de Pontuação -->
     <div class="regras-grid">
       <div class="regra-card">
         <div class="regra-pts exato">3 Pts</div>
@@ -354,11 +353,11 @@ footer strong { color:var(--verde); }
       </div>
       <div class="regra-card">
         <div class="regra-pts resultado">1 Pt</div>
-        <div class="regra-txt"><strong>Acerto de Tendência</strong>Acertou o vencedor ou empate, mas errou os gols.</div>
+        <div class="regra-txt"><strong>Tendência Certa</strong>Acertou o vencedor ou empate, mas errou o placar.</div>
       </div>
       <div class="regra-card">
         <div class="regra-pts zero">0 Pts</div>
-        <div class="regra-txt"><strong>Errou Tudo</strong>Não acertou nem o placar nem o vencedor.</div>
+        <div class="regra-txt"><strong>Errou Tudo</strong>Não acertou nada ou não palpitou no prazo.</div>
       </div>
     </div>
 
@@ -401,50 +400,58 @@ footer strong { color:var(--verde); }
 
 <script>
 // ═══════════════════════════════════════════
-//  DADOS DO BOLÃO (Caminhos locais fixos da pasta)
+//  ESTADO DE DADOS ATUALIZADO 
 // ═══════════════════════════════════════════
 const estado = {
   jogadores: [
     { 
       id: 1, 
       nome: 'Momô dos Macarrões', 
-      foto: 'MOMO.jpg', 
+      foto: 'MOMO.png', 
       descricao: 'Estrategista nato. Analisa a pressão atmosférica e o corte da grama.', 
-      pontos: 3, 
-      palpites: [
-        { jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'2x0', resultado:'2x0', ptsGanhos: 3, tipo: 'exato' }
-      ] 
+      pontos: 1, 
+      palpites: [{ jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'3x0', tipo: 'coluna' }] 
     },
     { 
       id: 2, 
       nome: 'jao Larangeta', 
-      foto: 'JAO.jpg', 
+      foto: 'JAO.png', 
       descricao: 'Só aposta em zebra e jura que entende de futebol alternativo.', 
       pontos: 1, 
-      palpites: [
-        { jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'3x1', resultado:'2x0', ptsGanhos: 1, tipo: 'coluna' }
-      ] 
+      palpites: [{ jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'3x0', tipo: 'coluna' }] 
     },
     { 
       id: 3, 
       nome: 'Julin Bê Xoginho', 
-      foto: 'julin.jpg', 
+      foto: 'julin.png', 
       descricao: 'Mestre dos placares magros. Para ele todo jogo da Copa é 1x0 ou 0x0.', 
       pontos: 1, 
-      palpites: [
-        { jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'1x0', resultado:'2x0', ptsGanhos: 1, tipo: 'coluna' }
-      ] 
+      palpites: [{ jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'3x0', tipo: 'coluna' }] 
+    },
+    { 
+      id: 5, 
+      nome: 'Betao Refem da Karen', 
+      foto: 'BETAO.png', 
+      descricao: 'Vive sob forte monitoramento tático, mas arrisca palpites perigosos.', 
+      pontos: 1, 
+      palpites: [{ jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'2x1', tipo: 'coluna' }] 
     },
     { 
       id: 4, 
       nome: 'Henrick Receita Federal', 
-      foto: 'HENRICK.jpg', 
-      descricao: 'Audita cada ponto ganho. Promete uma reviravolta histórica.', 
-      pontos: 1, 
-      palpites: [
-        { jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'1x2', resultado:'2x0', ptsGanhos: 0, tipo: 'err' }
-      ] 
+      foto: 'HENRICK.png', 
+      descricao: 'Audita cada ponto ganho. Sonegar palpite custou caro nessa rodada.', 
+      pontos: 0, 
+      palpites: [{ jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'Não Apostou', tipo: 'err' }] 
     },
+    { 
+      id: 6, 
+      nome: 'Lulu Gay do Vôlei', 
+      foto: 'lulu.png', 
+      descricao: 'Levantamento perfeito, mas precisão zero no futebol. Ficou de fora da estreia.', 
+      pontos: 0, 
+      palpites: [{ jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'Não Apostou', tipo: 'err' }] 
+    }
   ],
   proximos: [
     { id: 1, time1:'🇰🇷 Coreia do Sul', time2:'🇨🇿 Tchéquia',     fase:'Grupo A', data:'2026-06-11', hora:'23:00' },
@@ -458,11 +465,11 @@ const estado = {
   ]
 };
 
-// 🌟 RESETADOR DE CACHE AUTOMÁTICO PARA AS FOTOS ATUALIZAREM LOCALMENTE
-localStorage.clear(); 
+// Força o navegador a limpar caches antigos de imagens corrompidas
+localStorage.clear();
 
 // ═══════════════════════════════════════════
-//  SISTEMA DE ÁUDIO AUTOPLAY COM FADE-IN
+//  AUDIO AUTOPLAY INTELIGENTE
 // ═══════════════════════════════════════════
 const audio = document.getElementById('bg-music');
 const audioBtn = document.getElementById('audio-toggle');
@@ -495,16 +502,16 @@ function toggleAudio() {
 // ═══════════════════════════════════════════
 //  FUNÇÕES DE RENDERIZAÇÃO
 // ═══════════════════════════════════════════
-function iniciais(nome) { return nome.split(' ').slice(0,2).map(w => w[0].toUpperCase()).join(''); }
+function lancarIniciais(nome) { return nome.split(' ').slice(0,2).map(w => w[0].toUpperCase()).join(''); }
 
 function avatarHTML(jogador, size) {
   if (jogador.foto) { return `<img src="${jogador.foto}" alt="${jogador.nome}" style="width:${size}px;height:${size}px;object-fit:cover;border-radius:50%;">`; }
-  return iniciais(jogador.nome);
+  return lancarIniciais(jogador.nome);
 }
 
 function fotoCardHTML(jogador) {
   if (jogador.foto) { return `<div class="card-photo-wrapper"><img src="${jogador.foto}" alt="${jogador.nome}"></div>`; }
-  return `<div class="card-photo-wrapper"><div class="card-photo-fallback">${iniciais(jogador.nome)}</div></div>`;
+  return `<div class="card-photo-wrapper"><div class="card-photo-fallback">${lancarIniciais(jogador.nome)}</div></div>`;
 }
 
 function renderRanking() {
@@ -545,8 +552,8 @@ function renderRanking() {
         ${j.palpites.map(p => `
           <div class="palpite-item">
             <span>${p.jogo}</span>
-            <span>Palpite: <b>${p.palpite}</b></span>
-            <span class="badge-${p.tipo}">${p.tipo==='exato'?'🏆 +3 PTS EXATO':p.tipo==='coluna'?'✅ +1 PT V VITÓRIA':'❌ 0 PTS ERROU'}</span>
+            <span>Palpite de rodada: <b>${p.palpite}</b></span>
+            <span class="badge-${p.tipo}">${p.tipo==='exato'?'🏆 +3 PTS EXATO':p.tipo==='coluna'?'✅ +1 PT TENDÊNCIA':'❌ 0 PTS ERROU'}</span>
           </div>
         `).join('')}
       </div></td></tr>` : ''}
