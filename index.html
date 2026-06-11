@@ -102,7 +102,7 @@ section { margin-bottom: 56px; }
 .podio-avatar {
   border-radius: 50%; border: 3px solid var(--borda);
   object-fit: cover; display: flex; align-items: center; justify-content: center;
-  font-weight: 700; flex-shrink: 0; overflow: hidden; background: var(--azul-mid);
+  font-weight: 700; flex-shrink: 0; overflow: hidden;
 }
 .podio-item:nth-child(1) .podio-avatar { width:86px; height:86px; font-size:26px; border-color:var(--ouro); box-shadow:0 0 22px rgba(255,215,0,.35); }
 .podio-item:nth-child(2) .podio-avatar { width:70px; height:70px; font-size:20px; border-color:var(--prata); }
@@ -205,54 +205,39 @@ section { margin-bottom: 56px; }
 }
 .resultado-data { font-size:12px; color:var(--muted); }
 
-/* ── CARROSSEL DE PARTICIPANTES (FOTO QUADRADA GIGANTE + FADE) ── */
+/* ── CARROSSEL DE PARTICIPANTES ── */
 .carousel-container {
   width: 100%; overflow: hidden; position: relative; padding: 20px 0;
 }
 .carousel-track {
-  display: flex; gap: 24px; width: max-content;
-  animation: scroll 28s linear infinite;
+  display: flex; gap: 20px; width: max-content;
+  animation: scroll 25s linear infinite;
 }
 .carousel-track:hover {
   animation-play-state: paused;
 }
 @keyframes scroll {
   0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-280px * 4 - 24px * 4)); }
+  100% { transform: translateX(calc(-260px * 4 - 20px * 4)); }
 }
 .card-participante {
   background: var(--azul-card); border: 1px solid var(--borda);
-  border-radius: var(--radius); width: 280px; padding: 0 0 24px 0;
+  border-radius: var(--radius); width: 260px; padding: 24px 16px;
   text-align: center; display: flex; flex-direction: column; align-items: center;
-  gap: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s, border-color 0.2s;
-  overflow: hidden;
+  gap: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s;
 }
 .card-participante:hover {
   transform: translateY(-5px); border-color: var(--verde);
 }
-
-/* Wrapper da Foto Gigante Ocupando Todo o Topo */
-.card-photo-wrapper {
-  width: 100%; height: 210px; position: relative;
-  background: var(--azul-mid);
+.card-avatar {
+  width: 90px; height: 90px; border-radius: 50%;
+  border: 3px solid var(--verde); overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--azul-mid); font-size: 28px; font-weight: 700; color: var(--amarelo);
 }
-.card-photo-wrapper img {
-  width: 100%; height: 100%; object-fit: cover;
-}
-/* Efeito de Fade na base da foto para suavizar a transição com o card */
-.card-photo-wrapper::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to bottom, transparent 55%, var(--azul-card) 100%);
-  pointer-events: none;
-}
-.card-photo-fallback {
-  width: 100%; height: 100%; display: flex; align-items: center;
-  justify-content: center; font-size: 48px; font-weight: 700;
-  color: var(--amarelo); font-family: 'Bebas Neue', sans-serif;
-}
-
-.card-nome { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--amarelo); letter-spacing: 1px; padding: 0 16px; }
-.card-desc { font-size: 13px; color: var(--muted); line-height: 1.4; min-height: 55px; padding: 0 16px; }
+.card-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.card-nome { font-family: 'Bebas Neue', sans-serif; font-size: 22px; color: var(--amarelo); letter-spacing: 1px; }
+.card-desc { font-size: 13px; color: var(--muted); line-height: 1.4; min-height: 55px; }
 
 /* ── EMPTY STATE ── */
 .empty { text-align:center; padding:32px; color:var(--muted); font-size:14px; }
@@ -290,12 +275,11 @@ footer strong { color:var(--verde); }
 </head>
 <body>
 
-<!-- 🎵 Trilha instrumental clássica da copa -->
-<audio id="bg-music" src="https://archive.org/download/fifa-world-cup-2010-official-anthem/FIFA%20World%20Cup%202014%20Official%20Anthem.mp3" loop crossorigin="anonymous"></audio>
+<audio id="bg-music" src="https://archive.org/download/fifa-world-cup-2010-official-anthem/FIFA%20World%20Cup%202014%20Official%20Anthem.mp3" loop></audio>
 
 <div class="audio-control">
   <button class="audio-btn" id="audio-toggle" onclick="toggleAudio()">▶</button>
-  <span class="audio-text" id="audio-status">Música Ativada</span>
+  <span class="audio-text" id="audio-status">Música Desativada</span>
 </div>
 
 <header>
@@ -322,7 +306,6 @@ footer strong { color:var(--verde); }
 
 <main>
 
-  <!-- RANKING -->
   <section id="ranking">
     <div class="section-title">🏆 Classificação Geral</div>
     <div id="podio-container" class="podio"></div>
@@ -336,19 +319,16 @@ footer strong { color:var(--verde); }
     </table>
   </section>
 
-  <!-- PRÓXIMOS JOGOS -->
   <section id="proximos">
     <div class="section-title">📅 Próximos Jogos</div>
     <div class="jogos-grid" id="proximos-grid"></div>
   </section>
 
-  <!-- RESULTADOS -->
   <section id="resultados">
     <div class="section-title">⚽ Jogos Realizados</div>
     <div id="resultados-list"></div>
   </section>
 
-  <!-- PARTICIPANTES (ROLANTE) -->
   <section id="participantes">
     <div class="section-title">🏃‍♂️ Elenco do Bolão</div>
     <div class="carousel-container">
@@ -364,13 +344,14 @@ footer strong { color:var(--verde); }
 
 <script>
 // ═══════════════════════════════════════════
-//  DADOS DO BOLÃO
+//  DADOS DO BOLÃO (Mude as fotos e descrições aqui!)
 // ═══════════════════════════════════════════
 const estado = {
   jogadores: [
     { 
       id: 1, 
       nome: 'Momô dos Macarrões', 
+      // Substitua pelo link RAW do GitHub!
       foto: 'https://raw.githubusercontent.com/seu-usuario/seu-repositorio/main/momo.jpg', 
       descricao: 'Estrategista nato. Analisa a pressão atmosférica e o corte da grama antes de chutar o placar.',
       acertos: 3 
@@ -416,49 +397,30 @@ const estado = {
 };
 
 // ═══════════════════════════════════════════
-//  SISTEMA DE ÁUDIO FORÇADO COM FADE-IN
+//  SISTEMA DE ÁUDIO AUTOPLAY
 // ═══════════════════════════════════════════
 const audio = document.getElementById('bg-music');
 const audioBtn = document.getElementById('audio-toggle');
 const audioStatus = document.getElementById('audio-status');
+audio.volume = 0.25;
 
-audio.muted = true;
-audio.loop = true;
-
-function iniciarAutoplayComFade() {
+function tentarTocarMusica() {
   audio.play().then(() => {
-    audio.muted = false;
-    audio.volume = 0;
     audioBtn.textContent = '⏸';
-    audioStatus.textContent = 'Trilha da Copa Ativa';
-    
-    let vol = 0;
-    const fadeInterval = setInterval(() => {
-      if (vol < 0.25) {
-        vol += 0.02;
-        audio.volume = Math.min(vol, 0.25);
-      } else {
-        clearInterval(fadeInterval);
-      }
-    }, 150);
+    audioStatus.textContent = 'Tocando música da Copa';
   }).catch(() => {
-    audioStatus.textContent = 'Mova o mouse ou clique para som 🎵';
+    audioStatus.textContent = 'Clique na tela para tocar som 🎵';
   });
 }
 
-window.addEventListener('DOMContentLoaded', iniciarAutoplayComFade);
-['click', 'mouseover', 'touchstart'].forEach(evt => {
-  document.addEventListener(evt, function ativarSom() {
-    if (audio.paused || audio.volume === 0) {
-      iniciarAutoplayComFade();
-    }
-    document.removeEventListener(evt, ativarSom);
-  }, { once: true });
-});
+document.addEventListener('click', function iniciarSom() {
+  tentarTocarMusica();
+  document.removeEventListener('click', iniciarSom);
+}, { once: true });
 
 function toggleAudio() {
   if (audio.paused) {
-    audio.play(); audio.volume = 0.25; audioBtn.textContent = '⏸'; audioStatus.textContent = 'Tocando música';
+    audio.play(); audioBtn.textContent = '⏸'; audioStatus.textContent = 'Tocando música da Copa';
   } else {
     audio.pause(); audioBtn.textContent = '▶'; audioStatus.textContent = 'Música pausada';
   }
@@ -471,18 +433,11 @@ function iniciais(nome) {
   return nome.split(' ').slice(0,2).map(w => w[0].toUpperCase()).join('');
 }
 
-function avatarCircularHTML(jogador, size) {
+function avatarHTML(jogador, size) {
   if (jogador.foto && jogador.foto.startsWith('http')) {
-    return `<img src="${jogador.foto}" alt="${jogador.nome}" style="width:${size}px;height:${size}px;object-fit:cover;border-radius:50%;">`;
+    return `<img src="${jogador.foto}" alt="${jogador.nome}">`;
   }
   return iniciais(jogador.nome);
-}
-
-function fotoCardHTML(jogador) {
-  if (jogador.foto && jogador.foto.startsWith('http')) {
-    return `<div class="card-photo-wrapper"><img src="${jogador.foto}" alt="${jogador.nome}"></div>`;
-  }
-  return `<div class="card-photo-wrapper"><div class="card-photo-fallback">${iniciais(jogador.nome)}</div></div>`;
 }
 
 function renderRanking() {
@@ -497,7 +452,7 @@ function renderRanking() {
   podio.innerHTML = top.map((j, i) => `
     <div class="podio-item">
       <span class="podio-medal">${medals[i]}</span>
-      <div class="podio-avatar" style="${i===0?'width:86px;height:86px;':''}${i===1?'width:70px;height:70px;':''}${i===2?'width:66px;height:66px;'}">${avatarCircularHTML(j, i===0?86:i===1?70:66)}</div>
+      <div class="podio-avatar" style="${i===0?'width:86px;height:86px;font-size:26px;':''}${i===1?'width:70px;height:70px;font-size:20px;':''}${i===2?'width:66px;height:66px;font-size:18px;':''}">${avatarHTML(j)}</div>
       <div class="podio-nome">${j.nome}</div>
       <div class="podio-pts">${j.acertos} <small>acertos</small></div>
       <div class="podio-base" style="height:${heights[i]}px">${i+1}</div>
@@ -515,7 +470,7 @@ function renderRanking() {
         <td><div class="rank-pos ${posClass}">${i+1}</div></td>
         <td>
           <div class="rank-player">
-            <div class="rank-avatar">${avatarCircularHTML(j, 42)}</div>
+            <div class="rank-avatar" style="font-size:14px;">${avatarHTML(j)}</div>
             <div><span class="rank-nome">${j.nome}</span>${lider}</div>
           </div>
         </td>
@@ -562,13 +517,15 @@ function renderResultados() {
   }).join('');
 }
 
+// Genera el carrusel infinito duplicando elementos para un efecto fluido
 function renderCarrossel() {
   const track = document.getElementById('carousel-track');
+  // Duplicamos a lista para que a transição de rolagem infinita não mostre espaços em branco
   const listaDuplicada = [...estado.jogadores, ...estado.jogadores];
   
   track.innerHTML = listaDuplicada.map(j => `
     <div class="card-participante">
-      ${fotoCardHTML(j)}
+      <div class="card-avatar">${avatarHTML(j)}</div>
       <div class="card-nome">${j.nome}</div>
       <div class="card-desc">${j.descricao || 'Pronto para os palpites!'}</div>
     </div>
@@ -582,6 +539,7 @@ function renderTudo() {
   renderCarrossel();
 }
 
+// Highlight do menu baseado na rolagem
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('nav a');
 window.addEventListener('scroll', () => {
