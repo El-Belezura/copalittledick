@@ -205,7 +205,7 @@ section { margin-bottom: 56px; }
 }
 .resultado-data { font-size:12px; color:var(--muted); }
 
-/* ── CARROSSEL DE PARTICIPANTES (FOTO QUADRADA GIGANTE + FADE) ── */
+/* ── CARROSSEL DE PARTICIPANTES (FOTO GIGANTE + FADE COPA) ── */
 .carousel-container {
   width: 100%; overflow: hidden; position: relative; padding: 20px 0;
 }
@@ -231,7 +231,7 @@ section { margin-bottom: 56px; }
   transform: translateY(-5px); border-color: var(--verde);
 }
 
-/* Wrapper da Imagem Retangular Ocupando Todo o Topo */
+/* Wrapper da Imagem Retangular Ocupando Todo o Topo do Card */
 .card-photo-wrapper {
   width: 100%; height: 210px; position: relative;
   background: var(--azul-mid);
@@ -239,7 +239,7 @@ section { margin-bottom: 56px; }
 .card-photo-wrapper img {
   width: 100%; height: 100%; object-fit: cover;
 }
-/* Camada degradê para esmaecer a base da foto com o fundo do card */
+/* Efeito Fade para mesclar a foto perfeitamente com as cores escuras do card */
 .card-photo-wrapper::after {
   content: ''; position: absolute; inset: 0;
   background: linear-gradient(to bottom, transparent 55%, var(--azul-card) 100%);
@@ -290,6 +290,7 @@ footer strong { color:var(--verde); }
 </head>
 <body>
 
+<!-- 🎵 Trilha instrumental clássica da copa -->
 <audio id="bg-music" src="https://archive.org/download/fifa-world-cup-2010-official-anthem/FIFA%20World%20Cup%202014%20Official%20Anthem.mp3" loop crossorigin="anonymous"></audio>
 
 <div class="audio-control">
@@ -316,7 +317,7 @@ footer strong { color:var(--verde); }
 </header>
 
 <div class="hero-strip">
-  🏆 Copa do Mundo 2026 &nbsp;·&nbsp; <strong>Bolão Little Dick</strong> &nbsp;·&nbsp; Quem vai faturar? ⚽
+  🏆 Copa do Mundo 2026 &nbsp;·&nbsp; <strong>Bolão dos Amigos</strong> &nbsp;·&nbsp; Quem vai faturar? ⚽
 </div>
 
 <main>
@@ -386,14 +387,14 @@ const estado = {
       nome: 'Julin Bê Xoginho', 
       foto: 'julin.jpg', 
       descricao: 'Mestre dos placares magros. Para ele, todo jogo da Copa é categoricamente 1x0 ou 0x0.',
-      acertos: 1 
+      acertos: 2 
     },
     { 
       id: 4, 
       nome: 'Henrick Receita Federal', 
       foto: 'HENRICK.jpg', 
       descricao: 'Audita cada ponto ganho. Não acertou nenhum ainda, mas promete uma reviravolta histórica.',
-      acertos: 1 
+      acertos: 0 
     }
   ],
   proximos: [
@@ -466,24 +467,24 @@ function toggleAudio() {
 // ═══════════════════════════════════════════
 //  FUNÇÕES DE RENDERIZAÇÃO
 // ═══════════════════════════════════════════
-function SampleIniciais(nome) {
+function iniciais(nome) {
   return nome.split(' ').slice(0,2).map(w => w[0].toUpperCase()).join('');
 }
 
-// Renderizador corrigido: Aceita qualquer string de foto (local ou web)
+// Aceita qualquer formato de imagem local da pasta ou web externa
 function avatarCircularHTML(jogador, size) {
   if (jogador.foto) {
     return `<img src="${jogador.foto}" alt="${jogador.nome}" style="width:${size}px;height:${size}px;object-fit:cover;border-radius:50%;">`;
   }
-  return SampleIniciais(jogador.nome);
+  return iniciais(jogador.nome);
 }
 
-// Renderizador dos cards com a foto retangular gigante e efeito fade
+// Renderiza a foto retangular grande no topo com efeito de fade na base
 function fotoCardHTML(jogador) {
   if (jogador.foto) {
     return `<div class="card-photo-wrapper"><img src="${jogador.foto}" alt="${jogador.nome}"></div>`;
   }
-  return `<div class="card-photo-wrapper"><div class="card-photo-fallback">${SampleIniciais(jogador.nome)}</div></div>`;
+  return `<div class="card-photo-wrapper"><div class="card-photo-fallback">${iniciais(jogador.nome)}</div></div>`;
 }
 
 function renderRanking() {
@@ -516,7 +517,7 @@ function renderRanking() {
         <td><div class="rank-pos ${posClass}">${i+1}</div></td>
         <td>
           <div class="rank-player">
-            <div class="rank-avatar" style="font-size:14px; width:42px; height:42px;">${avatarCircularHTML(j, 42)}</div>
+            <div class="rank-avatar" style="width:42px; height:42px;">${avatarCircularHTML(j, 42)}</div>
             <div><span class="rank-nome">${j.nome}</span>${lider}</div>
           </div>
         </td>
