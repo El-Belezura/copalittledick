@@ -89,6 +89,23 @@ section { margin-bottom: 56px; }
   background: linear-gradient(90deg, var(--verde), transparent);
 }
 
+/* ── REGRAS DE PONTUAÇÃO ── */
+.regras-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 30px;
+}
+.regra-card {
+  background: var(--azul-card); border: 1px solid var(--borda); padding: 16px; border-radius: var(--radius);
+  display: flex; align-items: center; gap: 14px;
+}
+.regra-pts {
+  font-family: 'Bebas Neue', sans-serif; font-size: 32px; min-width: 50px; text-align: center;
+}
+.regra-pts.exato { color: var(--amarelo); }
+.regra-pts.resultado { color: var(--verde); }
+.regra-pts.zero { color: var(--muted); }
+.regra-txt { font-size: 13px; line-height: 1.3; }
+.regra-txt strong { display: block; margin-bottom: 2px; color: #fff; }
+
 /* ── PÓDIO ── */
 .podio {
   display: flex; align-items: flex-end; justify-content: center;
@@ -136,10 +153,6 @@ section { margin-bottom: 56px; }
 .ranking-table tbody td:last-child  { border-radius:0 var(--radius) var(--radius) 0; }
 
 .rank-pos { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--muted); min-width:26px; }
-.rank-pos.top1 { color:var(--ouro); }
-.rank-pos.top2 { color:var(--prata); }
-.rank-pos.top3 { color:var(--bronze); }
-
 .rank-player { display:flex; align-items:center; gap:12px; }
 .rank-avatar {
   width:42px; height:42px; border-radius:50%; border:2px solid var(--borda);
@@ -175,7 +188,8 @@ section { margin-bottom: 56px; }
   padding:8px 0; border-bottom:1px solid var(--borda); font-size:13px; flex-wrap:wrap;
 }
 .palpite-item:last-child { border-bottom:none; }
-.badge-ok  { background:#00A651; color:#fff; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:700; white-space:nowrap; }
+.badge-exato  { background:#FFDD00; color:#0D1B2A; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:800; white-space:nowrap; }
+.badge-coluna { background:#00A651; color:#fff; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:700; white-space:nowrap; }
 .badge-err { background:#C0392B; color:#fff; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:700; white-space:nowrap; }
 .btn-ver {
   background:none; border:1px solid var(--borda); color:var(--muted);
@@ -224,7 +238,6 @@ section { margin-bottom: 56px; }
   letter-spacing:2px; background:rgba(255,221,0,.1);
   border:1px solid rgba(255,221,0,.2); padding:4px 16px; border-radius:var(--radius-sm);
 }
-.resultado-data { font-size:12px; color:var(--muted); }
 
 /* ── CARROSSEL DE PARTICIPANTES (FOTO GIGANTE + FADE COPA) ── */
 .carousel-container {
@@ -271,40 +284,6 @@ section { margin-bottom: 56px; }
 .card-nome { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--amarelo); letter-spacing: 1px; padding: 0 16px; }
 .card-desc { font-size: 13px; color: var(--muted); line-height: 1.4; min-height: 55px; padding: 0 16px; }
 
-/* ── GERENCIAR (Escondido temporariamente por CSS se quiseres focar no visual) ── */
-.admin-panel {
-  background:var(--azul-card); border-radius:var(--radius);
-  border:1px solid var(--borda); overflow:hidden;
-}
-.admin-tabs { display:flex; border-bottom:1px solid var(--borda); }
-.admin-tab {
-  flex:1; padding:14px; text-align:center; cursor:pointer;
-  font-size:13px; font-weight:600; color:var(--muted);
-  transition:all .2s; border:none; background:none;
-  font-family:'Inter',sans-serif; letter-spacing:.5px;
-  text-transform:uppercase;
-}
-.admin-tab.ativo { color:var(--amarelo); border-bottom:2px solid var(--amarelo); background:rgba(255,221,0,.05); }
-.form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
-.form-row-3 { grid-template-columns:1fr 1fr 1fr; }
-.form-group { display:flex; flex-direction:column; gap:6px; }
-.form-group label { font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.8px; }
-.form-group input, .form-group select {
-  background:var(--azul-mid); border:1px solid var(--borda);
-  border-radius:var(--radius-sm); color:var(--texto); padding:10px 14px; font-size:14px;
-}
-.tab-pane { display:none; }
-.tab-pane.ativo { display:block; }
-
-/* ── TOAST ── */
-.toast {
-  position:fixed; bottom:24px; right:24px;
-  background:var(--verde); color:#fff; padding:13px 20px; border-radius:var(--radius-sm);
-  font-weight:600; font-size:14px; transform:translateY(80px); opacity:0;
-  transition:all .3s cubic-bezier(.34,1.56,.64,1); z-index:999;
-}
-.toast.show { transform:translateY(0); opacity:1; }
-
 /* ── EMPTY STATE ── */
 .empty { text-align:center; padding:32px; color:var(--muted); font-size:14px; }
 
@@ -314,6 +293,20 @@ footer {
   text-align:center; padding:20px; font-size:13px; color:var(--muted);
 }
 footer strong { color:var(--verde); }
+
+/* ── AUDIO CONTROL FLOATER ── */
+.audio-control {
+  position: fixed; bottom: 24px; left: 24px; z-index: 1000;
+  background: var(--azul-card); border: 1px solid var(--borda);
+  padding: 10px 16px; border-radius: 30px; display: flex;
+  align-items: center; gap: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+.audio-btn {
+  background: var(--verde); border: none; color: white;
+  width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
+  font-size: 16px; display: flex; align-items: center; justify-content: center;
+}
+.audio-text { font-size: 12px; color: var(--texto); font-weight: 500; }
 </style>
 </head>
 <body>
@@ -339,7 +332,6 @@ footer strong { color:var(--verde); }
       <a href="#proximos">Próximos</a>
       <a href="#resultados">Resultados</a>
       <a href="#participantes">Participantes</a>
-      <a href="#gerenciar">Gerenciar</a>
     </nav>
   </div>
 </header>
@@ -350,77 +342,54 @@ footer strong { color:var(--verde); }
 
 <main>
 
+  <!-- RANKING -->
   <section id="ranking">
     <div class="section-title">🏆 Classificação Geral</div>
+    
+    <!-- Painel Visual de Pontuação -->
+    <div class="regras-grid">
+      <div class="regra-card">
+        <div class="regra-pts exato">3 Pts</div>
+        <div class="regra-txt"><strong>Placar Exato</strong>Acertou na mosca o resultado do jogo.</div>
+      </div>
+      <div class="regra-card">
+        <div class="regra-pts resultado">1 Pt</div>
+        <div class="regra-txt"><strong>Acerto de Tendência</strong>Acertou o vencedor ou empate, mas errou os gols.</div>
+      </div>
+      <div class="regra-card">
+        <div class="regra-pts zero">0 Pts</div>
+        <div class="regra-txt"><strong>Errou Tudo</strong>Não acertou nem o placar nem o vencedor.</div>
+      </div>
+    </div>
+
     <div id="podio-container" class="podio"></div>
     <table class="ranking-table">
       <thead>
         <tr>
-          <th>#</th><th>Jogador</th><th>Acertos</th><th>Progresso</th><th></th>
+          <th>#</th><th>Jogador</th><th>Pontuação</th><th>Progresso</th><th>Palpites</th>
         </tr>
       </thead>
       <tbody id="ranking-body"></tbody>
     </table>
   </section>
 
+  <!-- PRÓXIMOS JOGOS -->
   <section id="proximos">
     <div class="section-title">📅 Próximos Jogos</div>
     <div class="jogos-grid" id="proximos-grid"></div>
   </section>
 
+  <!-- RESULTADOS -->
   <section id="resultados">
     <div class="section-title">⚽ Jogos Realizados</div>
     <div id="resultados-list"></div>
   </section>
 
+  <!-- PARTICIPANTES (ROLANTE) -->
   <section id="participantes">
     <div class="section-title">🏃‍♂️ Elenco do Bolão</div>
     <div class="carousel-container">
       <div class="carousel-track" id="carousel-track"></div>
-    </div>
-  </section>
-
-  <section id="gerenciar">
-    <div class="section-title">⚙️ Gerenciar Bolão</div>
-    <div class="admin-panel">
-      <div class="admin-tabs">
-        <button class="admin-tab ativo" onclick="switchTab('palpites')">📝 Palpites</button>
-        <button class="admin-tab" onclick="switchTab('jogos')">📅 Jogos</button>
-        <button class="admin-tab" onclick="switchTab('fotos')">📸 Fotos</button>
-      </div>
-      <div class="admin-panel-body">
-        <div class="tab-pane ativo" id="tab-palpites">
-          <div class="form-row">
-            <div class="form-group"><label>Jogador</label><select id="p-jogador"></select></div>
-            <div class="form-group"><label>Jogo</label><input type="text" id="p-jogo" placeholder="Ex: Brasil x México"></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Palpite</label><input type="text" id="p-palpite" placeholder="Ex: 2x1"></div>
-            <div class="form-group"><label>Resultado Real</label><input type="text" id="p-resultado" placeholder="Ex: 2x0"></div>
-          </div>
-          <button class="btn btn-primary" onclick="adicionarPalpite()">✅ Adicionar Palpite</button>
-        </div>
-        
-        <div class="tab-pane" id="tab-jogos">
-          <div class="form-row form-row-3">
-            <div class="form-group"><label>Time 1</label><input type="text" id="j-time1" placeholder="🇧🇷 Brasil"></div>
-            <div class="form-group"><label>Time 2</label><input type="text" id="j-time2" placeholder="🇿🇦 África do Sul"></div>
-            <div class="form-group"><label>Fase</label><input type="text" id="j-fase" placeholder="Grupo A"></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Data</label><input type="date" id="j-data"></div>
-            <div class="form-group"><label>Hora</label><input type="time" id="j-hora"></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Resultado</label><input type="text" id="j-resultado" placeholder="Ex: 2x0"></div>
-          </div>
-          <button class="btn btn-primary" onclick="adicionarJogo()">➕ Adicionar Jogo</button>
-        </div>
-
-        <div class="tab-pane" id="tab-fotos">
-          <div class="foto-grid" id="foto-grid"></div>
-        </div>
-      </div>
     </div>
   </section>
 
@@ -430,49 +399,70 @@ footer strong { color:var(--verde); }
   <p>⚽ Bolão Copa do Mundo 2026 &nbsp;·&nbsp; <strong>USA · México · Canadá</strong> &nbsp;·&nbsp; Feito com muito futebol e amizade 🏆</p>
 </footer>
 
-<div class="toast" id="toast"></div>
-
 <script>
-const STORAGE_KEY = 'bolao2026_v1';
-
-const estadoInicial = {
+// ═══════════════════════════════════════════
+//  DADOS DO BOLÃO (Caminhos locais fixos da pasta)
+// ═══════════════════════════════════════════
+const estado = {
   jogadores: [
-    { id: 1, nome: 'Momô dos Macarrões', foto: 'MOMO.jpg', descricao: 'Estrategista nato. Analisa a pressão atmosférica e o corte da grama.', acertos: 3, palpites: [{ jogo:'🇲🇽 México x 🇿🇦 África do Sul', palpite:'2x0', resultado:'2x0', acertou:true }] },
-    { id: 2, nome: 'jao Larangeta', foto: 'JAO.jpg', descricao: 'Só aposta em zebra e jura que entende de futebol alternativo.', acertos: 1, palpites: [{ jogo:'🇲🇽 México x 🇿🇦 África do Sul', palpite:'1x1', resultado:'2x0', acertou:false }] },
-    { id: 3, nome: 'Julin Bê Xoginho', foto: 'julin.jpg', descricao: 'Mestre dos placares magros. Para ele todo jogo da Copa é 1x0 ou 0x0.', acertos: 2, palpites: [{ jogo:'🇲🇽 México x 🇿🇦 África do Sul', palpite:'1x0', resultado:'2x0', acertou:false }] },
-    { id: 4, nome: 'Henrick Receita Federal', foto: 'HENRICK.jpg', descricao: 'Audita cada ponto ganho. Promete uma reviravolta histórica.', acertos: 0, palpites: [] },
+    { 
+      id: 1, 
+      nome: 'Momô dos Macarrões', 
+      foto: 'MOMO.jpg', 
+      descricao: 'Estrategista nato. Analisa a pressão atmosférica e o corte da grama.', 
+      pontos: 3, 
+      palpites: [
+        { jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'2x0', resultado:'2x0', ptsGanhos: 3, tipo: 'exato' }
+      ] 
+    },
+    { 
+      id: 2, 
+      nome: 'jao Larangeta', 
+      foto: 'JAO.jpg', 
+      descricao: 'Só aposta em zebra e jura que entende de futebol alternativo.', 
+      pontos: 1, 
+      palpites: [
+        { jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'3x1', resultado:'2x0', ptsGanhos: 1, tipo: 'coluna' }
+      ] 
+    },
+    { 
+      id: 3, 
+      nome: 'Julin Bê Xoginho', 
+      foto: 'julin.jpg', 
+      descricao: 'Mestre dos placares magros. Para ele todo jogo da Copa é 1x0 ou 0x0.', 
+      pontos: 1, 
+      palpites: [
+        { jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'1x0', resultado:'2x0', ptsGanhos: 1, tipo: 'coluna' }
+      ] 
+    },
+    { 
+      id: 4, 
+      nome: 'Henrick Receita Federal', 
+      foto: 'HENRICK.jpg', 
+      descricao: 'Audita cada ponto ganho. Promete uma reviravolta histórica.', 
+      pontos: 1, 
+      palpites: [
+        { jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'1x2', resultado:'2x0', ptsGanhos: 0, tipo: 'err' }
+      ] 
+    },
   ],
   proximos: [
-    { id: 1, time1:'🇰🇷 Coreia do Sul', time2:'🇨🇿 Tchéquia',     fase:'Grupo A', data:'2026-06-11', hora:'23:00', resultado:'' },
-    { id: 2, time1:'🇨🇦 Canadá',        time2:'🇧🇦 Bósnia e Herz.',fase:'Grupo B', data:'2026-06-12', hora:'16:00', resultado:'' },
-    { id: 3, time1:'🇺🇸 Estados Unidos', time2:'🇵🇾 Paraguai',      fase:'Grupo D', data:'2026-06-12', hora:'22:00', resultado:'' },
-    { id: 4, time1:'🇶🇦 Catar',         time2:'🇨🇭 Suíça',         fase:'Grupo B', data:'2026-06-13', hora:'16:00', resultado:'' },
-    { id: 5, time1:'🇧🇷 Brasil',        time2:'🇲🇦 Marrocos',      fase:'Grupo C', data:'2026-06-13', hora:'19:00', resultado:'' },
+    { id: 1, time1:'🇰🇷 Coreia do Sul', time2:'🇨🇿 Tchéquia',     fase:'Grupo A', data:'2026-06-11', hora:'23:00' },
+    { id: 2, time1:'🇨🇦 Canadá',        time2:'🇧🇦 Bósnia e Herz.',fase:'Grupo B', data:'2026-06-12', hora:'16:00' },
+    { id: 3, time1:'🇺🇸 Estados Unidos', time2:'🇵🇾 Paraguai',      fase:'Grupo D', data:'2026-06-12', hora:'22:00' },
+    { id: 4, time1:'🇶🇦 Catar',         time2:'🇨🇭 Suíça',         fase:'Grupo B', data:'2026-06-13', hora:'16:00' },
+    { id: 5, time1:'🇧🇷 Brasil',        time2:'🇲🇦 Marrocos',      fase:'Grupo C', data:'2026-06-13', hora:'19:00' },
   ],
   realizados: [
     { id: 100, time1:'🇲🇽 México', time2:'🇿🇦 África do Sul', resultado:'2x0', data:'2026-06-11' }
-  ],
-  nextId: 20,
+  ]
 };
 
-function carregar() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : JSON.parse(JSON.stringify(estadoInicial));
-  } catch { return JSON.parse(JSON.stringify(estadoInicial)); }
-}
-function salvar() { localStorage.setItem(STORAGE_KEY, JSON.stringify(estado)); }
-
-let estado = carregar();
-
-// Força sincronização do carrossel caso existam dados locais antigos sem descrição
-if (!estado.jogadores[0].descricao) {
-  estado = JSON.parse(JSON.stringify(estadoInicial));
-  salvar();
-}
+// 🌟 RESETADOR DE CACHE AUTOMÁTICO PARA AS FOTOS ATUALIZAREM LOCALMENTE
+localStorage.clear(); 
 
 // ═══════════════════════════════════════════
-//  MÚSICA AUTOPLAY COM FADE-IN
+//  SISTEMA DE ÁUDIO AUTOPLAY COM FADE-IN
 // ═══════════════════════════════════════════
 const audio = document.getElementById('bg-music');
 const audioBtn = document.getElementById('audio-toggle');
@@ -488,7 +478,7 @@ function iniciarAutoplayComFade() {
       if (vol < 0.25) { vol += 0.02; audio.volume = Math.min(vol, 0.25); } 
       else { clearInterval(fadeInterval); }
     }, 150);
-  }).catch(() => { audioStatus.textContent = 'Mova a tela para o som 🎵'; });
+  }).catch(() => { audioStatus.textContent = 'Mova a tela para som 🎵'; });
 }
 window.addEventListener('DOMContentLoaded', iniciarAutoplayComFade);
 ['click', 'mouseover', 'touchstart'].forEach(evt => {
@@ -503,7 +493,7 @@ function toggleAudio() {
 }
 
 // ═══════════════════════════════════════════
-//  RENDERIZADORES CORRIGIDOS (SUPORTAM NOMES LOCAIS)
+//  FUNÇÕES DE RENDERIZAÇÃO
 // ═══════════════════════════════════════════
 function iniciais(nome) { return nome.split(' ').slice(0,2).map(w => w[0].toUpperCase()).join(''); }
 
@@ -518,8 +508,8 @@ function fotoCardHTML(jogador) {
 }
 
 function renderRanking() {
-  const sorted = [...estado.jogadores].sort((a,b) => b.acertos - a.acertos || a.nome.localeCompare(b.nome));
-  const max = Math.max(...sorted.map(j => j.acertos), 1);
+  const sorted = [...estado.jogadores].sort((a,b) => b.pontos - a.pontos || a.nome.localeCompare(b.nome));
+  const max = Math.max(...sorted.map(j => j.pontos), 1);
 
   const podio = document.getElementById('podio-container');
   podio.innerHTML = sorted.slice(0, Math.min(3, sorted.length)).map((j, i) => `
@@ -527,15 +517,15 @@ function renderRanking() {
       <span>${['🥇','🥈','🥉'][i]}</span>
       <div class="podio-avatar" style="${i===0?'width:86px;height:86px;':i===1?'width:70px;height:70px;':'width:66px;height:66px;'}">${avatarHTML(j, i===0?86:i===1?70:66)}</div>
       <div class="podio-nome">${j.nome}</div>
-      <div class="podio-pts">${j.acertos} <small>acertos</small></div>
+      <div class="podio-pts">${j.pontos} <small>Pto${j.pontos!==1?'s':''}</small></div>
       <div class="podio-base" style="height:${[88,66,48][i]}px">${i+1}</div>
     </div>
   `).join('');
 
   const tbody = document.getElementById('ranking-body');
   tbody.innerHTML = sorted.map((j, i) => {
-    const pct = (j.acertos / max * 100).toFixed(0);
-    const lider = i===0 && j.acertos > 0 ? '<span class="badge-lider">Líder</span>' : '';
+    const pct = (j.pontos / max * 100).toFixed(0);
+    const lider = i===0 && j.pontos > 0 ? '<span class="badge-lider">Líder</span>' : '';
     const temPalpites = j.palpites && j.palpites.length > 0;
     
     return `
@@ -547,12 +537,18 @@ function renderRanking() {
             <div><span class="rank-nome">${j.nome}</span>${lider}</div>
           </div>
         </td>
-        <td><div class="rank-acertos">${j.acertos}</div></td>
+        <td><div class="rank-acertos">${j.pontos} pts</div></td>
         <td><div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div></td>
         <td>${temPalpites ? `<button class="btn-ver" onclick="togglePalpites('p${j.id}')">Ver palpites ▾</button>` : ''}</td>
       </tr>
       ${temPalpites ? `<tr class="palpites-row" id="p${j.id}"><td colspan="5"><div class="palpites-inner">
-        ${j.palpites.map(p => `<div class="palpite-item"><span>${p.jogo}</span><span>Palpite: <b>${p.palpite}</b></span><span>Real: <b>${p.resultado}</b></span><span class="badge-${p.acertou?'ok':'err'}">${p.acertou?'✓ ACERTOU':'× ERROU'}</span></div>`).join('')}
+        ${j.palpites.map(p => `
+          <div class="palpite-item">
+            <span>${p.jogo}</span>
+            <span>Palpite: <b>${p.palpite}</b></span>
+            <span class="badge-${p.tipo}">${p.tipo==='exato'?'🏆 +3 PTS EXATO':p.tipo==='coluna'?'✅ +1 PT V VITÓRIA':'❌ 0 PTS ERROU'}</span>
+          </div>
+        `).join('')}
       </div></td></tr>` : ''}
     `;
   }).join('');
@@ -581,28 +577,13 @@ function renderResultados() {
 }
 
 function renderCarrossel() {
-  // Corrigida a função interna para chamar "iniciais(j.nome)" sem travar
   document.getElementById('carousel-track').innerHTML = [...estado.jogadores, ...estado.jogadores].map(j => `
     <div class="card-participante">
       ${fotoCardHTML(j)}
       <div class="card-nome">${j.nome}</div>
-      <div class="card-desc">${j.descricao || 'Pronto para palpitar!'}</div>
+      <div class="card-desc">${j.descricao || 'Pronto para os palpites!'}</div>
     </div>
   `).join('');
-}
-
-function renderFotos() {
-  document.getElementById('foto-grid').innerHTML = estado.jogadores.map(j => `
-    <div class="foto-item">
-      <div class="foto-avatar" onclick="document.getElementById('foto-input-${j.id}').click()">${avatarHTML(j, 60)}</div>
-      <span>${j.nome.split(' ')[0]}</span>
-      <input type="file" id="foto-input-${j.id}" class="foto-input" accept="image/*" onchange="trocarFoto(${j.id}, this)">
-    </div>
-  `).join('');
-}
-
-function populateSelects() {
-  document.getElementById('p-jogador').innerHTML = estado.jogadores.map(j => `<option value="${j.id}">${j.nome}</option>`).join('');
 }
 
 function togglePalpites(id) {
@@ -612,12 +593,7 @@ function togglePalpites(id) {
   if (!isOpen) row.classList.add('open');
 }
 
-function switchTab(tab) {
-  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('ativo'));
-  document.getElementById('tab-' + tab).classList.add('ativo');
-}
-
-function renderTudo() { renderRanking(); renderProximos(); renderResultados(); renderCarrossel(); renderFotos(); populateSelects(); }
+function renderTudo() { renderRanking(); renderProximos(); renderResultados(); renderCarrossel(); }
 renderTudo();
 </script>
 </body>
