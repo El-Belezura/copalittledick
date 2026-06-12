@@ -23,8 +23,10 @@
   --radius:    14px;
   --radius-sm: 8px;
 }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
+
 body {
   background: linear-gradient(rgba(13, 27, 42, 0.9), rgba(13, 27, 42, 0.9)), 
               url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1920') no-repeat center center fixed;
@@ -41,28 +43,36 @@ header {
   border-bottom: 3px solid var(--amarelo);
   position: sticky; top: 0; z-index: 100;
 }
+
 .header-inner {
   max-width: 1100px; margin: 0 auto;
   padding: 16px 24px;
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
   flex-wrap: wrap;
 }
+
 .logo { display: flex; align-items: center; gap: 12px; }
+
 .logo-ball {
   font-size: 34px;
   filter: drop-shadow(0 0 10px rgba(255,221,0,.6));
   animation: spin 10s linear infinite;
 }
+
 @keyframes spin { to { transform: rotate(360deg); } }
+
 .logo-text { font-family: 'Bebas Neue', sans-serif; line-height: 1; }
 .logo-text .t1 { display: block; font-size: 26px; color: var(--amarelo); letter-spacing: 2px; }
 .logo-text .t2 { display: block; font-size: 12px; color: var(--verde); letter-spacing: 4px; }
+
 nav { display: flex; gap: 4px; flex-wrap: wrap; }
+
 nav a {
   color: var(--muted); text-decoration: none; font-size: 12px; font-weight: 600;
   padding: 6px 13px; border-radius: 20px; transition: all .2s;
   letter-spacing: .5px; text-transform: uppercase;
 }
+
 nav a:hover, nav a.ativo { background: var(--amarelo); color: var(--azul-esc); }
 
 /* ── HERO STRIP ── */
@@ -72,6 +82,7 @@ nav a:hover, nav a.ativo { background: var(--amarelo); color: var(--azul-esc); }
   font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 3px;
   color: rgba(255,255,255,.65); border-bottom: 1px solid var(--borda);
 }
+
 .hero-strip strong { color: var(--amarelo); }
 
 /* ── MAIN ── */
@@ -84,38 +95,52 @@ section { margin-bottom: 56px; }
   color: var(--amarelo); margin-bottom: 22px;
   display: flex; align-items: center; gap: 10px;
 }
+
 .section-title::after {
   content: ''; flex: 1; height: 2px;
   background: linear-gradient(90deg, var(--verde), transparent);
 }
 
 /* ── AO VIVO CSS ── */
-.piscar-vermelho { animation: piscar 1.5s infinite; color: #ff4757; }
-@keyframes piscar { 0% { opacity: 1; text-shadow: 0 0 10px rgba(255,71,87,0.8); } 50% { opacity: 0.4; text-shadow: none; } 100% { opacity: 1; text-shadow: 0 0 10px rgba(255,71,87,0.8); } }
+.piscar-vermelho { 
+  animation: piscar 1.5s infinite; color: #ff4757; 
+}
+@keyframes piscar { 
+  0% { opacity: 1; text-shadow: 0 0 10px rgba(255,71,87,0.8); } 
+  50% { opacity: 0.4; text-shadow: none; } 
+  100% { opacity: 1; text-shadow: 0 0 10px rgba(255,71,87,0.8); } 
+}
 .ao-vivo-card {
   background: linear-gradient(135deg, #1A2B42 0%, #0D1B2A 100%);
   border: 1px solid #ff4757; border-radius: var(--radius);
   padding: 16px 22px; display: flex; align-items: center; justify-content: space-between;
   gap: 12px; margin-bottom: 14px; flex-wrap: wrap; box-shadow: 0 0 15px rgba(255,71,87,0.15);
 }
-.ao-vivo-tempo { width: 100%; text-align: center; font-size: 12px; color: #ff4757; font-weight: 700; letter-spacing: 1px; margin-bottom: 4px; text-transform: uppercase; }
-.ao-vivo-placar { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: #fff; background: #ff4757; padding: 4px 20px; border-radius: var(--radius-sm); letter-spacing: 3px; }
+.ao-vivo-tempo { 
+  width: 100%; text-align: center; font-size: 12px; color: #ff4757; 
+  font-weight: 700; letter-spacing: 1px; margin-bottom: 4px; text-transform: uppercase; 
+}
+.ao-vivo-placar { 
+  font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: #fff; 
+  background: #ff4757; padding: 4px 20px; border-radius: var(--radius-sm); letter-spacing: 3px; 
+}
 
 /* ── REGRAS DE PONTUAÇÃO ── */
 .regras-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 30px;
 }
+
 .regra-card {
   background: var(--azul-card); border: 1px solid var(--borda); padding: 16px; border-radius: var(--radius);
   display: flex; align-items: center; gap: 14px;
 }
-.regra-pts {
-  font-family: 'Bebas Neue', sans-serif; font-size: 32px; min-width: 50px; text-align: center;
-}
-.regra-pts.exato { color: var(--amarelo); }
-.regra-pts.resultado { color: var(--verde); }
+
+.regra-pts { font-family: 'Bebas Neue', sans-serif; font-size: 32px; min-width: 50px; text-align: center; }
+.regra-pts.exato { color: var(--amarelo); } 
+.regra-pts.resultado { color: var(--verde); } 
 .regra-pts.zero { color: var(--muted); }
-.regra-txt { font-size: 13px; line-height: 1.3; }
+
+.regra-txt { font-size: 13px; line-height: 1.3; } 
 .regra-txt strong { display: block; margin-bottom: 2px; color: #fff; }
 
 /* ── PÓDIO ── */
@@ -123,84 +148,72 @@ section { margin-bottom: 56px; }
   display: flex; align-items: flex-end; justify-content: center;
   gap: 14px; margin-bottom: 40px; padding: 0 8px;
 }
+
 .podio-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-.podio-item:nth-child(1) { order: 2; }
-.podio-item:nth-child(2) { order: 1; }
+.podio-item:nth-child(1) { order: 2; } 
+.podio-item:nth-child(2) { order: 1; } 
 .podio-item:nth-child(3) { order: 3; }
+
 .podio-medal { font-size: 20px; }
+
 .podio-avatar {
-  border-radius: 50%; border: 3px solid var(--borda);
-  object-fit: cover; display: flex; align-items: center; justify-content: center;
-  font-weight: 700; flex-shrink: 0; overflow: hidden; background: var(--azul-mid);
+  border-radius: 50%; border: 3px solid var(--borda); object-fit: cover; 
+  display: flex; align-items: center; justify-content: center; font-weight: 700; 
+  flex-shrink: 0; overflow: hidden; background: var(--azul-mid);
 }
+
 .podio-item:nth-child(1) .podio-avatar { width:86px; height:86px; font-size:26px; border-color:var(--ouro); box-shadow:0 0 22px rgba(255,215,0,.35); }
 .podio-item:nth-child(2) .podio-avatar { width:70px; height:70px; font-size:20px; border-color:var(--prata); }
 .podio-item:nth-child(3) .podio-avatar { width:66px; height:66px; font-size:18px; border-color:var(--bronze); }
-/* Foto no pódio e ranking */
+
+/* Foto no pódio e ranking para não cortar o topo da cabeça */
 .podio-avatar img, .rank-avatar img { width:100%; height:100%; object-fit:cover; object-position:top; border-radius:50%; }
+
 /* Ajuste específico Betão */
 img[src="BETAO.png"] { object-position: center !important; }
 
 .podio-nome { font-weight: 700; font-size: 12px; text-align: center; max-width: 96px; line-height: 1.3; }
+
 .podio-pts { font-family:'Bebas Neue',sans-serif; font-size:18px; color:var(--verde); display:flex; align-items:center; gap:4px; }
 .podio-pts small { font-size:11px; font-family:'Inter',sans-serif; color:var(--muted); font-weight:500; }
+
 .podio-base {
-  border-radius: var(--radius-sm) var(--radius-sm) 0 0; width: 96px;
-  display: flex; align-items: center; justify-content: center;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0; width: 96px; 
+  display: flex; align-items: center; justify-content: center; 
   font-family:'Bebas Neue',sans-serif; font-size:28px; color:rgba(255,255,255,.15);
 }
+
 .podio-item:nth-child(1) .podio-base { height:88px; background:linear-gradient(180deg,#BFA52A,#8A7420); }
 .podio-item:nth-child(2) .podio-base { height:66px; background:linear-gradient(180deg,#8A939E,#5C6570); }
 .podio-item:nth-child(3) .podio-base { height:48px; background:linear-gradient(180deg,#8C5E2A,#5C3D1A); }
 
 /* ── TABELA ── */
 .ranking-table { width:100%; border-collapse:separate; border-spacing:0 6px; }
-.ranking-table thead th {
-  text-transform:uppercase; font-size:11px; letter-spacing:1.2px;
-  color:var(--muted); padding:0 16px 8px; text-align:left; font-weight:600;
-}
-.ranking-table tbody tr {
-  background:var(--azul-card); border-radius:var(--radius);
-  transition:transform .15s, box-shadow .15s;
-}
+.ranking-table thead th { text-transform:uppercase; font-size:11px; letter-spacing:1.2px; color:var(--muted); padding:0 16px 8px; text-align:left; font-weight:600; }
+.ranking-table tbody tr { background:var(--azul-card); border-radius:var(--radius); transition:transform .15s, box-shadow .15s; }
 .ranking-table tbody tr:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(0,0,0,.3); }
 .ranking-table tbody td { padding:13px 16px; vertical-align:middle; }
-.ranking-table tbody td:first-child { border-radius:var(--radius) 0 0 var(--radius); }
+.ranking-table tbody td:first-child { border-radius:var(--radius) 0 0 var(--radius); } 
 .ranking-table tbody td:last-child  { border-radius:0 var(--radius) var(--radius) 0; }
 
 .rank-pos { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--muted); min-width:26px; }
 .rank-player { display:flex; align-items:center; gap:12px; }
-.rank-avatar {
-  width:42px; height:42px; border-radius:50%; border:2px solid var(--borda);
-  display:flex; align-items:center; justify-content:center;
-  font-weight:700; font-size:14px; color:var(--amarelo); flex-shrink:0;
-  background:linear-gradient(135deg, var(--verde-esc), var(--azul-mid));
-  overflow:hidden;
-}
+
+.rank-avatar { width:42px; height:42px; border-radius:50%; border:2px solid var(--borda); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; color:var(--amarelo); flex-shrink:0; background:linear-gradient(135deg, var(--verde-esc), var(--azul-mid)); overflow:hidden; }
+
 .rank-nome { font-weight:600; font-size:15px; }
-.badge-lider {
-  background:var(--amarelo); color:var(--azul-esc);
-  font-size:10px; font-weight:700; padding:2px 8px;
-  border-radius:20px; letter-spacing:.8px; text-transform:uppercase; margin-left:8px;
-}
-.rank-acertos {
-  font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--verde);
-  text-align:center; min-width:56px;
-}
+.badge-lider { background:var(--amarelo); color:var(--azul-esc); font-size:10px; font-weight:700; padding:2px 8px; border-radius:20px; letter-spacing:.8px; text-transform:uppercase; margin-left:8px; }
+
+.rank-acertos { font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--verde); text-align:center; min-width:56px; }
+
 .progress-bar { background:rgba(255,255,255,.07); border-radius:4px; height:6px; width:120px; overflow:hidden; }
 .progress-fill { height:100%; border-radius:4px; background:linear-gradient(90deg,var(--verde),var(--amarelo)); transition:width .6s ease; }
 
 /* ── PALPITES EXPAND ── */
-.palpites-row { display:none; }
+.palpites-row { display:none; } 
 .palpites-row.open { display:table-row; }
-.palpites-inner {
-  padding:16px; background:rgba(0,0,0,0.25);
-  border-radius:0 0 var(--radius) var(--radius);
-}
-.palpite-item {
-  display:flex; align-items:center; justify-content:space-between; gap:8px;
-  padding:8px 0; border-bottom:1px solid var(--borda); font-size:13px; flex-wrap:wrap;
-}
+.palpites-inner { padding:16px; background:rgba(0,0,0,0.25); border-radius:0 0 var(--radius) var(--radius); }
+.palpite-item { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 0; border-bottom:1px solid var(--borda); font-size:13px; flex-wrap:wrap; }
 .palpite-item:last-child { border-bottom:none; }
 
 /* Cores das Badges Fixas */
@@ -214,121 +227,50 @@ img[src="BETAO.png"] { object-position: center !important; }
 .badge-ao-vivo-coluna { background:linear-gradient(90deg, #ff4757, #ff6b81); color:#fff; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:700; white-space:nowrap; }
 .badge-ao-vivo-err { background:rgba(255,255,255,0.1); color:#fff; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:700; white-space:nowrap; }
 
-.btn-ver {
-  background:none; border:1px solid var(--borda); color:var(--muted);
-  font-size:11px; padding:4px 10px; border-radius:20px; cursor:pointer;
-  transition:all .2s; font-family:'Inter',sans-serif;
-}
+.btn-ver { background:none; border:1px solid var(--borda); color:var(--muted); font-size:11px; padding:4px 10px; border-radius:20px; cursor:pointer; transition:all .2s; font-family:'Inter',sans-serif; }
 .btn-ver:hover { border-color:var(--verde); color:var(--verde); }
 
-/* ── PRÓXIMOS JOGOS ── */
+/* ── PRÓXIMOS JOGOS E RESULTADOS ── */
 .jogos-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:14px; }
-.jogo-card {
-  background:var(--azul-card); border-radius:var(--radius);
-  padding:18px; border:1px solid var(--borda);
-  position:relative; overflow:hidden;
-  transition:transform .2s, box-shadow .2s;
-}
-.jogo-card::before {
-  content:''; position:absolute; top:0; left:0; right:0; height:3px;
-  background:linear-gradient(90deg, var(--verde), var(--amarelo));
-}
+.jogo-card, .resultado-card { background:var(--azul-card); border-radius:var(--radius); padding:18px; border:1px solid var(--borda); position:relative; overflow:hidden; transition:transform .2s, box-shadow .2s; }
+.jogo-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--verde), var(--amarelo)); }
 .jogo-card:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(0,0,0,.35); }
+
 .jogo-fase { font-size:10px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:var(--verde); margin-bottom:12px; }
 .jogos-times { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:14px; }
 .jogo-time { display:flex; flex-direction:column; align-items:center; gap:4px; flex:1; }
 .jogo-time-nome { font-weight:700; font-size:13px; text-align:center; }
 .jogo-vs { font-family:'Bebas Neue',sans-serif; font-size:18px; color:var(--muted); }
-.jogo-meta {
-  display:flex; align-items:center; justify-content:space-between;
-  border-top:1px solid var(--borda); padding-top:10px; font-size:12px; color:var(--muted);
-}
-.jogo-data-badge {
-  background:rgba(0,166,81,.15); border:1px solid rgba(0,166,81,.3);
-  color:var(--verde); padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600;
-}
+.jogo-meta { display:flex; align-items:center; justify-content:space-between; border-top:1px solid var(--borda); padding-top:10px; font-size:12px; color:var(--muted); }
+.jogo-data-badge { background:rgba(0,166,81,.15); border:1px solid rgba(0,166,81,.3); color:var(--verde); padding:3px 10px; border-radius:20px; font-size:11px; font-weight:600; }
 
-/* ── RESULTADOS ── */
-.resultado-card {
-  background:var(--azul-card); border-radius:var(--radius);
-  padding:16px 22px; display:flex; align-items:center;
-  justify-content:space-between; gap:12px;
-  border:1px solid var(--borda); margin-bottom:10px; flex-wrap:wrap;
-}
+.resultado-card { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; margin-bottom:10px; padding:16px 22px; }
 .resultado-times { display:flex; align-items:center; gap:8px; font-weight:700; font-size:15px; }
-.resultado-placar {
-  font-family:'Bebas Neue',sans-serif; font-size:28px; color:var(--amarelo);
-  letter-spacing:2px; background:rgba(255,221,0,.1);
-  border:1px solid rgba(255,221,0,.2); padding:4px 16px; border-radius:var(--radius-sm);
-}
+.resultado-placar { font-family:'Bebas Neue',sans-serif; font-size:28px; color:var(--amarelo); letter-spacing:2px; background:rgba(255,221,0,.1); border:1px solid rgba(255,221,0,.2); padding:4px 16px; border-radius:var(--radius-sm); }
 
 /* ── CARROSSEL DE PARTICIPANTES ── */
-.carousel-container {
-  width: 100%; overflow: hidden; position: relative; padding: 20px 0;
-}
-.carousel-track {
-  display: flex; gap: 24px; width: max-content;
-  animation: scroll 32s linear infinite;
-}
-.carousel-track:hover {
-  animation-play-state: paused;
-}
-@keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-280px * 6 - 24px * 6)); } /* Ajustado para 6 participantes */
-}
-.card-participante {
-  background: var(--azul-card); border: 1px solid var(--borda);
-  border-radius: var(--radius); width: 280px; padding: 0 0 24px 0;
-  text-align: center; display: flex; flex-direction: column; align-items: center;
-  gap: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s, border-color 0.2s;
-  overflow: hidden;
-}
-.card-participante:hover {
-  transform: translateY(-5px); border-color: var(--verde);
-}
-.card-photo-wrapper {
-  width: 100%; height: 210px; position: relative;
-  background: var(--azul-mid);
-}
-.card-photo-wrapper img {
-  width: 100%; height: 100%; object-fit: cover; object-position: top;
-}
-.card-photo-wrapper::after {
-  content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to bottom, transparent 55%, var(--azul-card) 100%);
-  pointer-events: none;
-}
-.card-photo-fallback {
-  width: 100%; height: 100%; display: flex; align-items: center;
-  justify-content: center; font-size: 48px; font-weight: 700;
-  color: var(--amarelo); font-family: 'Bebas Neue', sans-serif;
-}
+.carousel-container { width: 100%; overflow: hidden; position: relative; padding: 20px 0; }
+.carousel-track { display: flex; gap: 24px; width: max-content; animation: scroll 32s linear infinite; }
+.carousel-track:hover { animation-play-state: paused; }
+@keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-280px * 6 - 24px * 6)); } }
+
+.card-participante { background: var(--azul-card); border: 1px solid var(--borda); border-radius: var(--radius); width: 280px; padding: 0 0 24px 0; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s, border-color 0.2s; overflow: hidden; }
+.card-participante:hover { transform: translateY(-5px); border-color: var(--verde); }
+
+.card-photo-wrapper { width: 100%; height: 210px; position: relative; background: var(--azul-mid); }
+.card-photo-wrapper img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.card-photo-wrapper::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 55%, var(--azul-card) 100%); pointer-events: none; }
+.card-photo-fallback { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 48px; font-weight: 700; color: var(--amarelo); font-family: 'Bebas Neue', sans-serif; }
+
 .card-nome { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--amarelo); letter-spacing: 1px; padding: 0 16px; }
 .card-desc { font-size: 13px; color: var(--muted); line-height: 1.4; min-height: 55px; padding: 0 16px; }
 
-/* ── EMPTY STATE ── */
-.empty { text-align:center; padding:32px; color:var(--muted); font-size:14px; }
-
-/* ── FOOTER ── */
-footer {
-  background:var(--azul-mid); border-top:2px solid var(--borda);
-  text-align:center; padding:20px; font-size:13px; color:var(--muted);
-}
+/* ── FOOTER E AUDIO ── */
+footer { background:var(--azul-mid); border-top:2px solid var(--borda); text-align:center; padding:20px; font-size:13px; color:var(--muted); }
 footer strong { color:var(--verde); }
 
-/* ── AUDIO FLOATER ── */
-.audio-control {
-  position: fixed; bottom: 24px; left: 24px; z-index: 1000;
-  background: var(--azul-card); border: 1px solid var(--borda);
-  padding: 10px 16px; border-radius: 30px; display: flex;
-  align-items: center; gap: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-}
-.audio-btn {
-  background: var(--verde); border: none; color: white;
-  width: 36px; height: 36px; border-radius: 50%; cursor: pointer;
-  font-size: 16px; display: flex; align-items: center; justify-content: center;
-}
+.audio-control { position: fixed; bottom: 24px; left: 24px; z-index: 1000; background: var(--azul-card); border: 1px solid var(--borda); padding: 10px 16px; border-radius: 30px; display: flex; align-items: center; gap: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+.audio-btn { background: var(--verde); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
 .audio-text { font-size: 12px; color: var(--texto); font-weight: 500; }
 </style>
 </head>
@@ -365,16 +307,13 @@ footer strong { color:var(--verde); }
 
 <main>
 
-  <!-- SEÇÃO DE JOGOS AO VIVO -->
   <section id="ao-vivo-section" style="display: none;">
-    <div class="section-title"><span class="piscar-vermelho">🔴</span> Jogos em Andamento</div>
+    <div class="section-title"><span class="piscar-vermelho">🔴</span> Jogos em Andamento (API)</div>
     <div id="ao-vivo-list"></div>
   </section>
 
-  <!-- RANKING -->
   <section id="ranking">
     <div class="section-title">🏆 Classificação Geral</div>
-    
     <div class="regras-grid">
       <div class="regra-card">
         <div class="regra-pts exato">3 Pts</div>
@@ -401,19 +340,16 @@ footer strong { color:var(--verde); }
     </table>
   </section>
 
-  <!-- PRÓXIMOS JOGOS -->
   <section id="proximos">
     <div class="section-title">📅 Próximos Jogos</div>
     <div class="jogos-grid" id="proximos-grid"></div>
   </section>
 
-  <!-- RESULTADOS -->
   <section id="resultados">
     <div class="section-title">⚽ Jogos Realizados</div>
     <div id="resultados-list"></div>
   </section>
 
-  <!-- PARTICIPANTES -->
   <section id="participantes">
     <div class="section-title">🏃‍♂️ Elenco do Bolão</div>
     <div class="carousel-container">
@@ -429,7 +365,25 @@ footer strong { color:var(--verde); }
 
 <script>
 // ═══════════════════════════════════════════
-//  BANCO DE DADOS LOCAL E AO VIVO
+//  1. CONFIGURAÇÕES DA API E CHAVE
+// ═══════════════════════════════════════════
+const CHAVE_API_FOOTBALL = "ae38225905e0301ea6b2140027bacc50"; 
+
+// O Dicionário Tradutor (Ensina o código que "Canada" na API é o "🇨🇦 Canadá" da sua planilha)
+const tradutorTimes = {
+  "Canada": "🇨🇦 Canadá",
+  "Bosnia & Herzegovina": "🇧🇦 Bósnia e Herz.",
+  "Bosnia": "🇧🇦 Bósnia e Herz.",
+  "USA": "🇺🇸 Estados Unidos",
+  "Paraguay": "🇵🇾 Paraguai",
+  "Qatar": "🇶🇦 Catar",
+  "Switzerland": "🇨🇭 Suíça",
+  "Brazil": "🇧🇷 Brasil",
+  "Morocco": "🇲🇦 Marrocos"
+};
+
+// ═══════════════════════════════════════════
+//  BANCO DE DADOS LOCAL
 // ═══════════════════════════════════════════
 const estado = {
   jogadores: [
@@ -441,99 +395,122 @@ const estado = {
     { id: 6, nome: 'Lulu Gay do Vôlei', foto: 'lulu.png', descricao: 'Pega e levanta bola com as gays do vôlei, mas ele é hétero sim.', pontos: 1, palpites: [] }
   ],
   
-  // ⚡ SEÇÃO MÁGICA: Atualize aqui quando o jogo começar!
-  // Deixe a lista [] vazia quando não tiver jogo rolando.
-  aoVivo: [
-    { 
-      jogoNome: '🇨🇦 Canadá x 🇧🇦 Bósnia e Herz.', // TEM que ser idêntico ao texto do Google Sheets
-      time1: '🇨🇦 Canadá', 
-      time2: '🇧🇦 Bósnia e Herz.', 
-      gols1: 1, // Mude o placar aqui durante a partida
-      gols2: 0, 
-      tempo: '2º Tempo - 15\'' 
-    }
-  ],
+  // Agora começa vazio, a API vai preencher isso sozinha!
+  aoVivo: [],
   
   proximos: [
+    { id: 2, time1:'🇨🇦 Canadá', time2:'🇧🇦 Bósnia e Herz.', fase:'Grupo B', data:'2026-06-12', hora:'16:00' },
     { id: 3, time1:'🇺🇸 Estados Unidos', time2:'🇵🇾 Paraguai', fase:'Grupo D', data:'2026-06-12', hora:'22:00' },
     { id: 4, time1:'🇶🇦 Catar', time2:'🇨🇭 Suíça', fase:'Grupo B', data:'2026-06-13', hora:'16:00' },
     { id: 5, time1:'🇧🇷 Brasil', time2:'🇲🇦 Marrocos', fase:'Grupo C', data:'2026-06-13', hora:'19:00' }
   ],
-  
   realizados: [
     { id: 100, time1:'🇲🇽 México', time2:'🇿🇦 África do Sul', resultado:'2x0', data:'2026-06-11' },
     { id: 101, time1:'🇰🇷 Coreia do Sul', time2:'🇨🇿 Tchéquia', resultado:'2x1', data:'2026-06-11' }
   ]
 };
 
-// Limpa cache de imagens velhas
 localStorage.clear();
 
+// ═══════════════════════════════════════════
+//  MOTOR DA API - BUSCADOR DE JOGOS AO VIVO
+// ═══════════════════════════════════════════
+async function buscarPlacarAoVivoDaAPI() {
+  if (!CHAVE_API_FOOTBALL) return; 
+
+  // Busca apenas jogos rolando ao vivo da Copa do Mundo (ID = 1 na API-Football)
+  const url = "https://v3.football.api-sports.io/fixtures?live=all&league=1"; 
+  
+  try {
+    const resposta = await fetch(url, {
+      method: "GET",
+      headers: { "x-apisports-key": CHAVE_API_FOOTBALL }
+    });
+    
+    const dados = await resposta.json();
+    
+    // Zera a lista ao vivo atual
+    estado.aoVivo = [];
+
+    // Se tiver jogo rolando, processa a resposta
+    if (dados.response && dados.response.length > 0) {
+      dados.response.forEach(jogoAPI => {
+        // Traduz o nome gringo pro seu com emoji
+        const timeCasa = tradutorTimes[jogoAPI.teams.home.name] || jogoAPI.teams.home.name;
+        const timeFora = tradutorTimes[jogoAPI.teams.away.name] || jogoAPI.teams.away.name;
+        
+        estado.aoVivo.push({
+          jogoNome: `${timeCasa} x ${timeFora}`, 
+          time1: timeCasa,
+          time2: timeFora,
+          gols1: jogoAPI.goals.home || 0,
+          gols2: jogoAPI.goals.away || 0,
+          tempo: `${jogoAPI.fixture.status.elapsed}' min`
+        });
+      });
+    }
+
+    renderTudo(); // Atualiza a tela com os gols encontrados na API
+
+  } catch (erro) {
+    console.error("A API de Futebol falhou em atualizar o placar ao vivo:", erro);
+  }
+}
 
 // ═══════════════════════════════════════════
-//  MOTOR DE PONTUAÇÃO AO VIVO
+//  CÁLCULO MATEMÁTICO DE PONTOS
 // ═══════════════════════════════════════════
 function calcularGols(palpiteStr, golsTime1, golsTime2) {
   if (!palpiteStr || palpiteStr.toLowerCase() === 'não apostou') return 0;
   
-  // Exemplo: '2x1' vira [2, 1]
   const placares = palpiteStr.split('x').map(Number);
   if (placares.length !== 2 || isNaN(placares[0])) return 0;
   
-  const p1 = placares[0];
+  const p1 = placares[0]; 
   const p2 = placares[1];
+  
+  if (p1 === golsTime1 && p2 === golsTime2) return 3; // Exato
 
-  // Regra 1: Placar Exato (3 pontos)
-  if (p1 === golsTime1 && p2 === golsTime2) return 3;
+  const vit1Real = golsTime1 > golsTime2; 
+  const vit2Real = golsTime2 > golsTime1; 
+  const empReal = golsTime1 === golsTime2;
+  
+  const vit1Palpite = p1 > p2; 
+  const vit2Palpite = p2 > p1; 
+  const empPalpite = p1 === p2;
 
-  // Regra 2: Tendência/Coluna (1 ponto)
-  const vitoriaTime1Real = golsTime1 > golsTime2;
-  const vitoriaTime2Real = golsTime2 > golsTime1;
-  const empateReal = golsTime1 === golsTime2;
-
-  const vitoriaTime1Palpite = p1 > p2;
-  const vitoriaTime2Palpite = p2 > p1;
-  const empatePalpite = p1 === p2;
-
-  if (vitoriaTime1Real && vitoriaTime1Palpite) return 1;
-  if (vitoriaTime2Real && vitoriaTime2Palpite) return 1;
-  if (empateReal && empatePalpite) return 1;
-
-  // Errou tudo
-  return 0;
+  if (vit1Real && vit1Palpite) return 1;
+  if (vit2Real && vit2Palpite) return 1;
+  if (empReal && empPalpite) return 1;
+  
+  return 0; // Errou
 }
 
 function processarPontosEmTempoReal() {
   estado.jogadores.forEach(j => {
     let pontosExtras = 0;
-
+    
     j.palpites.forEach(p => {
-      // Procura se o palpite é de um jogo rolando agora
       const jogoRodando = estado.aoVivo.find(a => a.jogoNome === p.jogo);
       
       if (jogoRodando) {
-        // Calcula na hora quantos pontos
         const pontosMomento = calcularGols(p.palpite, jogoRodando.gols1, jogoRodando.gols2);
         pontosExtras += pontosMomento;
-
-        // Cria uma tag visual temporária pro site mostrar "AO VIVO"
+        
         if (pontosMomento === 3) p.tipoTemporario = 'ao-vivo-exato';
         else if (pontosMomento === 1) p.tipoTemporario = 'ao-vivo-coluna';
         else p.tipoTemporario = 'ao-vivo-err';
       } else {
-        // Se não tá rolando, mantém a cor original
         p.tipoTemporario = p.tipo;
       }
     });
-
-    // Atualiza pontuação final
+    
     j.pontosTotais = j.pontos + pontosExtras;
   });
 }
 
-
 // ═══════════════════════════════════════════
-//  FUNÇÕES DE RENDERIZAÇÃO E DESENHO DA TELA
+//  FUNÇÕES DE DESENHO DA TELA
 // ═══════════════════════════════════════════
 function lancarIniciais(nome) { 
   return nome.split(' ').slice(0,2).map(w => w[0].toUpperCase()).join(''); 
@@ -569,11 +546,10 @@ function renderAoVivo() {
 }
 
 function renderRanking() {
-  // Ordena com base nos pontosTotais calculados
   const sorted = [...estado.jogadores].sort((a,b) => b.pontosTotais - a.pontosTotais || a.nome.localeCompare(b.nome));
   const max = Math.max(...sorted.map(j => j.pontosTotais), 1);
-
   const podio = document.getElementById('podio-container');
+  
   podio.innerHTML = sorted.slice(0, Math.min(3, sorted.length)).map((j, i) => `
     <div class="podio-item">
       <span>${['🥇','🥈','🥉'][i]}</span>
@@ -614,8 +590,7 @@ function renderRanking() {
               p.tipoTemporario === 'ao-vivo-err' ? '❌ 0 PTS (AO VIVO)' :
               p.tipoTemporario === 'exato' ? '🏆 +3 PTS EXATO' : 
               p.tipoTemporario === 'coluna' ? '✅ +1 PT TENDÊNCIA' : 
-              p.tipoTemporario === 'aguardando' ? '⏳ AGUARDANDO' : 
-              '❌ 0 PTS ERROU'
+              p.tipoTemporario === 'aguardando' ? '⏳ AGUARDANDO' : '❌ 0 PTS ERROU'
             }</span>
           </div>
         `).join('')}
@@ -624,7 +599,7 @@ function renderRanking() {
   }).join('');
 }
 
-function renderProximos() {
+function renderProximos() { 
   document.getElementById('proximos-grid').innerHTML = estado.proximos.map(j => `
     <div class="jogo-card">
       <div class="jogo-fase">${j.fase}</div>
@@ -633,31 +608,37 @@ function renderProximos() {
         <span class="jogo-vs">VS</span>
         <div class="jogo-time"><span class="jogo-time-nome">${j.time2}</span></div>
       </div>
-      <div class="jogo-meta"><span>📅 ${new Date(j.data+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}</span><span>⏰ ${j.hora}</span></div>
+      <div class="jogo-meta">
+        <span>📅 ${new Date(j.data+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}</span>
+        <span>⏰ ${j.hora}</span>
+      </div>
     </div>
-  `).join('');
+  `).join(''); 
 }
 
-function renderResultados() {
+function renderResultados() { 
   document.getElementById('resultados-list').innerHTML = estado.realizados.map(j => `
     <div class="resultado-card">
-      <div class="resultado-times">${j.time1}</div><div class="resultado-placar">${j.resultado}</div><div class="resultado-times">${j.time2}</div>
+      <div class="resultado-times">${j.time1}</div>
+      <div class="resultado-placar">${j.resultado}</div>
+      <div class="resultado-times">${j.time2}</div>
     </div>
-  `).join('');
+  `).join(''); 
 }
 
-function renderCarrossel() {
+function renderCarrossel() { 
   document.getElementById('carousel-track').innerHTML = [...estado.jogadores, ...estado.jogadores].map(j => `
     <div class="card-participante">
       ${fotoCardHTML(j)}
       <div class="card-nome">${j.nome}</div>
       <div class="card-desc">${j.descricao || 'Pronto para os palpites!'}</div>
     </div>
-  `).join('');
+  `).join(''); 
 }
 
 function togglePalpites(id) {
-  const row = document.getElementById(id); if (!row) return;
+  const row = document.getElementById(id); 
+  if (!row) return;
   const isOpen = row.classList.contains('open');
   document.querySelectorAll('.palpites-row.open').forEach(r => r.classList.remove('open'));
   if (!isOpen) row.classList.add('open');
@@ -702,13 +683,16 @@ async function iniciarApp() {
   } catch (erro) {
     console.error("Erro ao puxar palpites da planilha:", erro);
   } finally {
-    renderTudo();
+    // Tenta buscar jogo rolando na API assim que a planilha é processada
+    await buscarPlacarAoVivoDaAPI();
   }
 }
 
-// Inicia o processo quando o site abre
+// Inicia o aplicativo
 iniciarApp();
 
+// Configura a API para bater na porta a cada 3 minutos
+setInterval(buscarPlacarAoVivoDaAPI, 180000);
 
 // ═══════════════════════════════════════════
 //  CONFIGURAÇÃO DE ÁUDIO
@@ -720,10 +704,18 @@ audio.muted = true;
 
 function iniciarAutoplayComFade() { 
   audio.play().then(() => { 
-    audio.muted = false; audio.volume = 0; audioBtn.textContent = '⏸'; audioStatus.textContent = 'Trilha da Copa Ativa'; 
+    audio.muted = false; 
+    audio.volume = 0; 
+    audioBtn.textContent = '⏸'; 
+    audioStatus.textContent = 'Trilha da Copa Ativa'; 
     let vol = 0; 
     const fadeInterval = setInterval(() => { 
-      if (vol < 0.25) { vol += 0.02; audio.volume = Math.min(vol, 0.25); } else { clearInterval(fadeInterval); } 
+      if (vol < 0.25) { 
+        vol += 0.02; 
+        audio.volume = Math.min(vol, 0.25); 
+      } else { 
+        clearInterval(fadeInterval); 
+      } 
     }, 150); 
   }).catch(() => { 
     audioStatus.textContent = 'Mova a tela para som 🎵'; 
@@ -734,16 +726,21 @@ window.addEventListener('DOMContentLoaded', iniciarAutoplayComFade);
 
 ['click', 'mouseover', 'touchstart'].forEach(evt => { 
   document.addEventListener(evt, function ativarSom() { 
-    if (audio.paused || audio.volume === 0) { iniciarAutoplayComFade(); } 
+    if (audio.paused || audio.volume === 0) { 
+      iniciarAutoplayComFade(); 
+    } 
     document.removeEventListener(evt, ativarSom); 
   }, { once: true }); 
 });
 
 function toggleAudio() { 
   if (audio.paused) { 
-    audio.play(); audio.volume = 0.25; audioBtn.textContent = '⏸'; 
+    audio.play(); 
+    audio.volume = 0.25; 
+    audioBtn.textContent = '⏸'; 
   } else { 
-    audio.pause(); audioBtn.textContent = '▶'; 
+    audio.pause(); 
+    audioBtn.textContent = '▶'; 
   } 
 }
 
