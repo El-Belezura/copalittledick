@@ -409,10 +409,7 @@ const estado = {
       foto: 'momo.png', 
       descricao: 'Momô que perde chinelo, vende macarrão e toma golpe do Ramon.', 
       pontos: 4, 
-      palpites: [
-        { jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'2x0', tipo: 'exato' },
-        { jogo:'🇰🇷 Coreia do Sul 2x1 🇨🇿 Tchéquia', palpite:'1x0', tipo: 'coluna' }
-      ] 
+      palpites: [] // Será preenchido pela planilha
     },
     { 
       id: 2, 
@@ -420,10 +417,7 @@ const estado = {
       foto: 'JAO.png', 
       descricao: 'Primeiro laranja da história que saiu pobre do esquema. Conhece Dogecoin e BCT.', 
       pontos: 4, 
-      palpites: [
-        { jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'3x0', tipo: 'coluna' },
-        { jogo:'🇰🇷 Coreia do Sul 2x1 🇨🇿 Tchéquia', palpite:'2x1', tipo: 'exato' }
-      ] 
+      palpites: [] // Será preenchido pela planilha
     },
     { 
       id: 3, 
@@ -431,10 +425,7 @@ const estado = {
       foto: 'julin.png', 
       descricao: 'Alerta de fofura no microfone! O carro não pode ficar xoginho que estraga.', 
       pontos: 2, 
-      palpites: [
-        { jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'3x0', tipo: 'coluna' },
-        { jogo:'🇰🇷 Coreia do Sul 2x1 🇨🇿 Tchéquia', palpite:'1x0', tipo: 'coluna' }
-      ] 
+      palpites: [] // Será preenchido pela planilha
     },
     { 
       id: 5, 
@@ -442,10 +433,7 @@ const estado = {
       foto: 'BETAO.png', 
       descricao: 'Nem me lembro a última vez que vi, creio que sofre abuso doméstico.', 
       pontos: 2, 
-      palpites: [
-        { jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'2x1', tipo: 'coluna' },
-        { jogo:'🇰🇷 Coreia do Sul 2x1 🇨🇿 Tchéquia', palpite:'3x0', tipo: 'coluna' }
-      ] 
+      palpites: [] // Será preenchido pela planilha
     },
     { 
       id: 4, 
@@ -453,10 +441,7 @@ const estado = {
       foto: 'HENRICK.png', 
       descricao: 'A última vez que pagou uma DAE foi em 2008. Aprendeu a sonegar antes de falar.', 
       pontos: 1, 
-      palpites: [
-        { jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'Não Apostou', tipo: 'err' },
-        { jogo:'🇰🇷 Coreia do Sul 2x1 🇨🇿 Tchéquia', palpite:'1x0', tipo: 'coluna' }
-      ] 
+      palpites: [] // Será preenchido pela planilha
     },
     { 
       id: 6, 
@@ -464,10 +449,7 @@ const estado = {
       foto: 'lulu.png', 
       descricao: 'Pega e levanta bola com as gays do vôlei, mas ele é hétero sim.', 
       pontos: 1, 
-      palpites: [
-        { jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'Não Apostou', tipo: 'err' },
-        { jogo:'🇰🇷 Coreia do Sul 2x1 🇨🇿 Tchéquia', palpite:'2x0', tipo: 'coluna' }
-      ] 
+      palpites: [] // Será preenchido pela planilha
     }
   ],
   proximos: [
@@ -496,7 +478,7 @@ audio.muted = true;
 function iniciarAutoplayComFade() {
   audio.play().then(() => {
     audio.muted = false; audio.volume = 0;
-    audioBtn.textCont = '⏸'; audioStatus.textCont = 'Trilha da Copa Ativa';
+    audioBtn.textContent = '⏸'; audioStatus.textContent = 'Trilha da Copa Ativa';
     let vol = 0;
     const fadeInterval = setInterval(() => {
       if (vol < 0.25) { vol += 0.02; audio.volume = Math.min(vol, 0.25); } 
@@ -618,7 +600,49 @@ function togglePalpites(id) {
 }
 
 function renderTudo() { renderRanking(); renderProximos(); renderResultados(); renderCarrossel(); }
-renderTudo();
+
+// ═══════════════════════════════════════════
+// NOVA FUNÇÃO: CARREGAR PALPITES DA PLANILHA
+// ═══════════════════════════════════════════
+const urlPalpites = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTbH86mCclRAWsdCJ5mHibzeRAKR-EOOx-Z6r-j031dYyc0zDn9o7XzfY64OBTtCnSgt25fPDjTrUrt/pub?gid=425039932&single=true&output=csv";
+
+async function iniciarApp() {
+  try {
+    const resposta = await fetch(urlPalpites);
+    const dadosCsv = await resposta.text();
+    
+    // Ignora o cabeçalho (primeira linha)
+    const linhas = dadosCsv.split('\n').slice(1);
+
+    // Garante que a lista comece vazia para os dados novos
+    estado.jogadores.forEach(j => j.palpites = []);
+
+    linhas.forEach(linha => {
+      const colunas = linha.split(',');
+      if (colunas.length >= 4) {
+        const idJogador = parseInt(colunas[0].trim());
+        const jogo = colunas[1].trim();
+        const palpite = colunas[2].trim();
+        const tipo = colunas[3].trim(); // ex: 'exato', 'coluna', ou 'err'
+
+        // Busca qual o jogador na lista estática tem esse ID
+        const donoDoPalpite = estado.jogadores.find(j => j.id === idJogador);
+        if (donoDoPalpite) {
+          donoDoPalpite.palpites.push({ jogo, palpite, tipo });
+        }
+      }
+    });
+  } catch (erro) {
+    console.error("Erro ao puxar palpites da planilha:", erro);
+  } finally {
+    // Só renderiza e desenha a tela depois de (tentar) baixar os dados da planilha
+    renderTudo();
+  }
+}
+
+// Inicia o processo quando o script roda
+iniciarApp();
+
 </script>
 </body>
 </html>
