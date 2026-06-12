@@ -602,7 +602,7 @@ function togglePalpites(id) {
 function renderTudo() { renderRanking(); renderProximos(); renderResultados(); renderCarrossel(); }
 
 // ═══════════════════════════════════════════
-// NOVA FUNÇÃO: CARREGAR PALPITES DA PLANILHA
+// NOVA FUNÇÃO BLINDADA: CARREGAR PALPITES DA PLANILHA
 // ═══════════════════════════════════════════
 const urlPalpites = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTbH86mCclRAWsdCJ5mHibzeRAKR-EOOx-Z6r-j031dYyc0zDn9o7XzfY64OBTtCnSgt25fPDjTrUrt/pub?gid=425039932&single=true&output=csv";
 
@@ -611,31 +611,32 @@ async function iniciarApp() {
     const resposta = await fetch(urlPalpites);
     const dadosCsv = await resposta.text();
     
-    // Ignora o cabeçalho (primeira linha)
     const linhas = dadosCsv.split('\n').slice(1);
-
-    // Garante que a lista comece vazia para os dados novos
+    
+    // Zera os palpites atuais antes de preencher
     estado.jogadores.forEach(j => j.palpites = []);
 
     linhas.forEach(linha => {
-      const colunas = linha.split(',');
+      // O SEGREDO TÁ AQUI: Agora ele corta a linha por Vírgula, Ponto e Vírgula OU Tab!
+      const colunas = linha.split(/[,;\t]/); 
+      
       if (colunas.length >= 4) {
         const idJogador = parseInt(colunas[0].trim());
         const jogo = colunas[1].trim();
         const palpite = colunas[2].trim();
-        const tipo = colunas[3].trim(); // ex: 'exato', 'coluna', ou 'err'
+        const tipo = colunas[3].trim().toLowerCase(); // Garante que fique minúsculo (exato, coluna, err)
 
-        // Busca qual o jogador na lista estática tem esse ID
         const donoDoPalpite = estado.jogadores.find(j => j.id === idJogador);
-        if (donoDoPalpite) {
+        if (donoDoPalpite && !isNaN(idJogador)) {
           donoDoPalpite.palpites.push({ jogo, palpite, tipo });
         }
       }
     });
+
   } catch (erro) {
     console.error("Erro ao puxar palpites da planilha:", erro);
   } finally {
-    // Só renderiza e desenha a tela depois de (tentar) baixar os dados da planilha
+    // Renderiza a tela depois de processar a planilha
     renderTudo();
   }
 }
