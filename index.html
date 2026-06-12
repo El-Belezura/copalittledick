@@ -342,7 +342,6 @@ footer strong { color:var(--verde); }
 
 <main>
 
-  <!-- RANKING -->
   <section id="ranking">
     <div class="section-title">🏆 Classificação Geral</div>
     
@@ -372,19 +371,16 @@ footer strong { color:var(--verde); }
     </table>
   </section>
 
-  <!-- PRÓXIMOS JOGOS -->
   <section id="proximos">
     <div class="section-title">📅 Próximos Jogos</div>
     <div class="jogos-grid" id="proximos-grid"></div>
   </section>
 
-  <!-- RESULTADOS -->
   <section id="resultados">
     <div class="section-title">⚽ Jogos Realizados</div>
     <div id="resultados-list"></div>
   </section>
 
-  <!-- PARTICIPANTES (ROLANTE) -->
   <section id="participantes">
     <div class="section-title">🏃‍♂️ Elenco do Bolão</div>
     <div class="carousel-container">
@@ -409,59 +405,77 @@ const estado = {
       nome: 'Momô dos Macarrões', 
       foto: 'momo.png', 
       descricao: 'Estrategista nato. Analisa a pressão atmosférica e o corte da grama.', 
-      pontos: 3, 
-      palpites: [{ jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'2x0', tipo: 'exato' }] 
+      pontos: 4, 
+      palpites: [
+        { jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'2x0', tipo: 'exato' },
+        { jogo:'🇰🇷 Coreia do Sul 2x1 🇨🇿 Tchéquia', palpite:'1x0', tipo: 'coluna' }
+      ] 
     },
     { 
       id: 2, 
       nome: 'jao Larangeta', 
       foto: 'JAO.png', 
       descricao: 'Só aposta em zebra e jura que entende de futebol alternativo.', 
-      pontos: 1, 
-      palpites: [{ jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'3x0', tipo: 'coluna' }] 
+      pontos: 4, 
+      palpites: [
+        { jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'3x0', tipo: 'coluna' },
+        { jogo:'🇰🇷 Coreia do Sul 2x1 🇨🇿 Tchéquia', palpite:'2x1', tipo: 'exato' }
+      ] 
     },
     { 
       id: 3, 
       nome: 'Julin Bê Xoginho', 
       foto: 'julin.png', 
       descricao: 'Mestre dos placares magros. Para ele todo jogo da Copa é 1x0 ou 0x0.', 
-      pontos: 1, 
-      palpites: [{ jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'3x0', tipo: 'coluna' }] 
+      pontos: 2, 
+      palpites: [
+        { jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'3x0', tipo: 'coluna' },
+        { jogo:'🇰🇷 Coreia do Sul 2x1 🇨🇿 Tchéquia', palpite:'1x0', tipo: 'coluna' }
+      ] 
     },
     { 
       id: 5, 
       nome: 'Betao Refem da Karen', 
       foto: 'BETAO.png', 
       descricao: 'Vive sob forte monitoramento tático, mas arrisca palpites perigosos.', 
-      pontos: 1, 
-      palpites: [{ jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'2x1', tipo: 'coluna' }] 
+      pontos: 2, 
+      palpites: [
+        { jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'2x1', tipo: 'coluna' },
+        { jogo:'🇰🇷 Coreia do Sul 2x1 🇨🇿 Tchéquia', palpite:'3x0', tipo: 'coluna' }
+      ] 
     },
     { 
       id: 4, 
       nome: 'Henrick Receita Federal', 
       foto: 'HENRICK.png', 
       descricao: 'Audita cada ponto ganho. Sonegar palpite custou caro nessa rodada.', 
-      pontos: 0, 
-      palpites: [{ jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'Não Apostou', tipo: 'err' }] 
+      pontos: 1, 
+      palpites: [
+        { jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'Não Apostou', tipo: 'err' },
+        { jogo:'🇰🇷 Coreia do Sul 2x1 🇨🇿 Tchéquia', palpite:'1x0', tipo: 'coluna' }
+      ] 
     },
     { 
       id: 6, 
       nome: 'Lulu Gay do Vôlei', 
       foto: 'lulu.png', 
       descricao: 'Levantamento perfeito, mas precisão zero no futebol. Ficou de fora da estreia.', 
-      pontos: 0, 
-      palpites: [{ jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'Não Apostou', tipo: 'err' }] 
+      pontos: 1, 
+      palpites: [
+        { jogo:'🇲🇽 México 2x0 🇿🇦 África do Sul', palpite:'Não Apostou', tipo: 'err' },
+        { jogo:'🇰🇷 Coreia do Sul 2x1 🇨🇿 Tchéquia', palpite:'2x0', tipo: 'coluna' }
+      ] 
     }
   ],
   proximos: [
-    { id: 1, time1:'🇰🇷 Coreia do Sul', time2:'🇨🇿 Tchéquia',     fase:'Grupo A', data:'2026-06-11', hora:'23:00' },
-    { id: 2, time1:'🇨🇦 Canadá',        time2:'🇧🇦 Bósnia e Herz.',fase:'Grupo B', data:'2026-06-12', hora:'16:00' },
+    { id: 2, time1:'🇨🇦 Canadá',         time2:'🇧🇦 Bósnia e Herz.',fase:'Grupo B', data:'2026-06-12', hora:'16:00' },
     { id: 3, time1:'🇺🇸 Estados Unidos', time2:'🇵🇾 Paraguai',      fase:'Grupo D', data:'2026-06-12', hora:'22:00' },
     { id: 4, time1:'🇶🇦 Catar',         time2:'🇨🇭 Suíça',         fase:'Grupo B', data:'2026-06-13', hora:'16:00' },
     { id: 5, time1:'🇧🇷 Brasil',        time2:'🇲🇦 Marrocos',      fase:'Grupo C', data:'2026-06-13', hora:'19:00' },
   ],
   realizados: [
-    { id: 100, time1:'🇲🇽 México', time2:'🇿🇦 África do Sul', resultado:'2x0', data:'2026-06-11' }
+    { id: 100, time1:'🇲🇽 México', time2:'🇿🇦 África do Sul', resultado:'2x0', data:'2026-06-11' },
+    { id: 101, time1:'🇰🇷 Coreia do Sul', time2:'🇨🇿 Tchéquia', resultado:'2x1', data:'2026-06-11' }
   ]
 };
 
