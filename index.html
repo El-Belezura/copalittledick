@@ -124,7 +124,8 @@ section { margin-bottom: 56px; }
 .podio-item:nth-child(1) .podio-avatar { width:86px; height:86px; font-size:26px; border-color:var(--ouro); box-shadow:0 0 22px rgba(255,215,0,.35); }
 .podio-item:nth-child(2) .podio-avatar { width:70px; height:70px; font-size:20px; border-color:var(--prata); }
 .podio-item:nth-child(3) .podio-avatar { width:66px; height:66px; font-size:18px; border-color:var(--bronze); }
-.podio-avatar img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+/* Foto no pódio */
+.podio-avatar img { width:100%; height:100%; object-fit:cover; object-position:top; border-radius:50%; }
 .podio-nome { font-weight: 700; font-size: 12px; text-align: center; max-width: 96px; line-height: 1.3; }
 .podio-pts { font-family:'Bebas Neue',sans-serif; font-size:18px; color:var(--verde); }
 .podio-pts small { font-size:11px; font-family:'Inter',sans-serif; color:var(--muted); font-weight:500; }
@@ -161,7 +162,8 @@ section { margin-bottom: 56px; }
   background:linear-gradient(135deg, var(--verde-esc), var(--azul-mid));
   overflow:hidden;
 }
-.rank-avatar img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+/* Foto no ranking */
+.rank-avatar img { width:100%; height:100%; object-fit:cover; object-position:top; border-radius:50%; }
 .rank-nome { font-weight:600; font-size:15px; }
 .badge-lider {
   background:var(--amarelo); color:var(--azul-esc);
@@ -268,8 +270,9 @@ section { margin-bottom: 56px; }
   width: 100%; height: 210px; position: relative;
   background: var(--azul-mid);
 }
+/* Foto no carrossel de participantes */
 .card-photo-wrapper img {
-  width: 100%; height: 100%; object-fit: cover;
+  width: 100%; height: 100%; object-fit: cover; object-position: top;
 }
 .card-photo-wrapper::after {
   content: ''; position: absolute; inset: 0;
