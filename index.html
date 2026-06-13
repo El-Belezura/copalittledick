@@ -413,13 +413,32 @@ const estado = {
 localStorage.clear();
 
 // ═══════════════════════════════════════════
-//  MOTOR DA API - PESQUISA DE JOGOS AO VIVO
+//  1. CONFIGURAÇÕES DA API E CHAVE
+// ═══════════════════════════════════════════
+const CHAVE_API_FOOTBALL = "ae38225905e0301ea6b2140027bacc50"; 
+
+// Dicionário de tradução (Adicionado USA e Paraguai)
+const tradutorTimes = {
+  "Canada": "🇨🇦 Canadá",
+  "Bosnia & Herzegovina": "🇧🇦 Bósnia e Herz.",
+  "Bosnia": "🇧🇦 Bósnia e Herz.",
+  "USA": "🇺🇸 Estados Unidos",
+  "United States": "🇺🇸 Estados Unidos",
+  "Paraguay": "🇵🇾 Paraguai",
+  "Qatar": "🇶🇦 Catar",
+  "Switzerland": "🇨🇭 Suíça",
+  "Brazil": "🇧🇷 Brasil",
+  "Morocco": "🇲🇦 Marrocos"
+};
+
+// ═══════════════════════════════════════════
+//  MOTOR DA API - BUSCADOR DE JOGOS AO VIVO
 // ═══════════════════════════════════════════
 async function buscarPlacarAoVivoDaAPI() {
   if (!CHAVE_API_FOOTBALL) return; 
 
-  // Procura apenas jogos a decorrer da Copa do Mundo (ID = 1 na API-Football)
-  const url = "https://v3.football.api-sports.io/fixtures?live=all&league=1"; 
+  // CORREÇÃO: Removi a restrição de league=1 para buscar jogos de qualquer torneio ao vivo
+  const url = "https://v3.football.api-sports.io/fixtures?live=all"; 
   
   try {
     const resposta = await fetch(url, {
@@ -429,18 +448,18 @@ async function buscarPlacarAoVivoDaAPI() {
     
     const dados = await resposta.json();
     
-    // Zera a lista ao vivo atual
     estado.aoVivo = [];
 
-    // Se houver jogos, processa os dados
     if (dados.response && dados.response.length > 0) {
       dados.response.forEach(jogoAPI => {
-        // Traduz o nome estrangeiro para o correspondente com emoji
         const timeCasa = tradutorTimes[jogoAPI.teams.home.name] || jogoAPI.teams.home.name;
         const timeFora = tradutorTimes[jogoAPI.teams.away.name] || jogoAPI.teams.away.name;
         
+        // Verifica se o jogo é um dos que estão na sua lista de palpites
+        const nomeJogo = `${timeCasa} x ${timeFora}`;
+        
         estado.aoVivo.push({
-          jogoNome: `${timeCasa} x ${timeFora}`, 
+          jogoNome: nomeJogo, 
           time1: timeCasa,
           time2: timeFora,
           gols1: jogoAPI.goals.home || 0,
@@ -450,10 +469,10 @@ async function buscarPlacarAoVivoDaAPI() {
       });
     }
 
-    renderTudo(); // Actualiza o ecrã com os golos reais
+    renderTudo(); 
 
   } catch (erro) {
-    console.error("A API de Futebol falhou em atualizar o placar ao vivo:", erro);
+    console.error("Erro na conexão com API-Football:", erro);
   }
 }
 
