@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-PT">
 <head>
 <meta charset="UTF-8">
@@ -8,55 +8,55 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --verde:     #00A651;
-  --verde-esc: #007A3D;
-  --amarelo:   #FFDD00;
-  --azul-esc:  #0D1B2A;
-  --azul-mid:  #162236;
-  --azul-card: #1A2B42;
-  --borda:     rgba(255,255,255,0.08);
-  --texto:     #E8EDF2;
-  --muted:     #8A9BB0;
-  --ouro:      #FFD700;
-  --prata:     #C0C8D4;
-  --bronze:    #CD7F32;
-  --radius:    14px;
-  --radius-sm: 8px;
+  --verde: #00A651;
+  --verde-esc: #007A3D;
+  --amarelo: #FFDD00;
+  --azul-esc: #0D1B2A;
+  --azul-mid: #162236;
+  --azul-card: #1A2B42;
+  --borda: rgba(255,255,255,0.08);
+  --texto: #E8EDF2;
+  --muted: #8A9BB0;
+  --ouro: #FFD700;
+  --prata: #C0C8D4;
+  --bronze: #CD7F32;
+  --radius: 14px;
+  --radius-sm: 8px;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
 body {
-  background: linear-gradient(rgba(13, 27, 42, 0.9), rgba(13, 27, 42, 0.9)), 
-              url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1920') no-repeat center center fixed;
-  background-size: cover;
-  color: var(--texto);
-  font-family: 'Inter', sans-serif;
-  min-height: 100vh;
-  overflow-x: hidden;
+  background: linear-gradient(rgba(13, 27, 42, 0.9), rgba(13, 27, 42, 0.9)), 
+              url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=1920') no-repeat center center fixed;
+  background-size: cover;
+  color: var(--texto);
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 /* ── HEADER ── */
 header {
-  background: linear-gradient(135deg, var(--verde-esc) 0%, var(--azul-esc) 65%);
-  border-bottom: 3px solid var(--amarelo);
-  position: sticky; top: 0; z-index: 100;
+  background: linear-gradient(135deg, var(--verde-esc) 0%, var(--azul-esc) 65%);
+  border-bottom: 3px solid var(--amarelo);
+  position: sticky; top: 0; z-index: 100;
 }
 
 .header-inner {
-  max-width: 1100px; margin: 0 auto;
-  padding: 16px 24px;
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  flex-wrap: wrap;
+  max-width: 1100px; margin: 0 auto;
+  padding: 16px 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  flex-wrap: wrap;
 }
 
 .logo { display: flex; align-items: center; gap: 12px; }
 
 .logo-ball {
-  font-size: 34px;
-  filter: drop-shadow(0 0 10px rgba(255,221,0,.6));
-  animation: spin 10s linear infinite;
+  font-size: 34px;
+  filter: drop-shadow(0 0 10px rgba(255,221,0,.6));
+  animation: spin 10s linear infinite;
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
@@ -68,19 +68,19 @@ header {
 nav { display: flex; gap: 4px; flex-wrap: wrap; }
 
 nav a {
-  color: var(--muted); text-decoration: none; font-size: 12px; font-weight: 600;
-  padding: 6px 13px; border-radius: 20px; transition: all .2s;
-  letter-spacing: .5px; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; font-size: 12px; font-weight: 600;
+  padding: 6px 13px; border-radius: 20px; transition: all .2s;
+  letter-spacing: .5px; text-transform: uppercase;
 }
 
 nav a:hover, nav a.ativo { background: var(--amarelo); color: var(--azul-esc); }
 
 /* ── HERO STRIP ── */
 .hero-strip {
-  background: linear-gradient(90deg, var(--verde) 0%, var(--verde-esc) 40%, var(--azul-esc) 100%);
-  padding: 9px 24px; text-align: center;
-  font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 3px;
-  color: rgba(255,255,255,.65); border-bottom: 1px solid var(--borda);
+  background: linear-gradient(90deg, var(--verde) 0%, var(--verde-esc) 40%, var(--azul-esc) 100%);
+  padding: 9px 24px; text-align: center;
+  font-family: 'Bebas Neue', sans-serif; font-size: 14px; letter-spacing: 3px;
+  color: rgba(255,255,255,.65); border-bottom: 1px solid var(--borda);
 }
 
 .hero-strip strong { color: var(--amarelo); }
@@ -91,75 +91,75 @@ section { margin-bottom: 56px; }
 
 /* ── SECTION TITLE ── */
 .section-title {
-  font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 2px;
-  color: var(--amarelo); margin-bottom: 22px;
-  display: flex; align-items: center; gap: 10px;
+  font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 2px;
+  color: var(--amarelo); margin-bottom: 22px;
+  display: flex; align-items: center; gap: 10px;
 }
 
 .section-title::after {
-  content: ''; flex: 1; height: 2px;
-  background: linear-gradient(90deg, var(--verde), transparent);
+  content: ''; flex: 1; height: 2px;
+  background: linear-gradient(90deg, var(--verde), transparent);
 }
 
 /* ── AO VIVO CSS ── */
-.piscar-vermelho { 
-  animation: piscar 1.5s infinite; color: #ff4757; 
+.piscar-vermelho { 
+  animation: piscar 1.5s infinite; color: #ff4757; 
 }
-@keyframes piscar { 
-  0% { opacity: 1; text-shadow: 0 0 10px rgba(255,71,87,0.8); } 
-  50% { opacity: 0.4; text-shadow: none; } 
-  100% { opacity: 1; text-shadow: 0 0 10px rgba(255,71,87,0.8); } 
+@keyframes piscar { 
+  0% { opacity: 1; text-shadow: 0 0 10px rgba(255,71,87,0.8); } 
+  50% { opacity: 0.4; text-shadow: none; } 
+  100% { opacity: 1; text-shadow: 0 0 10px rgba(255,71,87,0.8); } 
 }
 .ao-vivo-card {
-  background: linear-gradient(135deg, #1A2B42 0%, #0D1B2A 100%);
-  border: 1px solid #ff4757; border-radius: var(--radius);
-  padding: 16px 22px; display: flex; align-items: center; justify-content: space-between;
-  gap: 12px; margin-bottom: 14px; flex-wrap: wrap; box-shadow: 0 0 15px rgba(255,71,87,0.15);
+  background: linear-gradient(135deg, #1A2B42 0%, #0D1B2A 100%);
+  border: 1px solid #ff4757; border-radius: var(--radius);
+  padding: 16px 22px; display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; margin-bottom: 14px; flex-wrap: wrap; box-shadow: 0 0 15px rgba(255,71,87,0.15);
 }
-.ao-vivo-tempo { 
-  width: 100%; text-align: center; font-size: 12px; color: #ff4757; 
-  font-weight: 700; letter-spacing: 1px; margin-bottom: 4px; text-transform: uppercase; 
+.ao-vivo-tempo { 
+  width: 100%; text-align: center; font-size: 12px; color: #ff4757; 
+  font-weight: 700; letter-spacing: 1px; margin-bottom: 4px; text-transform: uppercase; 
 }
-.ao-vivo-placar { 
-  font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: #fff; 
-  background: #ff4757; padding: 4px 20px; border-radius: var(--radius-sm); letter-spacing: 3px; 
+.ao-vivo-placar { 
+  font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: #fff; 
+  background: #ff4757; padding: 4px 20px; border-radius: var(--radius-sm); letter-spacing: 3px; 
 }
 
 /* ── REGRAS DE PONTUAÇÃO ── */
 .regras-grid {
-  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 30px;
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 30px;
 }
 
 .regra-card {
-  background: var(--azul-card); border: 1px solid var(--borda); padding: 16px; border-radius: var(--radius);
-  display: flex; align-items: center; gap: 14px;
+  background: var(--azul-card); border: 1px solid var(--borda); padding: 16px; border-radius: var(--radius);
+  display: flex; align-items: center; gap: 14px;
 }
 
 .regra-pts { font-family: 'Bebas Neue', sans-serif; font-size: 32px; min-width: 50px; text-align: center; }
-.regra-pts.exato { color: var(--amarelo); } 
-.regra-pts.resultado { color: var(--verde); } 
+.regra-pts.exato { color: var(--amarelo); } 
+.regra-pts.resultado { color: var(--verde); } 
 .regra-pts.zero { color: var(--muted); }
 
-.regra-txt { font-size: 13px; line-height: 1.3; } 
+.regra-txt { font-size: 13px; line-height: 1.3; } 
 .regra-txt strong { display: block; margin-bottom: 2px; color: #fff; }
 
 /* ── PÓDIO ── */
 .podio {
-  display: flex; align-items: flex-end; justify-content: center;
-  gap: 14px; margin-bottom: 40px; padding: 0 8px;
+  display: flex; align-items: flex-end; justify-content: center;
+  gap: 14px; margin-bottom: 40px; padding: 0 8px;
 }
 
 .podio-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-.podio-item:nth-child(1) { order: 2; } 
-.podio-item:nth-child(2) { order: 1; } 
+.podio-item:nth-child(1) { order: 2; } 
+.podio-item:nth-child(2) { order: 1; } 
 .podio-item:nth-child(3) { order: 3; }
 
 .podio-medal { font-size: 20px; }
 
 .podio-avatar {
-  border-radius: 50%; border: 3px solid var(--borda); object-fit: cover; 
-  display: flex; align-items: center; justify-content: center; font-weight: 700; 
-  flex-shrink: 0; overflow: hidden; background: var(--azul-mid);
+  border-radius: 50%; border: 3px solid var(--borda); object-fit: cover; 
+  display: flex; align-items: center; justify-content: center; font-weight: 700; 
+  flex-shrink: 0; overflow: hidden; background: var(--azul-mid);
 }
 
 .podio-item:nth-child(1) .podio-avatar { width:86px; height:86px; font-size:26px; border-color:var(--ouro); box-shadow:0 0 22px rgba(255,215,0,.35); }
@@ -178,9 +178,9 @@ img[src="BETAO.png"] { object-position: center !important; }
 .podio-pts small { font-size:11px; font-family:'Inter',sans-serif; color:var(--muted); font-weight:500; }
 
 .podio-base {
-  border-radius: var(--radius-sm) var(--radius-sm) 0 0; width: 96px; 
-  display: flex; align-items: center; justify-content: center; 
-  font-family:'Bebas Neue',sans-serif; font-size:28px; color:rgba(255,255,255,.15);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0; width: 96px; 
+  display: flex; align-items: center; justify-content: center; 
+  font-family:'Bebas Neue',sans-serif; font-size:28px; color:rgba(255,255,255,.15);
 }
 
 .podio-item:nth-child(1) .podio-base { height:88px; background:linear-gradient(180deg,#BFA52A,#8A7420); }
@@ -193,8 +193,8 @@ img[src="BETAO.png"] { object-position: center !important; }
 .ranking-table tbody tr { background:var(--azul-card); border-radius:var(--radius); transition:transform .15s, box-shadow .15s; }
 .ranking-table tbody tr:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(0,0,0,.3); }
 .ranking-table tbody td { padding:13px 16px; vertical-align:middle; }
-.ranking-table tbody td:first-child { border-radius:var(--radius) 0 0 var(--radius); } 
-.ranking-table tbody td:last-child  { border-radius:0 var(--radius) var(--radius) 0; }
+.ranking-table tbody td:first-child { border-radius:var(--radius) 0 0 var(--radius); } 
+.ranking-table tbody td:last-child  { border-radius:0 var(--radius) var(--radius) 0; }
 
 .rank-pos { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--muted); min-width:26px; }
 .rank-player { display:flex; align-items:center; gap:12px; }
@@ -210,14 +210,14 @@ img[src="BETAO.png"] { object-position: center !important; }
 .progress-fill { height:100%; border-radius:4px; background:linear-gradient(90deg,var(--verde),var(--amarelo)); transition:width .6s ease; }
 
 /* ── PALPITES EXPAND ── */
-.palpites-row { display:none; } 
+.palpites-row { display:none; } 
 .palpites-row.open { display:table-row; }
 .palpites-inner { padding:16px; background:rgba(0,0,0,0.25); border-radius:0 0 var(--radius) var(--radius); }
 .palpite-item { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 0; border-bottom:1px solid var(--borda); font-size:13px; flex-wrap:wrap; }
 .palpite-item:last-child { border-bottom:none; }
 
 /* Cores das Badges Fixas */
-.badge-exato  { background:#FFDD00; color:#0D1B2A; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:800; white-space:nowrap; }
+.badge-exato  { background:#FFDD00; color:#0D1B2A; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:800; white-space:nowrap; }
 .badge-coluna { background:#00A651; color:#fff; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:700; white-space:nowrap; }
 .badge-err { background:#C0392B; color:#fff; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:700; white-space:nowrap; }
 .badge-aguardando { background:#8A9BB0; color:#1A2B42; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:700; white-space:nowrap; }
@@ -279,378 +279,378 @@ footer strong { color:var(--verde); }
 <audio id="bg-music" src="https://archive.org/download/fifa-world-cup-2010-official-anthem/FIFA%20World%20Cup%202014%20Official%20Anthem.mp3" loop crossorigin="anonymous"></audio>
 
 <div class="audio-control">
-  <button class="audio-btn" id="audio-toggle" onclick="toggleAudio()">▶</button>
-  <span class="audio-text" id="audio-status">Música Desativada</span>
+  <button class="audio-btn" id="audio-toggle" onclick="toggleAudio()">▶</button>
+  <span class="audio-text" id="audio-status">Música Desativada</span>
 </div>
 
 <header>
-  <div class="header-inner">
-    <div class="logo">
-      <span class="logo-ball">⚽</span>
-      <div class="logo-text">
-        <span class="t1">Bolão Copa 2026</span>
-        <span class="t2">USA · MEX · CAN</span>
-      </div>
-    </div>
-    <nav>
-      <a href="#ranking" class="ativo">Ranking</a>
-      <a href="#proximos">Próximos</a>
-      <a href="#resultados">Resultados</a>
-      <a href="#participantes">Participantes</a>
-    </nav>
-  </div>
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-ball">⚽</span>
+      <div class="logo-text">
+        <span class="t1">Bolão Copa 2026</span>
+        <span class="t2">USA · MEX · CAN</span>
+      </div>
+    </div>
+    <nav>
+      <a href="#ranking" class="ativo">Ranking</a>
+      <a href="#proximos">Próximos</a>
+      <a href="#resultados">Resultados</a>
+      <a href="#participantes">Participantes</a>
+    </nav>
+  </div>
 </header>
 
 <div class="hero-strip">
-  🏆 Copa do Mundo 2026 &nbsp;·&nbsp; <strong>Bolão dos Amigos</strong> &nbsp;·&nbsp; Quem vai faturar? ⚽
+  🏆 Copa do Mundo 2026 &nbsp;·&nbsp; <strong>Bolão dos Amigos</strong> &nbsp;·&nbsp; Quem vai faturar? ⚽
 </div>
 
 <main>
 
-  <section id="ao-vivo-section" style="display: none;">
-    <div class="section-title"><span class="piscar-vermelho">🔴</span> Jogos em Andamento (API)</div>
-    <div id="ao-vivo-list"></div>
-  </section>
+  <section id="ao-vivo-section" style="display: none;">
+    <div class="section-title"><span class="piscar-vermelho">🔴</span> Jogos em Andamento (API)</div>
+    <div id="ao-vivo-list"></div>
+  </section>
 
-  <section id="ranking">
-    <div class="section-title">🏆 Classificação Geral</div>
-    <div class="regras-grid">
-      <div class="regra-card">
-        <div class="regra-pts exato">3 Pts</div>
-        <div class="regra-txt"><strong>Placar Exato</strong>Acertou na mosca o resultado do jogo.</div>
-      </div>
-      <div class="regra-card">
-        <div class="regra-pts resultado">1 Pt</div>
-        <div class="regra-txt"><strong>Tendência Certa</strong>Acertou o vencedor ou empate, mas errou o placar.</div>
-      </div>
-      <div class="regra-card">
-        <div class="regra-pts zero">0 Pts</div>
-        <div class="regra-txt"><strong>Errou Tudo</strong>Não acertou nada ou não palpitou no prazo.</div>
-      </div>
-    </div>
+  <section id="ranking">
+    <div class="section-title">🏆 Classificação Geral</div>
+    <div class="regras-grid">
+      <div class="regra-card">
+        <div class="regra-pts exato">3 Pts</div>
+        <div class="regra-txt"><strong>Placar Exato</strong>Acertou na mosca o resultado do jogo.</div>
+      </div>
+      <div class="regra-card">
+        <div class="regra-pts resultado">1 Pt</div>
+        <div class="regra-txt"><strong>Tendência Certa</strong>Acertou o vencedor ou empate, mas errou o placar.</div>
+      </div>
+      <div class="regra-card">
+        <div class="regra-pts zero">0 Pts</div>
+        <div class="regra-txt"><strong>Errou Tudo</strong>Não acertou nada ou não palpitou no prazo.</div>
+      </div>
+    </div>
 
-    <div id="podio-container" class="podio"></div>
-    <table class="ranking-table">
-      <thead>
-        <tr>
-          <th>#</th><th>Jogador</th><th>Pontuação Total</th><th>Progresso</th><th>Palpites</th>
-        </tr>
-      </thead>
-      <tbody id="ranking-body"></tbody>
-    </table>
-  </section>
+    <div id="podio-container" class="podio"></div>
+    <table class="ranking-table">
+      <thead>
+        <tr>
+          <th>#</th><th>Jogador</th><th>Pontuação Total</th><th>Progresso</th><th>Palpites</th>
+        </tr>
+      </thead>
+      <tbody id="ranking-body"></tbody>
+    </table>
+  </section>
 
-  <section id="proximos">
-    <div class="section-title">📅 Próximos Jogos</div>
-    <div class="jogos-grid" id="proximos-grid"></div>
-  </section>
+  <section id="proximos">
+    <div class="section-title">📅 Próximos Jogos</div>
+    <div class="jogos-grid" id="proximos-grid"></div>
+  </section>
 
-  <section id="resultados">
-    <div class="section-title">⚽ Jogos Realizados</div>
-    <div id="resultados-list"></div>
-  </section>
+  <section id="resultados">
+    <div class="section-title">⚽ Jogos Realizados</div>
+    <div id="resultados-list"></div>
+  </section>
 
-  <section id="participantes">
-    <div class="section-title">🏃‍♂️ Elenco do Bolão</div>
-    <div class="carousel-container">
-      <div class="carousel-track" id="carousel-track"></div>
-    </div>
-  </section>
+  <section id="participantes">
+    <div class="section-title">🏃‍♂️ Elenco do Bolão</div>
+    <div class="carousel-container">
+      <div class="carousel-track" id="carousel-track"></div>
+    </div>
+  </section>
 
 </main>
 
 <footer>
-  <p>⚽ Bolão Copa do Mundo 2026 &nbsp;·&nbsp; <strong>USA · México · Canadá</strong> &nbsp;·&nbsp; Feito com muito futebol e amizade 🏆</p>
+  <p>⚽ Bolão Copa do Mundo 2026 &nbsp;·&nbsp; <strong>USA · México · Canadá</strong> &nbsp;·&nbsp; Feito com muito futebol e amizade 🏆</p>
 </footer>
 
 <script>
 // ═══════════════════════════════════════════
-//  1. CONFIGURAÇÕES DA API E CHAVE
+//  1. CONFIGURAÇÕES DA API E CHAVE
 // ═══════════════════════════════════════════
-const CHAVE_API_FOOTBALL = "ae38225905e0301ea6b2140027bacc50"; 
+const CHAVE_API_FOOTBALL = "ae38225905e0301ea6b2140027bacc50"; 
 
 // O Dicionário Tradutor (Ensina ao código que "Canada" na API é o "🇨🇦 Canadá" da sua planilha)
 const tradutorTimes = {
-  "Canada": "🇨🇦 Canadá",
-  "Bosnia & Herzegovina": "🇧🇦 Bósnia e Herz.",
-  "Bosnia": "🇧🇦 Bósnia e Herz.",
-  "USA": "🇺🇸 Estados Unidos",
-  "Paraguay": "🇵🇾 Paraguai",
-  "Qatar": "🇶🇦 Catar",
-  "Switzerland": "🇨🇭 Suíça",
-  "Brazil": "🇧🇷 Brasil",
-  "Morocco": "🇲🇦 Marrocos"
+  "Canada": "🇨🇦 Canadá",
+  "Bosnia & Herzegovina": "🇧🇦 Bósnia e Herz.",
+  "Bosnia": "🇧🇦 Bósnia e Herz.",
+  "USA": "🇺🇸 Estados Unidos",
+  "Paraguay": "🇵🇾 Paraguai",
+  "Qatar": "🇶🇦 Catar",
+  "Switzerland": "🇨🇭 Suíça",
+  "Brazil": "🇧🇷 Brasil",
+  "Morocco": "🇲🇦 Marrocos"
 };
 
 // ═══════════════════════════════════════════
-//  BANCO DE DADOS LOCAL
+//  BANCO DE DADOS LOCAL
 // ═══════════════════════════════════════════
 const estado = {
-  jogadores: [
-    { id: 1, nome: 'Momô dos Macarrões', foto: 'momo.png', descricao: 'Momô que perde chinelo, vende macarrão e toma golpe do Ramon.', pontos: 0, palpites: [] },
-    { id: 2, nome: 'jao Larangeta', foto: 'JAO.png', descricao: 'Primeiro laranja da história que saiu pobre do esquema. Conhece Dogecoin e BCT.', pontos: 0, palpites: [] },
-    { id: 3, nome: 'Julin Bê Xoginho', foto: 'julin.png', descricao: 'Alerta de fofura no microfone! O carro não pode ficar xoginho que estraga.', pontos: 0, palpites: [] },
-    { id: 5, nome: 'Betao Refem da Karen', foto: 'BETAO.png', descricao: 'Nem me lembro a última vez que vi, creio que sofre abuso doméstico.', pontos: 0, palpites: [] },
-    { id: 4, nome: 'Henrick Receita Federal', foto: 'HENRICK.png', descricao: 'A última vez que pagou uma DAE foi em 2008. Aprendeu a sonegar antes de falar.', pontos: 0, palpites: [] },
-    { id: 6, nome: 'Lulu Gay do Vôlei', foto: 'lulu.png', descricao: 'Pega e levanta bola com as gays do vôlei, mas ele é hétero sim.', pontos: 0, palpites: [] }
-  ],
-  
-  // A API vai preencher isto automaticamente!
-  aoVivo: [],
-  
-  proximos: [
-    { id: 2, time1:'🇨🇦 Canadá', time2:'🇧🇦 Bósnia e Herz.', fase:'Grupo B', data:'2026-06-12', hora:'16:00' },
-    { id: 3, time1:'🇺🇸 Estados Unidos', time2:'🇵🇾 Paraguai', fase:'Grupo D', data:'2026-06-12', hora:'22:00' },
-    { id: 4, time1:'🇶🇦 Catar', time2:'🇨🇭 Suíça', fase:'Grupo B', data:'2026-06-13', hora:'16:00' },
-    { id: 5, time1:'🇧🇷 Brasil', time2:'🇲🇦 Marrocos', fase:'Grupo C', data:'2026-06-13', hora:'19:00' }
-  ],
-  realizados: [
-    { id: 100, time1:'🇲🇽 México', time2:'🇿🇦 África do Sul', resultado:'2x0', data:'2026-06-11' },
-    { id: 101, time1:'🇰🇷 Coreia do Sul', time2:'🇨🇿 Tchéquia', resultado:'2x1', data:'2026-06-11' }
-  ]
+  jogadores: [
+    { id: 1, nome: 'Momô dos Macarrões', foto: 'momo.png', descricao: 'Momô que perde chinelo, vende macarrão e toma golpe do Ramon.', pontos: 0, palpites: [] },
+    { id: 2, nome: 'jao Larangeta', foto: 'JAO.png', descricao: 'Primeiro laranja da história que saiu pobre do esquema. Conhece Dogecoin e BCT.', pontos: 0, palpites: [] },
+    { id: 3, nome: 'Julin Bê Xoginho', foto: 'julin.png', descricao: 'Alerta de fofura no microfone! O carro não pode ficar xoginho que estraga.', pontos: 0, palpites: [] },
+    { id: 5, nome: 'Betao Refem da Karen', foto: 'BETAO.png', descricao: 'Nem me lembro a última vez que vi, creio que sofre abuso doméstico.', pontos: 0, palpites: [] },
+    { id: 4, nome: 'Henrick Receita Federal', foto: 'HENRICK.png', descricao: 'A última vez que pagou uma DAE foi em 2008. Aprendeu a sonegar antes de falar.', pontos: 0, palpites: [] },
+    { id: 6, nome: 'Lulu Gay do Vôlei', foto: 'lulu.png', descricao: 'Pega e levanta bola com as gays do vôlei, mas ele é hétero sim.', pontos: 0, palpites: [] }
+  ],
+  
+  // A API vai preencher isto automaticamente!
+  aoVivo: [],
+  
+  proximos: [
+    { id: 2, time1:'🇨🇦 Canadá', time2:'🇧🇦 Bósnia e Herz.', fase:'Grupo B', data:'2026-06-12', hora:'16:00' },
+    { id: 3, time1:'🇺🇸 Estados Unidos', time2:'🇵🇾 Paraguai', fase:'Grupo D', data:'2026-06-12', hora:'22:00' },
+    { id: 4, time1:'🇶🇦 Catar', time2:'🇨🇭 Suíça', fase:'Grupo B', data:'2026-06-13', hora:'16:00' },
+    { id: 5, time1:'🇧🇷 Brasil', time2:'🇲🇦 Marrocos', fase:'Grupo C', data:'2026-06-13', hora:'19:00' }
+  ],
+  realizados: [
+    { id: 100, time1:'🇲🇽 México', time2:'🇿🇦 África do Sul', resultado:'2x0', data:'2026-06-11' },
+    { id: 101, time1:'🇰🇷 Coreia do Sul', time2:'🇨🇿 Tchéquia', resultado:'2x1', data:'2026-06-11' }
+  ]
 };
 
 localStorage.clear();
 
 // ═══════════════════════════════════════════
-//  MOTOR DA API - PESQUISA DE JOGOS AO VIVO
+//  MOTOR DA API - PESQUISA DE JOGOS AO VIVO
 // ═══════════════════════════════════════════
 async function buscarPlacarAoVivoDaAPI() {
-  if (!CHAVE_API_FOOTBALL) return; 
+  if (!CHAVE_API_FOOTBALL) return; 
 
-  // Procura apenas jogos a decorrer da Copa do Mundo (ID = 1 na API-Football)
-  const url = "https://v3.football.api-sports.io/fixtures?live=all&league=1"; 
-  
-  try {
-    const resposta = await fetch(url, {
-      method: "GET",
-      headers: { "x-apisports-key": CHAVE_API_FOOTBALL }
-    });
-    
-    const dados = await resposta.json();
-    
-    // Zera a lista ao vivo atual
-    estado.aoVivo = [];
+  // Procura apenas jogos a decorrer da Copa do Mundo (ID = 1 na API-Football)
+  const url = "https://v3.football.api-sports.io/fixtures?live=all&league=1"; 
+  
+  try {
+    const resposta = await fetch(url, {
+      method: "GET",
+      headers: { "x-apisports-key": CHAVE_API_FOOTBALL }
+    });
+    
+    const dados = await resposta.json();
+    
+    // Zera a lista ao vivo atual
+    estado.aoVivo = [];
 
-    // Se houver jogos, processa os dados
-    if (dados.response && dados.response.length > 0) {
-      dados.response.forEach(jogoAPI => {
-        // Traduz o nome estrangeiro para o correspondente com emoji
-        const timeCasa = tradutorTimes[jogoAPI.teams.home.name] || jogoAPI.teams.home.name;
-        const timeFora = tradutorTimes[jogoAPI.teams.away.name] || jogoAPI.teams.away.name;
-        
-        estado.aoVivo.push({
-          jogoNome: `${timeCasa} x ${timeFora}`, 
-          time1: timeCasa,
-          time2: timeFora,
-          gols1: jogoAPI.goals.home || 0,
-          gols2: jogoAPI.goals.away || 0,
-          tempo: `${jogoAPI.fixture.status.elapsed}' min`
-        });
-      });
-    }
+    // Se houver jogos, processa os dados
+    if (dados.response && dados.response.length > 0) {
+      dados.response.forEach(jogoAPI => {
+        // Traduz o nome estrangeiro para o correspondente com emoji
+        const timeCasa = tradutorTimes[jogoAPI.teams.home.name] || jogoAPI.teams.home.name;
+        const timeFora = tradutorTimes[jogoAPI.teams.away.name] || jogoAPI.teams.away.name;
+        
+        estado.aoVivo.push({
+          jogoNome: `${timeCasa} x ${timeFora}`, 
+          time1: timeCasa,
+          time2: timeFora,
+          gols1: jogoAPI.goals.home || 0,
+          gols2: jogoAPI.goals.away || 0,
+          tempo: `${jogoAPI.fixture.status.elapsed}' min`
+        });
+      });
+    }
 
-    renderTudo(); // Actualiza o ecrã com os golos reais
+    renderTudo(); // Actualiza o ecrã com os golos reais
 
-  } catch (erro) {
-    console.error("A API de Futebol falhou em atualizar o placar ao vivo:", erro);
-  }
+  } catch (erro) {
+    console.error("A API de Futebol falhou em atualizar o placar ao vivo:", erro);
+  }
 }
 
 // ═══════════════════════════════════════════
-//  CÁLCULO MATEMÁTICO DE PONTOS
+//  CÁLCULO MATEMÁTICO DE PONTOS
 // ═══════════════════════════════════════════
 function calcularGols(palpiteStr, golsTime1, golsTime2) {
-  if (!palpiteStr || palpiteStr.toLowerCase() === 'não apostou') return 0;
-  
-  const placares = palpiteStr.split('x').map(Number);
-  if (placares.length !== 2 || isNaN(placares[0])) return 0;
-  
-  const p1 = placares[0]; 
-  const p2 = placares[1];
-  
-  if (p1 === golsTime1 && p2 === golsTime2) return 3; // Exato
+  if (!palpiteStr || palpiteStr.toLowerCase() === 'não apostou') return 0;
+  
+  const placares = palpiteStr.split('x').map(Number);
+  if (placares.length !== 2 || isNaN(placares[0])) return 0;
+  
+  const p1 = placares[0]; 
+  const p2 = placares[1];
+  
+  if (p1 === golsTime1 && p2 === golsTime2) return 3; // Exato
 
-  const vit1Real = golsTime1 > golsTime2; 
-  const vit2Real = golsTime2 > golsTime1; 
-  const empReal = golsTime1 === golsTime2;
-  
-  const vit1Palpite = p1 > p2; 
-  const vit2Palpite = p2 > p1; 
-  const empPalpite = p1 === p2;
+  const vit1Real = golsTime1 > golsTime2; 
+  const vit2Real = golsTime2 > golsTime1; 
+  const empReal = golsTime1 === golsTime2;
+  
+  const vit1Palpite = p1 > p2; 
+  const vit2Palpite = p2 > p1; 
+  const empPalpite = p1 === p2;
 
-  if (vit1Real && vit1Palpite) return 1;
-  if (vit2Real && vit2Palpite) return 1;
-  if (empReal && empPalpite) return 1;
-  
-  return 0; // Errou
+  if (vit1Real && vit1Palpite) return 1;
+  if (vit2Real && vit2Palpite) return 1;
+  if (empReal && empPalpite) return 1;
+  
+  return 0; // Errou
 }
 
 function processarPontosEmTempoReal() {
-  estado.jogadores.forEach(j => {
-    let pontosExtras = 0;
-    
-    j.palpites.forEach(p => {
-      const jogoRodando = estado.aoVivo.find(a => a.jogoNome === p.jogo);
-      
-      if (jogoRodando) {
-        const pontosMomento = calcularGols(p.palpite, jogoRodando.gols1, jogoRodando.gols2);
-        pontosExtras += pontosMomento;
-        
-        if (pontosMomento === 3) p.tipoTemporario = 'ao-vivo-exato';
-        else if (pontosMomento === 1) p.tipoTemporario = 'ao-vivo-coluna';
-        else p.tipoTemporario = 'ao-vivo-err';
-      } else {
-        p.tipoTemporario = p.tipo;
-      }
-    });
-    
-    j.pontosTotais = j.pontos + pontosExtras;
-  });
+  estado.jogadores.forEach(j => {
+    let pontosExtras = 0;
+    
+    j.palpites.forEach(p => {
+      const jogoRodando = estado.aoVivo.find(a => a.jogoNome === p.jogo);
+      
+      if (jogoRodando) {
+        const pontosMomento = calcularGols(p.palpite, jogoRodando.gols1, jogoRodando.gols2);
+        pontosExtras += pontosMomento;
+        
+        if (pontosMomento === 3) p.tipoTemporario = 'ao-vivo-exato';
+        else if (pontosMomento === 1) p.tipoTemporario = 'ao-vivo-coluna';
+        else p.tipoTemporario = 'ao-vivo-err';
+      } else {
+        p.tipoTemporario = p.tipo;
+      }
+    });
+    
+    j.pontosTotais = j.pontos + pontosExtras;
+  });
 }
 
 // ═══════════════════════════════════════════
-//  FUNÇÕES DE DESENHO DO ECRÃ
+//  FUNÇÕES DE DESENHO DO ECRÃ
 // ═══════════════════════════════════════════
-function lancarIniciais(nome) { 
-  return nome.split(' ').slice(0,2).map(w => w[0].toUpperCase()).join(''); 
+function lancarIniciais(nome) { 
+  return nome.split(' ').slice(0,2).map(w => w[0].toUpperCase()).join(''); 
 }
 
-function avatarHTML(jogador, size) { 
-  if (jogador.foto) return `<img src="${jogador.foto}" alt="${jogador.nome}">`; 
-  return lancarIniciais(jogador.nome); 
+function avatarHTML(jogador, size) { 
+  if (jogador.foto) return `<img src="${jogador.foto}" alt="${jogador.nome}">`; 
+  return lancarIniciais(jogador.nome); 
 }
 
-function fotoCardHTML(jogador) { 
-  if (jogador.foto) return `<div class="card-photo-wrapper"><img src="${jogador.foto}" alt="${jogador.nome}"></div>`; 
-  return `<div class="card-photo-wrapper"><div class="card-photo-fallback">${lancarIniciais(jogador.nome)}</div></div>`; 
+function fotoCardHTML(jogador) { 
+  if (jogador.foto) return `<div class="card-photo-wrapper"><img src="${jogador.foto}" alt="${jogador.nome}"></div>`; 
+  return `<div class="card-photo-wrapper"><div class="card-photo-fallback">${lancarIniciais(jogador.nome)}</div></div>`; 
 }
 
 function renderAoVivo() {
-  const section = document.getElementById('ao-vivo-section');
-  const list = document.getElementById('ao-vivo-list');
-  
-  if (estado.aoVivo.length > 0) {
-    section.style.display = 'block';
-    list.innerHTML = estado.aoVivo.map(j => `
-      <div class="ao-vivo-card">
-        <div class="ao-vivo-tempo"><span class="piscar-vermelho">🔴</span> ${j.tempo}</div>
-        <div class="resultado-times">${j.time1}</div>
-        <div class="ao-vivo-placar">${j.gols1} x ${j.gols2}</div>
-        <div class="resultado-times">${j.time2}</div>
-      </div>
-    `).join('');
-  } else {
-    section.style.display = 'none';
-  }
+  const section = document.getElementById('ao-vivo-section');
+  const list = document.getElementById('ao-vivo-list');
+  
+  if (estado.aoVivo.length > 0) {
+    section.style.display = 'block';
+    list.innerHTML = estado.aoVivo.map(j => `
+      <div class="ao-vivo-card">
+        <div class="ao-vivo-tempo"><span class="piscar-vermelho">🔴</span> ${j.tempo}</div>
+        <div class="resultado-times">${j.time1}</div>
+        <div class="ao-vivo-placar">${j.gols1} x ${j.gols2}</div>
+        <div class="resultado-times">${j.time2}</div>
+      </div>
+    `).join('');
+  } else {
+    section.style.display = 'none';
+  }
 }
 
 function renderRanking() {
-  const sorted = [...estado.jogadores].sort((a,b) => b.pontosTotais - a.pontosTotais || a.nome.localeCompare(b.nome));
-  const max = Math.max(...sorted.map(j => j.pontosTotais), 1);
-  const podio = document.getElementById('podio-container');
-  
-  podio.innerHTML = sorted.slice(0, Math.min(3, sorted.length)).map((j, i) => `
-    <div class="podio-item">
-      <span>${['🥇','🥈','🥉'][i]}</span>
-      <div class="podio-avatar" style="${i===0?'width:86px;height:86px;':i===1?'width:70px;height:70px;':'width:66px;height:66px;'}">${avatarHTML(j, i===0?86:i===1?70:66)}</div>
-      <div class="podio-nome">${j.nome}</div>
-      <div class="podio-pts">${j.pontosTotais} <small>Pts</small></div>
-      <div class="podio-base" style="height:${[88,66,48][i]}px">${i+1}</div>
-    </div>
-  `).join('');
+  const sorted = [...estado.jogadores].sort((a,b) => b.pontosTotais - a.pontosTotais || a.nome.localeCompare(b.nome));
+  const max = Math.max(...sorted.map(j => j.pontosTotais), 1);
+  const podio = document.getElementById('podio-container');
+  
+  podio.innerHTML = sorted.slice(0, Math.min(3, sorted.length)).map((j, i) => `
+    <div class="podio-item">
+      <span>${['🥇','🥈','🥉'][i]}</span>
+      <div class="podio-avatar" style="${i===0?'width:86px;height:86px;':i===1?'width:70px;height:70px;':'width:66px;height:66px;'}">${avatarHTML(j, i===0?86:i===1?70:66)}</div>
+      <div class="podio-nome">${j.nome}</div>
+      <div class="podio-pts">${j.pontosTotais} <small>Pts</small></div>
+      <div class="podio-base" style="height:${[88,66,48][i]}px">${i+1}</div>
+    </div>
+  `).join('');
 
-  const tbody = document.getElementById('ranking-body');
-  tbody.innerHTML = sorted.map((j, i) => {
-    const pct = (j.pontosTotais / max * 100).toFixed(0);
-    const lider = i===0 && j.pontosTotais > 0 ? '<span class="badge-lider">Líder</span>' : '';
-    const temPalpites = j.palpites && j.palpites.length > 0;
-    
-    return `
-      <tr>
-        <td><div class="rank-pos">${i+1}</div></td>
-        <td>
-          <div class="rank-player">
-            <div class="rank-avatar" style="width:42px;height:42px;font-size:14px;">${avatarHTML(j, 42)}</div>
-            <div><span class="rank-nome">${j.nome}</span>${lider}</div>
-          </div>
-        </td>
-        <td><div class="rank-acertos">${j.pontosTotais} pts</div></td>
-        <td><div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div></td>
-        <td>${temPalpites ? `<button class="btn-ver" onclick="togglePalpites('p${j.id}')">Ver palpites ▾</button>` : ''}</td>
-      </tr>
-      ${temPalpites ? `<tr class="palpites-row" id="p${j.id}"><td colspan="5"><div class="palpites-inner">
-        ${j.palpites.map(p => `
-          <div class="palpite-item">
-            <span>${p.jogo}</span>
-            <span>Palpite: <b>${p.palpite}</b></span>
-            <span class="badge-${p.tipoTemporario}">${
-              p.tipoTemporario === 'ao-vivo-exato' ? '🔥 +3 PTS (AO VIVO)' : 
-              p.tipoTemporario === 'ao-vivo-coluna' ? '⚡ +1 PT (AO VIVO)' : 
-              p.tipoTemporario === 'ao-vivo-err' ? '❌ 0 PTS (AO VIVO)' :
-              p.tipoTemporario === 'exato' ? '🏆 +3 PTS EXATO' : 
-              p.tipoTemporario === 'coluna' ? '✅ +1 PT TENDÊNCIA' : 
-              p.tipoTemporario === 'aguardando' ? '⏳ AGUARDANDO' : '❌ 0 PTS ERROU'
-            }</span>
-          </div>
-        `).join('')}
-      </div></td></tr>` : ''}
-    `;
-  }).join('');
+  const tbody = document.getElementById('ranking-body');
+  tbody.innerHTML = sorted.map((j, i) => {
+    const pct = (j.pontosTotais / max * 100).toFixed(0);
+    const lider = i===0 && j.pontosTotais > 0 ? '<span class="badge-lider">Líder</span>' : '';
+    const temPalpites = j.palpites && j.palpites.length > 0;
+    
+    return `
+      <tr>
+        <td><div class="rank-pos">${i+1}</div></td>
+        <td>
+          <div class="rank-player">
+            <div class="rank-avatar" style="width:42px;height:42px;font-size:14px;">${avatarHTML(j, 42)}</div>
+            <div><span class="rank-nome">${j.nome}</span>${lider}</div>
+          </div>
+        </td>
+        <td><div class="rank-acertos">${j.pontosTotais} pts</div></td>
+        <td><div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div></td>
+        <td>${temPalpites ? `<button class="btn-ver" onclick="togglePalpites('p${j.id}')">Ver palpites ▾</button>` : ''}</td>
+      </tr>
+      ${temPalpites ? `<tr class="palpites-row" id="p${j.id}"><td colspan="5"><div class="palpites-inner">
+        ${j.palpites.map(p => `
+          <div class="palpite-item">
+            <span>${p.jogo}</span>
+            <span>Palpite: <b>${p.palpite}</b></span>
+            <span class="badge-${p.tipoTemporario}">${
+              p.tipoTemporario === 'ao-vivo-exato' ? '🔥 +3 PTS (AO VIVO)' : 
+              p.tipoTemporario === 'ao-vivo-coluna' ? '⚡ +1 PT (AO VIVO)' : 
+              p.tipoTemporario === 'ao-vivo-err' ? '❌ 0 PTS (AO VIVO)' :
+              p.tipoTemporario === 'exato' ? '🏆 +3 PTS EXATO' : 
+              p.tipoTemporario === 'coluna' ? '✅ +1 PT TENDÊNCIA' : 
+              p.tipoTemporario === 'aguardando' ? '⏳ AGUARDANDO' : '❌ 0 PTS ERROU'
+            }</span>
+          </div>
+        `).join('')}
+      </div></td></tr>` : ''}
+    `;
+  }).join('');
 }
 
-function renderProximos() { 
-  document.getElementById('proximos-grid').innerHTML = estado.proximos.map(j => `
-    <div class="jogo-card">
-      <div class="jogo-fase">${j.fase}</div>
-      <div class="jogo-times">
-        <div class="jogo-time"><span class="jogo-time-nome">${j.time1}</span></div>
-        <span class="jogo-vs">VS</span>
-        <div class="jogo-time"><span class="jogo-time-nome">${j.time2}</span></div>
-      </div>
-      <div class="jogo-meta">
-        <span>📅 ${new Date(j.data+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}</span>
-        <span>⏰ ${j.hora}</span>
-      </div>
-    </div>
-  `).join(''); 
+function renderProximos() { 
+  document.getElementById('proximos-grid').innerHTML = estado.proximos.map(j => `
+    <div class="jogo-card">
+      <div class="jogo-fase">${j.fase}</div>
+      <div class="jogo-times">
+        <div class="jogo-time"><span class="jogo-time-nome">${j.time1}</span></div>
+        <span class="jogo-vs">VS</span>
+        <div class="jogo-time"><span class="jogo-time-nome">${j.time2}</span></div>
+      </div>
+      <div class="jogo-meta">
+        <span>📅 ${new Date(j.data+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}</span>
+        <span>⏰ ${j.hora}</span>
+      </div>
+    </div>
+  `).join(''); 
 }
 
-function renderResultados() { 
-  document.getElementById('resultados-list').innerHTML = estado.realizados.map(j => `
-    <div class="resultado-card">
-      <div class="resultado-times">${j.time1}</div>
-      <div class="resultado-placar">${j.resultado}</div>
-      <div class="resultado-times">${j.time2}</div>
-    </div>
-  `).join(''); 
+function renderResultados() { 
+  document.getElementById('resultados-list').innerHTML = estado.realizados.map(j => `
+    <div class="resultado-card">
+      <div class="resultado-times">${j.time1}</div>
+      <div class="resultado-placar">${j.resultado}</div>
+      <div class="resultado-times">${j.time2}</div>
+    </div>
+  `).join(''); 
 }
 
-function renderCarrossel() { 
-  document.getElementById('carousel-track').innerHTML = [...estado.jogadores, ...estado.jogadores].map(j => `
-    <div class="card-participante">
-      ${fotoCardHTML(j)}
-      <div class="card-nome">${j.nome}</div>
-      <div class="card-desc">${j.descricao || 'Pronto para os palpites!'}</div>
-    </div>
-  `).join(''); 
+function renderCarrossel() { 
+  document.getElementById('carousel-track').innerHTML = [...estado.jogadores, ...estado.jogadores].map(j => `
+    <div class="card-participante">
+      ${fotoCardHTML(j)}
+      <div class="card-nome">${j.nome}</div>
+      <div class="card-desc">${j.descricao || 'Pronto para os palpites!'}</div>
+    </div>
+  `).join(''); 
 }
 
 function togglePalpites(id) {
-  const row = document.getElementById(id); 
-  if (!row) return;
-  const isOpen = row.classList.contains('open');
-  document.querySelectorAll('.palpites-row.open').forEach(r => r.classList.remove('open'));
-  if (!isOpen) row.classList.add('open');
+  const row = document.getElementById(id); 
+  if (!row) return;
+  const isOpen = row.classList.contains('open');
+  document.querySelectorAll('.palpites-row.open').forEach(r => r.classList.remove('open'));
+  if (!isOpen) row.classList.add('open');
 }
 
-function renderTudo() { 
-  processarPontosEmTempoReal(); 
-  renderAoVivo(); 
-  renderRanking(); 
-  renderProximos(); 
-  renderResultados(); 
-  renderCarrossel(); 
+function renderTudo() { 
+  processarPontosEmTempoReal(); 
+  renderAoVivo(); 
+  renderRanking(); 
+  renderProximos(); 
+  renderResultados(); 
+  renderCarrossel(); 
 }
 
 // ═══════════════════════════════════════════
@@ -659,46 +659,46 @@ function renderTudo() { 
 const urlPalpites = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTbH86mCclRAWsdCJ5mHibzeRAKR-EOOx-Z6r-j031dYyc0zDn9o7XzfY64OBTtCnSgt25fPDjTrUrt/pub?gid=425039932&single=true&output=csv";
 
 async function iniciarApp() {
-  try {
-    const resposta = await fetch(urlPalpites);
-    const dadosCsv = await resposta.text();
-    const linhas = dadosCsv.split('\n').slice(1);
-    
-    // Zera os palpites e a pontuação antes de preencher a partir do Sheets
-    estado.jogadores.forEach(j => {
-      j.palpites = [];
-      j.pontos = 0;
-    });
+  try {
+    const resposta = await fetch(urlPalpites);
+    const dadosCsv = await resposta.text();
+    const linhas = dadosCsv.split('\n').slice(1);
+    
+    // Zera os palpites e a pontuação antes de preencher a partir do Sheets
+    estado.jogadores.forEach(j => {
+      j.palpites = [];
+      j.pontos = 0;
+    });
 
-    linhas.forEach(linha => {
-      const colunas = linha.split(/[,;\t]/); 
-      if (colunas.length >= 4) {
-        const idJogador = parseInt(colunas[0].trim());
-        const jogo = colunas[1].trim();
-        const palpite = colunas[2].trim();
-        const tipo = colunas[3].trim().toLowerCase(); 
+    linhas.forEach(linha => {
+      const colunas = linha.split(/[,;\t]/); 
+      if (colunas.length >= 4) {
+        const idJogador = parseInt(colunas[0].trim());
+        const jogo = colunas[1].trim();
+        const palpite = colunas[2].trim();
+        const tipo = colunas[3].trim().toLowerCase(); 
 
-        const donoDoPalpite = estado.jogadores.find(j => j.id === idJogador);
-        if (donoDoPalpite && !isNaN(idJogador)) {
-          
-          donoDoPalpite.palpites.push({ jogo, palpite, tipo });
+        const donoDoPalpite = estado.jogadores.find(j => j.id === idJogador);
+        if (donoDoPalpite && !isNaN(idJogador)) {
+          
+          donoDoPalpite.palpites.push({ jogo, palpite, tipo });
 
-          // CÁLCULO AUTOMÁTICO DE PONTOS
-          if (tipo === 'exato') {
-            donoDoPalpite.pontos += 3;
-          } else if (tipo === 'coluna') {
-            donoDoPalpite.pontos += 1;
-          }
+          // CÁLCULO AUTOMÁTICO DE PONTOS
+          if (tipo === 'exato') {
+            donoDoPalpite.pontos += 3;
+          } else if (tipo === 'coluna') {
+            donoDoPalpite.pontos += 1;
+          }
 
-        }
-      }
-    });
-  } catch (erro) {
-    console.error("Erro ao puxar palpites da planilha:", erro);
-  } finally {
-    // Procura por jogos ao vivo na API
-    await buscarPlacarAoVivoDaAPI();
-  }
+        }
+      }
+    });
+  } catch (erro) {
+    console.error("Erro ao puxar palpites da planilha:", erro);
+  } finally {
+    // Procura por jogos ao vivo na API
+    await buscarPlacarAoVivoDaAPI();
+  }
 }
 
 // Inicia o processo lendo o Sheets e a API
@@ -708,55 +708,54 @@ iniciarApp();
 setInterval(buscarPlacarAoVivoDaAPI, 180000);
 
 // ═══════════════════════════════════════════
-//  CONFIGURAÇÃO DE ÁUDIO
+//  CONFIGURAÇÃO DE ÁUDIO
 // ═══════════════════════════════════════════
 const audio = document.getElementById('bg-music');
 const audioBtn = document.getElementById('audio-toggle');
 const audioStatus = document.getElementById('audio-status');
 audio.muted = true;
 
-function iniciarAutoplayComFade() { 
-  audio.play().then(() => { 
-    audio.muted = false; 
-    audio.volume = 0; 
-    audioBtn.textContent = '⏸'; 
-    audioStatus.textContent = 'Trilha da Copa Ativa'; 
-    let vol = 0; 
-    const fadeInterval = setInterval(() => { 
-      if (vol < 0.25) { 
-        vol += 0.02; 
-        audio.volume = Math.min(vol, 0.25); 
-      } else { 
-        clearInterval(fadeInterval); 
-      } 
-    }, 150); 
-  }).catch(() => { 
-    audioStatus.textContent = 'Mova a tela para som 🎵'; 
-  }); 
+function iniciarAutoplayComFade() { 
+  audio.play().then(() => { 
+    audio.muted = false; 
+    audio.volume = 0; 
+    audioBtn.textContent = '⏸'; 
+    audioStatus.textContent = 'Trilha da Copa Ativa'; 
+    let vol = 0; 
+    const fadeInterval = setInterval(() => { 
+      if (vol < 0.25) { 
+        vol += 0.02; 
+        audio.volume = Math.min(vol, 0.25); 
+      } else { 
+        clearInterval(fadeInterval); 
+      } 
+    }, 150); 
+  }).catch(() => { 
+    audioStatus.textContent = 'Mova a tela para som 🎵'; 
+  }); 
 }
 
 window.addEventListener('DOMContentLoaded', iniciarAutoplayComFade);
 
-['click', 'mouseover', 'touchstart'].forEach(evt => { 
-  document.addEventListener(evt, function ativarSom() { 
-    if (audio.paused || audio.volume === 0) { 
-      iniciarAutoplayComFade(); 
-    } 
-    document.removeEventListener(evt, ativarSom); 
-  }, { once: true }); 
+['click', 'mouseover', 'touchstart'].forEach(evt => { 
+  document.addEventListener(evt, function ativarSom() { 
+    if (audio.paused || audio.volume === 0) { 
+      iniciarAutoplayComFade(); 
+    } 
+    document.removeEventListener(evt, ativarSom); 
+  }, { once: true }); 
 });
 
-function toggleAudio() { 
-  if (audio.paused) { 
-    audio.play(); 
-    audio.volume = 0.25; 
-    audioBtn.textContent = '⏸'; 
-  } else { 
-    audio.pause(); 
-    audioBtn.textContent = '▶'; 
-  } 
+function toggleAudio() { 
+  if (audio.paused) { 
+    audio.play(); 
+    audio.volume = 0.25; 
+    audioBtn.textContent = '⏸'; 
+  } else { 
+    audio.pause(); 
+    audioBtn.textContent = '▶'; 
+  } 
 }
-
 </script>
 </body>
 </html>
