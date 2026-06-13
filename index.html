@@ -416,10 +416,8 @@ localStorage.clear();
 //  MOTOR DA API - NOVO (FOOTBALL-DATA.ORG)
 // ═══════════════════════════════════════════
 async function buscarPlacarAoVivoDaAPI() {
-  // COLOQUE A CHAVE QUE VOCÊ PEGOU NO SITE DELES AQUI:
-  const TOKEN_FOOTBALL_DATA = "SUA_NOVA_CHAVE_AQUI"; 
-  
-  if (!TOKEN_FOOTBALL_DATA || TOKEN_FOOTBALL_DATA === "7385d7783f804b23b41b4bf9fcaadcb0") return;
+  // Sua chave real já posicionada corretamente
+  const TOKEN_FOOTBALL_DATA = "7385d7783f804b23b41b4bf9fcaadcb0"; 
 
   // Busca os jogos de hoje
   const url = "https://api.football-data.org/v4/matches"; 
@@ -427,7 +425,6 @@ async function buscarPlacarAoVivoDaAPI() {
   try {
     const resposta = await fetch(url, {
       method: "GET",
-      // Atenção: O nome do cabeçalho de segurança mudou!
       headers: { "X-Auth-Token": TOKEN_FOOTBALL_DATA } 
     });
     
@@ -452,10 +449,8 @@ async function buscarPlacarAoVivoDaAPI() {
           jogoNome: `${timeCasa} x ${timeFora}`, 
           time1: timeCasa,
           time2: timeFora,
-          // Acessa os gols na nova estrutura de JSON
           gols1: jogoAPI.score?.fullTime?.home ?? 0,
           gols2: jogoAPI.score?.fullTime?.away ?? 0,
-          // A API grátis não costuma dar o minuto exato, então exibimos o status
           tempo: jogoAPI.status === 'PAUSED' ? 'Intervalo 🔴' : 'Ao Vivo 🔴' 
         });
       });
