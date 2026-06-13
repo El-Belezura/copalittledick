@@ -85,6 +85,32 @@ nav a:hover, nav a.ativo { background: var(--amarelo); color: var(--azul-esc); }
 
 .hero-strip strong { color: var(--amarelo); }
 
+/* ── LOADING BANNER ── */
+#loading-banner {
+  background: rgba(0,166,81,0.1);
+  border: 1px solid rgba(0,166,81,0.3);
+  border-radius: var(--radius);
+  padding: 14px 20px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--verde);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.spinner {
+  width: 18px; height: 18px;
+  border: 2px solid rgba(0,166,81,0.3);
+  border-top-color: var(--verde);
+  border-radius: 50%;
+  animation: giro 0.8s linear infinite;
+}
+
+@keyframes giro { to { transform: rotate(360deg); } }
+
 /* ── MAIN ── */
 main { max-width: 1100px; margin: 0 auto; padding: 36px 24px 72px; }
 section { margin-bottom: 56px; }
@@ -268,6 +294,18 @@ footer strong { color:var(--verde); }
 .audio-control { position: fixed; bottom: 24px; left: 24px; z-index: 1000; background: var(--azul-card); border: 1px solid var(--borda); padding: 10px 16px; border-radius: 30px; display: flex; align-items: center; gap: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
 .audio-btn { background: var(--verde); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; }
 .audio-text { font-size: 12px; color: var(--texto); font-weight: 500; }
+
+/* ── ERRO/STATUS ── */
+.status-msg {
+  background: rgba(255,71,87,0.1);
+  border: 1px solid rgba(255,71,87,0.3);
+  border-radius: var(--radius);
+  padding: 12px 18px;
+  font-size: 13px;
+  color: #ff6b81;
+  margin-bottom: 16px;
+  text-align: center;
+}
 </style>
 </head>
 <body>
@@ -304,12 +342,20 @@ footer strong { color:var(--verde); }
 <main>
 
   <section id="ao-vivo-section" style="display: none;">
-    <div class="section-title"><span class="piscar-vermelho">🔴</span> Jogos em Andamento (API)</div>
+    <div class="section-title"><span class="piscar-vermelho">🔴</span> Jogos em Andamento</div>
     <div id="ao-vivo-list"></div>
   </section>
 
   <section id="ranking">
     <div class="section-title">🏆 Classificação Geral</div>
+
+    <div id="loading-banner">
+      <div class="spinner"></div>
+      Carregando palpites da planilha...
+    </div>
+
+    <div id="status-erro" style="display:none;" class="status-msg"></div>
+
     <div class="regras-grid">
       <div class="regra-card">
         <div class="regra-pts exato">3 Pts</div>
@@ -361,10 +407,8 @@ footer strong { color:var(--verde); }
 
 <script>
 // ═══════════════════════════════════════════
-//  1. CONFIGURAÇÕES DA API E CHAVE
+//  DICIONÁRIO TRADUTOR
 // ═══════════════════════════════════════════
-
-// O Dicionário Tradutor (Ensina ao código que "Canada" na API é o "🇨🇦 Canadá" da sua planilha)
 const tradutorTimes = {
   "Canada": "🇨🇦 Canadá",
   "Bosnia & Herzegovina": "🇧🇦 Bósnia e Herz.",
@@ -374,7 +418,11 @@ const tradutorTimes = {
   "Qatar": "🇶🇦 Catar",
   "Switzerland": "🇨🇭 Suíça",
   "Brazil": "🇧🇷 Brasil",
-  "Morocco": "🇲🇦 Marrocos"
+  "Morocco": "🇲🇦 Marrocos",
+  "Mexico": "🇲🇽 México",
+  "South Africa": "🇿🇦 África do Sul",
+  "Korea Republic": "🇰🇷 Coreia do Sul",
+  "Czechia": "🇨🇿 Tchéquia"
 };
 
 // ═══════════════════════════════════════════
@@ -382,154 +430,166 @@ const tradutorTimes = {
 // ═══════════════════════════════════════════
 const estado = {
   jogadores: [
-    { id: 1, nome: 'Momô dos Macarrões', foto: 'momo.png', descricao: 'Momô que perde chinelo, vende macarrão e toma golpe do Ramon.', pontos: 0, palpites: [] },
-    { id: 2, nome: 'jao Larangeta', foto: 'JAO.png', descricao: 'Primeiro laranja da história que saiu pobre do esquema. Conhece Dogecoin e BCT.', pontos: 0, palpites: [] },
-    { id: 3, nome: 'Julin Bê Xoginho', foto: 'julin.png', descricao: 'Alerta de fofura no microfone! O carro não pode ficar xoginho que estraga.', pontos: 0, palpites: [] },
-    { id: 5, nome: 'Betao Refem da Karen', foto: 'BETAO.png', descricao: 'Nem me lembro a última vez que vi, creio que sofre abuso doméstico.', pontos: 0, palpites: [] },
-    { id: 4, nome: 'Henrick Receita Federal', foto: 'HENRICK.png', descricao: 'A última vez que pagou uma DAE foi em 2008. Aprendeu a sonegar antes de falar.', pontos: 0, palpites: [] },
-    { id: 6, nome: 'Lulu Gay do Vôlei', foto: 'lulu.png', descricao: 'Pega e levanta bola com as gays do vôlei, mas ele é hétero sim.', pontos: 0, palpites: [] }
+    { id: 1, nome: 'Momô dos Macarrões',    foto: 'momo.png',    descricao: 'Momô que perde chinelo, vende macarrão e toma golpe do Ramon.',         pontos: 0, palpites: [] },
+    { id: 2, nome: 'Jao Larangeta',         foto: 'JAO.png',     descricao: 'Primeiro laranja da história que saiu pobre do esquema. Conhece Dogecoin e BCT.', pontos: 0, palpites: [] },
+    { id: 3, nome: 'Julin Bê Xoginho',      foto: 'julin.png',   descricao: 'Alerta de fofura no microfone! O carro não pode ficar xoginho que estraga.',  pontos: 0, palpites: [] },
+    { id: 5, nome: 'Betao Refem da Karen',  foto: 'BETAO.png',   descricao: 'Nem me lembro a última vez que vi, creio que sofre abuso doméstico.',         pontos: 0, palpites: [] },
+    { id: 4, nome: 'Henrick Receita Federal',foto:'HENRICK.png', descricao: 'A última vez que pagou uma DAE foi em 2008. Aprendeu a sonegar antes de falar.', pontos: 0, palpites: [] },
+    { id: 6, nome: 'Lulu Gay do Vôlei',     foto: 'lulu.png',    descricao: 'Pega e levanta bola com as gays do vôlei, mas ele é hétero sim.',              pontos: 0, palpites: [] }
   ],
-  
-  // A API vai preencher isto automaticamente!
   aoVivo: [],
-  
   proximos: [
-    { id: 2, time1:'🇨🇦 Canadá', time2:'🇧🇦 Bósnia e Herz.', fase:'Grupo B', data:'2026-06-12', hora:'16:00' },
-    { id: 3, time1:'🇺🇸 Estados Unidos', time2:'🇵🇾 Paraguai', fase:'Grupo D', data:'2026-06-12', hora:'22:00' },
-    { id: 4, time1:'🇶🇦 Catar', time2:'🇨🇭 Suíça', fase:'Grupo B', data:'2026-06-13', hora:'16:00' },
-    { id: 5, time1:'🇧🇷 Brasil', time2:'🇲🇦 Marrocos', fase:'Grupo C', data:'2026-06-13', hora:'19:00' }
+    { id: 2, time1:'🇨🇦 Canadá',          time2:'🇧🇦 Bósnia e Herz.', fase:'Grupo B', data:'2026-06-12', hora:'16:00' },
+    { id: 3, time1:'🇺🇸 Estados Unidos',  time2:'🇵🇾 Paraguai',       fase:'Grupo D', data:'2026-06-12', hora:'22:00' },
+    { id: 4, time1:'🇶🇦 Catar',           time2:'🇨🇭 Suíça',          fase:'Grupo B', data:'2026-06-13', hora:'16:00' },
+    { id: 5, time1:'🇧🇷 Brasil',          time2:'🇲🇦 Marrocos',       fase:'Grupo C', data:'2026-06-13', hora:'19:00' }
   ],
   realizados: [
-    { id: 100, time1:'🇲🇽 México', time2:'🇿🇦 África do Sul', resultado:'2x0', data:'2026-06-11' },
-    { id: 101, time1:'🇰🇷 Coreia do Sul', time2:'🇨🇿 Tchéquia', resultado:'2x1', data:'2026-06-11' }
+    { id: 100, time1:'🇲🇽 México',        time2:'🇿🇦 África do Sul', resultado:'2x0', data:'2026-06-11' },
+    { id: 101, time1:'🇰🇷 Coreia do Sul', time2:'🇨🇿 Tchéquia',      resultado:'2x1', data:'2026-06-11' }
   ]
 };
 
-localStorage.clear();
+// ═══════════════════════════════════════════
+//  PARSE CSV ROBUSTO (lida com campos com vírgula entre aspas)
+// ═══════════════════════════════════════════
+function parseCSVLinha(linha) {
+  const resultado = [];
+  let atual = '';
+  let dentroAspas = false;
+
+  for (let i = 0; i < linha.length; i++) {
+    const c = linha[i];
+    if (c === '"') {
+      dentroAspas = !dentroAspas;
+    } else if ((c === ',' || c === ';' || c === '\t') && !dentroAspas) {
+      resultado.push(atual.trim());
+      atual = '';
+    } else {
+      atual += c;
+    }
+  }
+  resultado.push(atual.trim());
+  return resultado;
+}
 
 // ═══════════════════════════════════════════
-//  MOTOR DA API - NOVO (FOOTBALL-DATA.ORG)
+//  MOTOR DA API - FOOTBALL-DATA.ORG
 // ═══════════════════════════════════════════
 async function buscarPlacarAoVivoDaAPI() {
-  // Sua chave real já posicionada corretamente
-  const TOKEN_FOOTBALL_DATA = "7385d7783f804b23b41b4bf9fcaadcb0"; 
+  const TOKEN = "7385d7783f804b23b41b4bf9fcaadcb0";
+  const url = "https://api.football-data.org/v4/matches";
 
-  // Busca os jogos de hoje
-  const url = "https://api.football-data.org/v4/matches"; 
-  
   try {
     const resposta = await fetch(url, {
       method: "GET",
-      headers: { "X-Auth-Token": TOKEN_FOOTBALL_DATA } 
+      headers: { "X-Auth-Token": TOKEN }
     });
-    
+
+    if (!resposta.ok) {
+      console.warn("API football-data retornou status:", resposta.status);
+      return; // sai silenciosamente
+    }
+
     const dados = await resposta.json();
-    
-    // Zera a lista ao vivo
     estado.aoVivo = [];
 
     if (dados.matches && dados.matches.length > 0) {
-      // Filtra apenas os jogos que estão rolando agora (IN_PLAY) ou no intervalo (PAUSED)
       const jogosRodando = dados.matches.filter(m => m.status === 'IN_PLAY' || m.status === 'PAUSED');
 
       jogosRodando.forEach(jogoAPI => {
         const nomeCasa = jogoAPI.homeTeam.name;
         const nomeFora = jogoAPI.awayTeam.name;
-        
-        // Passa pelo tradutor para colocar os emojis e nomes em PT-BR
         const timeCasa = tradutorTimes[nomeCasa] || nomeCasa;
         const timeFora = tradutorTimes[nomeFora] || nomeFora;
-        
+
         estado.aoVivo.push({
-          jogoNome: `${timeCasa} x ${timeFora}`, 
+          jogoNome: `${timeCasa} x ${timeFora}`,
           time1: timeCasa,
           time2: timeFora,
-          gols1: jogoAPI.score?.fullTime?.home ?? 0,
-          gols2: jogoAPI.score?.fullTime?.away ?? 0,
-          tempo: jogoAPI.status === 'PAUSED' ? 'Intervalo 🔴' : 'Ao Vivo 🔴' 
+          gols1: jogoAPI.score?.fullTime?.home ?? jogoAPI.score?.halfTime?.home ?? 0,
+          gols2: jogoAPI.score?.fullTime?.away ?? jogoAPI.score?.halfTime?.away ?? 0,
+          tempo: jogoAPI.status === 'PAUSED' ? 'Intervalo 🔴' : 'Ao Vivo 🔴'
         });
       });
     }
-
-    renderTudo(); 
-
   } catch (erro) {
-    console.error("Erro ao puxar dados do Football-Data.org:", erro);
+    // CORS ou falha de rede — ignora silenciosamente, site continua funcionando
+    console.warn("API ao vivo indisponível (provavelmente CORS):", erro.message);
   }
+
+  // SEMPRE renderiza após tentar a API (com ou sem dados ao vivo)
+  renderTudo();
 }
+
 // ═══════════════════════════════════════════
-//  CÁLCULO MATEMÁTICO DE PONTOS
+//  CÁLCULO DE PONTOS
 // ═══════════════════════════════════════════
 function calcularGols(palpiteStr, golsTime1, golsTime2) {
   if (!palpiteStr || palpiteStr.toLowerCase() === 'não apostou') return 0;
-  
-  const placares = palpiteStr.split('x').map(Number);
-  if (placares.length !== 2 || isNaN(placares[0])) return 0;
-  
-  const p1 = placares[0]; 
-  const p2 = placares[1];
-  
-  if (p1 === golsTime1 && p2 === golsTime2) return 3; // Exato
 
-  const vit1Real = golsTime1 > golsTime2; 
-  const vit2Real = golsTime2 > golsTime1; 
-  const empReal = golsTime1 === golsTime2;
-  
-  const vit1Palpite = p1 > p2; 
-  const vit2Palpite = p2 > p1; 
-  const empPalpite = p1 === p2;
+  const placares = palpiteStr.split('x').map(s => parseInt(s.trim(), 10));
+  if (placares.length !== 2 || isNaN(placares[0]) || isNaN(placares[1])) return 0;
 
-  if (vit1Real && vit1Palpite) return 1;
-  if (vit2Real && vit2Palpite) return 1;
-  if (empReal && empPalpite) return 1;
-  
-  return 0; // Errou
+  const [p1, p2] = placares;
+
+  if (p1 === golsTime1 && p2 === golsTime2) return 3;
+
+  const vit1Real    = golsTime1 > golsTime2;
+  const vit2Real    = golsTime2 > golsTime1;
+  const empReal     = golsTime1 === golsTime2;
+  const vit1Palpite = p1 > p2;
+  const vit2Palpite = p2 > p1;
+  const empPalpite  = p1 === p2;
+
+  if ((vit1Real && vit1Palpite) || (vit2Real && vit2Palpite) || (empReal && empPalpite)) return 1;
+
+  return 0;
 }
 
 function processarPontosEmTempoReal() {
   estado.jogadores.forEach(j => {
     let pontosExtras = 0;
-    
+
     j.palpites.forEach(p => {
       const jogoRodando = estado.aoVivo.find(a => a.jogoNome === p.jogo);
-      
+
       if (jogoRodando) {
         const pontosMomento = calcularGols(p.palpite, jogoRodando.gols1, jogoRodando.gols2);
         pontosExtras += pontosMomento;
-        
-        if (pontosMomento === 3) p.tipoTemporario = 'ao-vivo-exato';
-        else if (pontosMomento === 1) p.tipoTemporario = 'ao-vivo-coluna';
-        else p.tipoTemporario = 'ao-vivo-err';
+        p.tipoTemporario = pontosMomento === 3 ? 'ao-vivo-exato' : pontosMomento === 1 ? 'ao-vivo-coluna' : 'ao-vivo-err';
       } else {
         p.tipoTemporario = p.tipo;
       }
     });
-    
+
     j.pontosTotais = j.pontos + pontosExtras;
   });
 }
 
 // ═══════════════════════════════════════════
-//  FUNÇÕES DE DESENHO DO ECRÃ
+//  FUNÇÕES DE RENDERIZAÇÃO
 // ═══════════════════════════════════════════
-function lancarIniciais(nome) { 
-  return nome.split(' ').slice(0,2).map(w => w[0].toUpperCase()).join(''); 
+function iniciais(nome) {
+  return nome.split(' ').slice(0, 2).map(w => w[0].toUpperCase()).join('');
 }
 
-function avatarHTML(jogador, size) { 
-  if (jogador.foto) return `<img src="${jogador.foto}" alt="${jogador.nome}">`; 
-  return lancarIniciais(jogador.nome); 
+function avatarHTML(jogador) {
+  if (jogador.foto) return `<img src="${jogador.foto}" alt="${jogador.nome}" onerror="this.parentNode.innerHTML='${iniciais(jogador.nome)}'">`;
+  return iniciais(jogador.nome);
 }
 
-function fotoCardHTML(jogador) { 
-  if (jogador.foto) return `<div class="card-photo-wrapper"><img src="${jogador.foto}" alt="${jogador.nome}"></div>`; 
-  return `<div class="card-photo-wrapper"><div class="card-photo-fallback">${lancarIniciais(jogador.nome)}</div></div>`; 
+function fotoCardHTML(jogador) {
+  if (jogador.foto) {
+    return `<div class="card-photo-wrapper"><img src="${jogador.foto}" alt="${jogador.nome}" onerror="this.parentNode.innerHTML='<div class=\\'card-photo-fallback\\'>${iniciais(jogador.nome)}</div>'"></div>`;
+  }
+  return `<div class="card-photo-wrapper"><div class="card-photo-fallback">${iniciais(jogador.nome)}</div></div>`;
 }
 
 function renderAoVivo() {
   const section = document.getElementById('ao-vivo-section');
   const list = document.getElementById('ao-vivo-list');
-  
+
   if (estado.aoVivo.length > 0) {
     section.style.display = 'block';
     list.innerHTML = estado.aoVivo.map(j => `
@@ -546,215 +606,233 @@ function renderAoVivo() {
 }
 
 function renderRanking() {
-  const sorted = [...estado.jogadores].sort((a,b) => b.pontosTotais - a.pontosTotais || a.nome.localeCompare(b.nome));
+  const sorted = [...estado.jogadores].sort((a, b) => b.pontosTotais - a.pontosTotais || a.nome.localeCompare(b.nome));
   const max = Math.max(...sorted.map(j => j.pontosTotais), 1);
-  const podio = document.getElementById('podio-container');
-  
-  podio.innerHTML = sorted.slice(0, Math.min(3, sorted.length)).map((j, i) => `
+
+  // Pódio
+  document.getElementById('podio-container').innerHTML = sorted.slice(0, Math.min(3, sorted.length)).map((j, i) => `
     <div class="podio-item">
       <span>${['🥇','🥈','🥉'][i]}</span>
-      <div class="podio-avatar" style="${i===0?'width:86px;height:86px;':i===1?'width:70px;height:70px;':'width:66px;height:66px;'}">${avatarHTML(j, i===0?86:i===1?70:66)}</div>
+      <div class="podio-avatar">${avatarHTML(j)}</div>
       <div class="podio-nome">${j.nome}</div>
       <div class="podio-pts">${j.pontosTotais} <small>Pts</small></div>
       <div class="podio-base" style="height:${[88,66,48][i]}px">${i+1}</div>
     </div>
   `).join('');
 
-  const tbody = document.getElementById('ranking-body');
-  tbody.innerHTML = sorted.map((j, i) => {
-    const pct = (j.pontosTotais / max * 100).toFixed(0);
-    const lider = i===0 && j.pontosTotais > 0 ? '<span class="badge-lider">Líder</span>' : '';
+  // Tabela
+  document.getElementById('ranking-body').innerHTML = sorted.map((j, i) => {
+    const pct = Math.round(j.pontosTotais / max * 100);
+    const lider = (i === 0 && j.pontosTotais > 0) ? '<span class="badge-lider">Líder</span>' : '';
     const temPalpites = j.palpites && j.palpites.length > 0;
-    
+
+    const badgeLabel = tipo => {
+      switch(tipo) {
+        case 'ao-vivo-exato':  return '🔥 +3 PTS (AO VIVO)';
+        case 'ao-vivo-coluna': return '⚡ +1 PT (AO VIVO)';
+        case 'ao-vivo-err':    return '❌ 0 PTS (AO VIVO)';
+        case 'exato':          return '🏆 +3 PTS EXATO';
+        case 'coluna':         return '✅ +1 PT TENDÊNCIA';
+        case 'aguardando':     return '⏳ AGUARDANDO';
+        default:               return '❌ 0 PTS ERROU';
+      }
+    };
+
     return `
       <tr>
         <td><div class="rank-pos">${i+1}</div></td>
         <td>
           <div class="rank-player">
-            <div class="rank-avatar" style="width:42px;height:42px;font-size:14px;">${avatarHTML(j, 42)}</div>
+            <div class="rank-avatar">${avatarHTML(j)}</div>
             <div><span class="rank-nome">${j.nome}</span>${lider}</div>
           </div>
         </td>
         <td><div class="rank-acertos">${j.pontosTotais} pts</div></td>
         <td><div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div></td>
-        <td>${temPalpites ? `<button class="btn-ver" onclick="togglePalpites('p${j.id}')">Ver palpites ▾</button>` : ''}</td>
+        <td>${temPalpites ? `<button class="btn-ver" onclick="togglePalpites('p${j.id}')">Ver palpites ▾</button>` : '–'}</td>
       </tr>
-      ${temPalpites ? `<tr class="palpites-row" id="p${j.id}"><td colspan="5"><div class="palpites-inner">
-        ${j.palpites.map(p => `
-          <div class="palpite-item">
-            <span>${p.jogo}</span>
-            <span>Palpite: <b>${p.palpite}</b></span>
-            <span class="badge-${p.tipoTemporario}">${
-              p.tipoTemporario === 'ao-vivo-exato' ? '🔥 +3 PTS (AO VIVO)' : 
-              p.tipoTemporario === 'ao-vivo-coluna' ? '⚡ +1 PT (AO VIVO)' : 
-              p.tipoTemporario === 'ao-vivo-err' ? '❌ 0 PTS (AO VIVO)' :
-              p.tipoTemporario === 'exato' ? '🏆 +3 PTS EXATO' : 
-              p.tipoTemporario === 'coluna' ? '✅ +1 PT TENDÊNCIA' : 
-              p.tipoTemporario === 'aguardando' ? '⏳ AGUARDANDO' : '❌ 0 PTS ERROU'
-            }</span>
-          </div>
-        `).join('')}
-      </div></td></tr>` : ''}
+      ${temPalpites ? `
+        <tr class="palpites-row" id="p${j.id}">
+          <td colspan="5">
+            <div class="palpites-inner">
+              ${j.palpites.map(p => `
+                <div class="palpite-item">
+                  <span>${p.jogo}</span>
+                  <span>Palpite: <b>${p.palpite}</b></span>
+                  <span class="badge-${p.tipoTemporario || 'aguardando'}">${badgeLabel(p.tipoTemporario)}</span>
+                </div>
+              `).join('')}
+            </div>
+          </td>
+        </tr>` : ''}
     `;
   }).join('');
 }
 
-function renderProximos() { 
+function renderProximos() {
   document.getElementById('proximos-grid').innerHTML = estado.proximos.map(j => `
     <div class="jogo-card">
       <div class="jogo-fase">${j.fase}</div>
-      <div class="jogo-times">
+      <div class="jogos-times">
         <div class="jogo-time"><span class="jogo-time-nome">${j.time1}</span></div>
         <span class="jogo-vs">VS</span>
         <div class="jogo-time"><span class="jogo-time-nome">${j.time2}</span></div>
       </div>
       <div class="jogo-meta">
-        <span>📅 ${new Date(j.data+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}</span>
+        <span>📅 ${new Date(j.data + 'T12:00:00').toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'})}</span>
         <span>⏰ ${j.hora}</span>
       </div>
     </div>
-  `).join(''); 
+  `).join('');
 }
 
-function renderResultados() { 
+function renderResultados() {
   document.getElementById('resultados-list').innerHTML = estado.realizados.map(j => `
     <div class="resultado-card">
       <div class="resultado-times">${j.time1}</div>
       <div class="resultado-placar">${j.resultado}</div>
       <div class="resultado-times">${j.time2}</div>
     </div>
-  `).join(''); 
+  `).join('');
 }
 
-function renderCarrossel() { 
+function renderCarrossel() {
   document.getElementById('carousel-track').innerHTML = [...estado.jogadores, ...estado.jogadores].map(j => `
     <div class="card-participante">
       ${fotoCardHTML(j)}
       <div class="card-nome">${j.nome}</div>
       <div class="card-desc">${j.descricao || 'Pronto para os palpites!'}</div>
     </div>
-  `).join(''); 
+  `).join('');
 }
 
 function togglePalpites(id) {
-  const row = document.getElementById(id); 
+  const row = document.getElementById(id);
   if (!row) return;
   const isOpen = row.classList.contains('open');
   document.querySelectorAll('.palpites-row.open').forEach(r => r.classList.remove('open'));
   if (!isOpen) row.classList.add('open');
 }
 
-function renderTudo() { 
-  processarPontosEmTempoReal(); 
-  renderAoVivo(); 
-  renderRanking(); 
-  renderProximos(); 
-  renderResultados(); 
-  renderCarrossel(); 
+function renderTudo() {
+  processarPontosEmTempoReal();
+  renderAoVivo();
+  renderRanking();
+  renderProximos();
+  renderResultados();
+  renderCarrossel();
 }
 
 // ═══════════════════════════════════════════
-// INTEGRAÇÃO COM A PLANILHA DO GOOGLE SHEETS
+//  INTEGRAÇÃO COM GOOGLE SHEETS
 // ═══════════════════════════════════════════
 const urlPalpites = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTbH86mCclRAWsdCJ5mHibzeRAKR-EOOx-Z6r-j031dYyc0zDn9o7XzfY64OBTtCnSgt25fPDjTrUrt/pub?gid=425039932&single=true&output=csv";
 
 async function iniciarApp() {
+  // 1) Renderiza imediatamente com 0 pontos (site não fica em branco)
+  renderTudo();
+
+  // 2) Tenta buscar a planilha
   try {
-    const resposta = await fetch(urlPalpites);
+    const resposta = await fetch(urlPalpites + '&cachebust=' + Date.now());
+
+    if (!resposta.ok) throw new Error('HTTP ' + resposta.status);
+
     const dadosCsv = await resposta.text();
-    const linhas = dadosCsv.split('\n').slice(1);
-    
-    // Zera os palpites e a pontuação antes de preencher a partir do Sheets
-    estado.jogadores.forEach(j => {
-      j.palpites = [];
-      j.pontos = 0;
-    });
+
+    if (!dadosCsv || dadosCsv.trim().length === 0) throw new Error('CSV vazio');
+
+    const linhas = dadosCsv.split('\n').slice(1); // pula cabeçalho
+
+    // Zera antes de reprocessar
+    estado.jogadores.forEach(j => { j.palpites = []; j.pontos = 0; });
 
     linhas.forEach(linha => {
-      const colunas = linha.split(/[,;\t]/); 
-      if (colunas.length >= 4) {
-        const idJogador = parseInt(colunas[0].trim());
-        const jogo = colunas[1].trim();
-        const palpite = colunas[2].trim();
-        const tipo = colunas[3].trim().toLowerCase(); 
+      if (!linha.trim()) return;
+      const colunas = parseCSVLinha(linha);
+      if (colunas.length < 4) return;
 
-        const donoDoPalpite = estado.jogadores.find(j => j.id === idJogador);
-        if (donoDoPalpite && !isNaN(idJogador)) {
-          
-          donoDoPalpite.palpites.push({ jogo, palpite, tipo });
+      const idJogador = parseInt(colunas[0], 10);
+      const jogo      = colunas[1];
+      const palpite   = colunas[2];
+      const tipo      = (colunas[3] || '').toLowerCase().trim();
 
-          // CÁLCULO AUTOMÁTICO DE PONTOS
-          if (tipo === 'exato') {
-            donoDoPalpite.pontos += 3;
-          } else if (tipo === 'coluna') {
-            donoDoPalpite.pontos += 1;
-          }
+      if (isNaN(idJogador)) return;
 
-        }
-      }
+      const dono = estado.jogadores.find(j => j.id === idJogador);
+      if (!dono) return;
+
+      dono.palpites.push({ jogo, palpite, tipo, tipoTemporario: tipo });
+
+      if (tipo === 'exato')  dono.pontos += 3;
+      if (tipo === 'coluna') dono.pontos += 1;
     });
+
+    // Esconde o banner de loading
+    document.getElementById('loading-banner').style.display = 'none';
+
   } catch (erro) {
-    console.error("Erro ao puxar palpites da planilha:", erro);
-  } finally {
-    // Procura por jogos ao vivo na API
-    await buscarPlacarAoVivoDaAPI();
+    console.error("Erro ao puxar planilha:", erro);
+    document.getElementById('loading-banner').style.display = 'none';
+    const erroEl = document.getElementById('status-erro');
+    erroEl.style.display = 'block';
+    erroEl.textContent = '⚠️ Não foi possível carregar os palpites da planilha. Verifique a URL do Google Sheets ou tente recarregar a página.';
   }
+
+  // 3) Busca API ao vivo (e chama renderTudo() ao terminar)
+  await buscarPlacarAoVivoDaAPI();
 }
 
-// Inicia o processo lendo o Sheets e a API
+// ── Inicia tudo ──
 iniciarApp();
 
-// Configura a API para verificar actualizações a cada 3 minutos
-setInterval(buscarPlacarAoVivoDaAPI, 180000);
+// Atualiza ao vivo a cada 3 minutos
+setInterval(buscarPlacarAoVivoDaAPI, 180_000);
 
 // ═══════════════════════════════════════════
-//  CONFIGURAÇÃO DE ÁUDIO
+//  ÁUDIO
 // ═══════════════════════════════════════════
 const audio = document.getElementById('bg-music');
 const audioBtn = document.getElementById('audio-toggle');
 const audioStatus = document.getElementById('audio-status');
 audio.muted = true;
 
-function iniciarAutoplayComFade() { 
-  audio.play().then(() => { 
-    audio.muted = false; 
-    audio.volume = 0; 
-    audioBtn.textContent = '⏸'; 
-    audioStatus.textContent = 'Trilha da Copa Ativa'; 
-    let vol = 0; 
-    const fadeInterval = setInterval(() => { 
-      if (vol < 0.25) { 
-        vol += 0.02; 
-        audio.volume = Math.min(vol, 0.25); 
-      } else { 
-        clearInterval(fadeInterval); 
-      } 
-    }, 150); 
-  }).catch(() => { 
-    audioStatus.textContent = 'Mova a tela para som 🎵'; 
-  }); 
+function iniciarAutoplayComFade() {
+  audio.play().then(() => {
+    audio.muted = false;
+    audio.volume = 0;
+    audioBtn.textContent = '⏸';
+    audioStatus.textContent = 'Trilha da Copa Ativa';
+    let vol = 0;
+    const fade = setInterval(() => {
+      if (vol < 0.25) { vol += 0.02; audio.volume = Math.min(vol, 0.25); }
+      else clearInterval(fade);
+    }, 150);
+  }).catch(() => {
+    audioStatus.textContent = 'Clique para ativar o som 🎵';
+  });
 }
 
 window.addEventListener('DOMContentLoaded', iniciarAutoplayComFade);
 
-['click', 'mouseover', 'touchstart'].forEach(evt => { 
-  document.addEventListener(evt, function ativarSom() { 
-    if (audio.paused || audio.volume === 0) { 
-      iniciarAutoplayComFade(); 
-    } 
-    document.removeEventListener(evt, ativarSom); 
-  }, { once: true }); 
+['click', 'touchstart'].forEach(evt => {
+  document.addEventListener(evt, function ativar() {
+    if (audio.paused || audio.volume === 0) iniciarAutoplayComFade();
+    document.removeEventListener(evt, ativar);
+  }, { once: true });
 });
 
-function toggleAudio() { 
-  if (audio.paused) { 
-    audio.play(); 
-    audio.volume = 0.25; 
-    audioBtn.textContent = '⏸'; 
-  } else { 
-    audio.pause(); 
-    audioBtn.textContent = '▶'; 
-  } 
+function toggleAudio() {
+  if (audio.paused) {
+    audio.play();
+    audio.volume = 0.25;
+    audioBtn.textContent = '⏸';
+    audioStatus.textContent = 'Trilha da Copa Ativa';
+  } else {
+    audio.pause();
+    audioBtn.textContent = '▶';
+    audioStatus.textContent = 'Música Pausada';
+  }
 }
 </script>
 </body>
