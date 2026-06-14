@@ -492,21 +492,25 @@ function parseCSVLinha(linha) {
 }
 
 // ═══════════════════════════════════════════
-//  MOTOR DA API - FOOTBALL-DATA.ORG
+//  MOTOR DA API - FOOTBALL-DATA.ORG (COM PROXY)
 // ═══════════════════════════════════════════
 async function buscarPlacarAoVivoDaAPI() {
   const TOKEN = "7385d7783f804b23b41b4bf9fcaadcb0";
-  const url = "https://api.football-data.org/v4/matches";
+  // Utilizamos o corsproxy para criar uma ponte e evitar o bloqueio do navegador
+  const url = "https://corsproxy.io/?https://api.football-data.org/v4/matches";
 
   try {
     const resposta = await fetch(url, {
       method: "GET",
-      headers: { "X-Auth-Token": TOKEN }
+      headers: { 
+        "X-Auth-Token": TOKEN,
+        "Accept": "application/json"
+      }
     });
 
     if (!resposta.ok) {
       console.warn("API football-data retornou status:", resposta.status);
-      return; // sai silenciosamente
+      return; 
     }
 
     const dados = await resposta.json();
@@ -532,11 +536,10 @@ async function buscarPlacarAoVivoDaAPI() {
       });
     }
   } catch (erro) {
-    // CORS ou falha de rede — ignora silenciosamente, site continua funcionando
-    console.warn("API ao vivo indisponível (provavelmente CORS):", erro.message);
+    console.warn("API ao vivo indisponível:", erro.message);
   }
 
-  // SEMPRE renderiza após tentar a API (com ou sem dados ao vivo)
+  // SEMPRE renderiza após tentar a API
   renderTudo();
 }
 
