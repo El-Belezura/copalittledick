@@ -169,6 +169,89 @@ section { margin-bottom: 56px; }
 .regra-txt { font-size: 13px; line-height: 1.3; } 
 .regra-txt strong { display: block; margin-bottom: 2px; color: #fff; }
 
+/* ── CORRIDA DE CAVALOS ── */
+.pista-container {
+  background: linear-gradient(to bottom, #1E3A24, #2A4A32);
+  border: 3px solid var(--borda);
+  border-radius: var(--radius);
+  padding: 15px 0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
+}
+.raia-linha-chegada {
+  position: absolute;
+  right: 20px;
+  top: 0;
+  bottom: 0;
+  width: 15px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #fff,
+    #fff 10px,
+    #000 10px,
+    #000 20px
+  );
+  z-index: 1;
+  border-left: 2px solid #fff;
+  border-right: 2px solid #fff;
+}
+.raia {
+  height: 48px;
+  border-bottom: 2px dashed rgba(255,255,255,0.15);
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.raia:last-child {
+  border-bottom: none;
+}
+.cavalo-wrapper {
+  position: absolute;
+  left: 0;
+  transition: left 1.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding-left: 10px;
+  z-index: 2;
+}
+.cavalo-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--amarelo);
+  background: var(--azul-mid);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+.cavalo-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+.cavalo-emoji {
+  font-size: 32px;
+  transform: scaleX(-1); /* Inverte o cavalo para ele correr para a direita */
+  filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.4));
+}
+.cavalo-nome {
+  position: absolute;
+  top: -12px;
+  left: 10px;
+  font-size: 10px;
+  font-weight: bold;
+  color: rgba(255,255,255,0.7);
+  white-space: nowrap;
+  font-family: 'Inter', sans-serif;
+}
+
 /* ── PÓDIO ── */
 .podio {
   display: flex; align-items: flex-end; justify-content: center;
@@ -327,6 +410,7 @@ footer strong { color:var(--verde); }
       </div>
     </div>
     <nav>
+      <a href="#corrida-ancora">Corrida</a>
       <a href="#ranking" class="ativo">Ranking</a>
       <a href="#proximos">Próximos</a>
       <a href="#resultados">Resultados</a>
@@ -344,6 +428,14 @@ footer strong { color:var(--verde); }
   <section id="ao-vivo-section" style="display: none;">
     <div class="section-title"><span class="piscar-vermelho">🔴</span> Jogos em Andamento</div>
     <div id="ao-vivo-list"></div>
+  </section>
+
+  <!-- SEÇÃO DA CORRIDA -->
+  <section id="corrida-ancora">
+    <div class="section-title">🐎 Corrida dos Campeões</div>
+    <div class="pista-container" id="pista-container">
+      <!-- O JavaScript vai injetar os cavalos aqui -->
+    </div>
   </section>
 
   <section id="ranking">
@@ -631,6 +723,36 @@ function fotoCardHTML(jogador) {
   return `<div class="card-photo-wrapper"><div class="card-photo-fallback">${iniciais(jogador.nome)}</div></div>`;
 }
 
+function renderCorrida() {
+  const container = document.getElementById('pista-container');
+  if (!container) return;
+
+  // Pegamos a pontuação do líder para definir a linha de chegada
+  const maxPts = Math.max(...estado.jogadores.map(j => j.pontosTotais), 1);
+  
+  // Ordena os jogadores pelo ID original para as raias ficarem fixas (ninguém troca de raia do nada)
+  const players = [...estado.jogadores].sort((a, b) => a.id - b.id);
+
+  let html = '<div class="raia-linha-chegada"></div>';
+
+  players.forEach(j => {
+    // Calcula a porcentagem. O líder (pct = 1) vai ficar quase no final do container (85%)
+    const position = (j.pontosTotais / maxPts); 
+    
+    html += `
+      <div class="raia">
+        <div class="cavalo-wrapper" style="left: calc(${position * 100}% - ${position * 90}px);">
+          <div class="cavalo-nome">${j.nome.split(' ')[0]}</div>
+          <div class="cavalo-avatar">${avatarHTML(j)}</div>
+          <div class="cavalo-emoji">🐎</div>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
 function renderAoVivo() {
   const section = document.getElementById('ao-vivo-section');
   const list = document.getElementById('ao-vivo-list');
@@ -762,6 +884,7 @@ function togglePalpites(id) {
 function renderTudo() {
   processarPontosEmTempoReal();
   renderAoVivo();
+  renderCorrida(); // <-- NOVO: renderiza a pista de cavalos!
   renderRanking();
   renderProximos();
   renderResultados();
