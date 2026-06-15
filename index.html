@@ -432,9 +432,26 @@ const tradutorTimes = {
   "Netherlands": "🇳🇱 Holanda",
   "Japan": "🇯🇵 Japão",
   "Ivory Coast": "🇨🇮 Costa do Marfim",
+  "Côte d'Ivoire": "🇨🇮 Costa do Marfim",
+  "Cote d'Ivoire": "🇨🇮 Costa do Marfim",
+  "Cote dIvoire": "🇨🇮 Costa do Marfim",
   "Ecuador": "🇪🇨 Equador",
   "Sweden": "🇸🇪 Suécia",
-  "Tunisia": "🇹🇳 Tunísia"
+  "Tunisia": "🇹🇳 Tunísia",
+  "Spain": "🇪🇸 Espanha",
+  "Cape Verde": "🇨🇻 Cabo Verde",
+  "Belgium": "🇧🇪 Bélgica",
+  "Egypt": "🇪🇬 Egito",
+  "Saudi Arabia": "🇸🇦 Arábia Saudita",
+  "Uruguay": "🇺🇾 Uruguai",
+  "Iran": "🇮🇷 Irã",
+  "New Zealand": "🇳🇿 Nova Zelândia",
+  "France": "🇫🇷 França",
+  "Senegal": "🇸🇳 Senegal",
+  "Iraq": "🇮🇶 Iraque",
+  "Norway": "🇳🇴 Noruega",
+  "Argentina": "🇦🇷 Argentina",
+  "Algeria": "🇩🇿 Argélia"
 };
 
 // ═══════════════════════════════════════════
@@ -451,20 +468,27 @@ const estado = {
   ],
   aoVivo: [],
   proximos: [
-    { id: 2, time1:'🇨🇦 Canadá',          time2:'🇧🇦 Bósnia e Herz.', fase:'Grupo B', data:'2026-06-12', hora:'16:00' },
-    { id: 3, time1:'🇺🇸 Estados Unidos',  time2:'🇵🇾 Paraguai',       fase:'Grupo D', data:'2026-06-12', hora:'22:00' },
-    { id: 6, time1:'🇩🇪 Alemanha',        time2:'🇨🇼 Curaçao',        fase:'Grupo E', data:'2026-06-14', hora:'14:00' },
-    { id: 7, time1:'🇳🇱 Holanda',         time2:'🇯🇵 Japão',          fase:'Grupo F', data:'2026-06-14', hora:'17:00' },
-    { id: 8, time1:'🇨🇮 Costa do Marfim', time2:'🇪🇨 Equador',        fase:'Grupo E', data:'2026-06-14', hora:'20:00' },
-    { id: 9, time1:'🇸🇪 Suécia',          time2:'🇹🇳 Tunísia',        fase:'Grupo F', data:'2026-06-14', hora:'23:00' }
+    { id: 10, time1:'🇪🇸 Espanha',        time2:'🇨🇻 Cabo Verde',    fase:'Grupo H', data:'2026-06-15', hora:'12:00' },
+    { id: 11, time1:'🇧🇪 Bélgica',        time2:'🇪🇬 Egito',         fase:'Grupo G', data:'2026-06-15', hora:'15:00' },
+    { id: 12, time1:'🇸🇦 Arábia Saudita', time2:'🇺🇾 Uruguai',       fase:'Grupo H', data:'2026-06-15', hora:'18:00' },
+    { id: 13, time1:'🇮🇷 Irã',            time2:'🇳🇿 Nova Zelândia', fase:'Grupo G', data:'2026-06-15', hora:'21:00' },
+    { id: 14, time1:'🇫🇷 França',         time2:'🇸🇳 Senegal',       fase:'Grupo I', data:'2026-06-16', hora:'15:00' },
+    { id: 15, time1:'🇮🇶 Iraque',         time2:'🇳🇴 Noruega',       fase:'Grupo I', data:'2026-06-16', hora:'18:00' },
+    { id: 16, time1:'🇦🇷 Argentina',      time2:'🇩🇿 Argélia',       fase:'Grupo J', data:'2026-06-16', hora:'21:00' }
   ],
   realizados: [
     { id: 100, time1:'🇲🇽 México',        time2:'🇿🇦 África do Sul', resultado:'2x0', data:'2026-06-11' },
     { id: 101, time1:'🇰🇷 Coreia do Sul', time2:'🇨🇿 Tchéquia',      resultado:'2x1', data:'2026-06-11' },
-    { id: 102, time1:'🇶🇦 Catar',         time2:'🇨🇭 Suíça',          resultado:'1x1', data:'2026-06-13' },
-    { id: 103, time1:'🇧🇷 Brasil',        time2:'🇲🇦 Marrocos',       resultado:'1x1', data:'2026-06-13' },
-    { id: 104, time1:'🇭🇹 Haiti',         time2:'🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escócia',        resultado:'0x1', data:'2026-06-13' },
-    { id: 105, time1:'🇦🇺 Austrália',     time2:'🇹🇷 Turquia',        resultado:'2x0', data:'2026-06-14' }
+    { id: 102, time1:'🇨🇦 Canadá',        time2:'🇧🇦 Bósnia e Herz.',resultado:'1x1', data:'2026-06-12' },
+    { id: 103, time1:'🇺🇸 Estados Unidos',time2:'🇵🇾 Paraguai',      resultado:'4x1', data:'2026-06-12' },
+    { id: 104, time1:'🇶🇦 Catar',         time2:'🇨🇭 Suíça',         resultado:'1x1', data:'2026-06-13' },
+    { id: 105, time1:'🇧🇷 Brasil',        time2:'🇲🇦 Marrocos',      resultado:'1x1', data:'2026-06-13' },
+    { id: 106, time1:'🇭🇹 Haiti',         time2:'🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escócia',       resultado:'0x1', data:'2026-06-13' },
+    { id: 107, time1:'🇦🇺 Austrália',     time2:'🇹🇷 Turquia',       resultado:'2x0', data:'2026-06-14' },
+    { id: 108, time1:'🇩🇪 Alemanha',      time2:'🇨🇼 Curaçao',       resultado:'7x1', data:'2026-06-14' },
+    { id: 109, time1:'🇳🇱 Holanda',       time2:'🇯🇵 Japão',         resultado:'2x2', data:'2026-06-14' },
+    { id: 110, time1:'🇨🇮 Costa do Marfim',time2:'🇪🇨 Equador',      resultado:'1x0', data:'2026-06-14' },
+    { id: 111, time1:'🇸🇪 Suécia',        time2:'🇹🇳 Tunísia',       resultado:'5x1', data:'2026-06-14' }
   ]
 };
 
