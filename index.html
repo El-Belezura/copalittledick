@@ -23,7 +23,7 @@ body {
   min-height: 100vh; overflow-x: hidden;
 }
 
-/* HEADER */
+/* ── HEADER ── */
 header { background: linear-gradient(135deg, var(--verde-esc) 0%, var(--azul-esc) 65%); border-bottom: 3px solid var(--amarelo); position: sticky; top: 0; z-index: 100; }
 .header-inner { max-width: 1100px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .logo { display: flex; align-items: center; gap: 12px; }
@@ -47,30 +47,24 @@ main { max-width: 1100px; margin: 0 auto; padding: 36px 24px 72px; }
 section { margin-bottom: 56px; }
 .section-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 2px; color: var(--amarelo); margin-bottom: 22px; display: flex; align-items: center; gap: 10px; }
 .section-title::after { content: ''; flex: 1; height: 2px; background: linear-gradient(90deg, var(--verde), transparent); }
+.subsection-title { font-size: 16px; color: var(--texto); margin-bottom: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
 
-/* REGRAS MATA MATA */
+/* ── AO VIVO CSS ── */
+.piscar-vermelho { animation: piscar 1.5s infinite; color: #ff4757; }
+@keyframes piscar { 0% { opacity: 1; text-shadow: 0 0 10px rgba(255,71,87,0.8); } 50% { opacity: 0.4; text-shadow: none; } 100% { opacity: 1; text-shadow: 0 0 10px rgba(255,71,87,0.8); } }
+.ao-vivo-card { background: linear-gradient(135deg, #1A2B42 0%, #0D1B2A 100%); border: 1px solid #ff4757; border-radius: var(--radius); padding: 16px 22px; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; box-shadow: 0 0 15px rgba(255,71,87,0.15); }
+.ao-vivo-tempo { width: 100%; text-align: center; font-size: 12px; color: #ff4757; font-weight: 700; letter-spacing: 1px; margin-bottom: 4px; text-transform: uppercase; }
+.ao-vivo-placar { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: #fff; background: #ff4757; padding: 4px 20px; border-radius: var(--radius-sm); letter-spacing: 3px; }
+
+/* ── REGRAS ANTIGAS E NOVAS ── */
 .regras-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 30px; }
 .regra-card { background: var(--azul-card); border: 1px solid var(--borda); padding: 16px; border-radius: var(--radius); display: flex; align-items: center; gap: 14px; position: relative; overflow: hidden; }
-.regra-card.destaque::before { content:'MATA-MATA'; position:absolute; top:4px; right:6px; font-size:9px; font-weight:bold; color:var(--ouro); opacity:0.6; letter-spacing: 1px;}
 .regra-pts { font-family: 'Bebas Neue', sans-serif; font-size: 32px; min-width: 50px; text-align: center; }
-.regra-pts.exato { color: var(--amarelo); } .regra-pts.resultado { color: var(--verde); } .regra-pts.classificou { color: #00d2ff; }
+.regra-pts.exato { color: var(--amarelo); } .regra-pts.resultado { color: var(--verde); } .regra-pts.classificou { color: #00d2ff; } .regra-pts.zero { color: var(--muted); }
 .regra-txt { font-size: 13px; line-height: 1.3; } 
 .regra-txt strong { display: block; margin-bottom: 2px; color: #fff; }
 
-/* CORRIDA */
-.pista-container { background: linear-gradient(to bottom, #1E3A24, #2A4A32); border: 3px solid var(--borda); border-radius: var(--radius); padding: 15px 0; position: relative; overflow: hidden; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); }
-.raia-linha-chegada { position: absolute; right: 20px; top: 0; bottom: 0; width: 15px; background: repeating-linear-gradient(to bottom, #fff, #fff 10px, #000 10px, #000 20px); z-index: 1; border-left: 2px solid #fff; border-right: 2px solid #fff; }
-.raia { height: 52px; border-bottom: 2px dashed rgba(255,255,255,0.15); position: relative; display: flex; align-items: center; }
-.raia:last-child { border-bottom: none; }
-@keyframes pulo-corrida { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-8px) rotate(8deg); } }
-@keyframes flutuar-coroa { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-.cavalo-wrapper { position: absolute; left: 0; transition: left 1.5s cubic-bezier(0.25, 0.1, 0.25, 1); display: flex; align-items: center; gap: 5px; padding-left: 10px; z-index: 2; animation: pulo-corrida 0.4s infinite alternate ease-in-out; }
-.cavalo-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--azul-mid); overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.5); position: relative; z-index: 3; }
-.cavalo-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-.campeao-coroa { position: absolute; top: -24px; left: 20px; font-size: 22px; z-index: 4; filter: drop-shadow(0 0 5px rgba(255,215,0,0.8)); animation: flutuar-coroa 1s infinite alternate ease-in-out; }
-.cavalo-nome { position: absolute; top: -12px; left: 10px; font-size: 10px; font-weight: bold; color: rgba(255,255,255,0.8); white-space: nowrap; font-family: 'Inter', sans-serif; text-shadow: 1px 1px 2px #000; }
-
-/* PÓDIO */
+/* ── PÓDIO ── */
 .podio { display: flex; align-items: flex-end; justify-content: center; gap: 14px; margin-bottom: 40px; padding: 0 8px; }
 .podio-item { display: flex; flex-direction: column; align-items: center; gap: 8px; }
 .podio-item:nth-child(1) { order: 2; } .podio-item:nth-child(2) { order: 1; } .podio-item:nth-child(3) { order: 3; }
@@ -87,10 +81,11 @@ section { margin-bottom: 56px; }
 .podio-item:nth-child(2) .podio-base { height:66px; background:linear-gradient(180deg,#8A939E,#5C6570); }
 .podio-item:nth-child(3) .podio-base { height:48px; background:linear-gradient(180deg,#8C5E2A,#5C3D1A); }
 
-/* TABELA E PALPITES */
+/* ── TABELA E PALPITES ── */
 .ranking-table { width:100%; border-collapse:separate; border-spacing:0 6px; }
 .ranking-table thead th { text-transform:uppercase; font-size:11px; letter-spacing:1.2px; color:var(--muted); padding:0 16px 8px; text-align:left; font-weight:600; }
-.ranking-table tbody tr { background:var(--azul-card); border-radius:var(--radius); transition:transform .15s, box-shadow .15s; }
+.ranking-table tbody tr.main-row { background:var(--azul-card); border-radius:var(--radius); transition:transform .15s, box-shadow .15s; }
+.ranking-table tbody tr.main-row:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(0,0,0,.3); }
 .ranking-table tbody td { padding:13px 16px; vertical-align:middle; }
 .ranking-table tbody td:first-child { border-radius:var(--radius) 0 0 var(--radius); } 
 .ranking-table tbody td:last-child  { border-radius:0 var(--radius) var(--radius) 0; }
@@ -99,6 +94,9 @@ section { margin-bottom: 56px; }
 .rank-avatar { width:42px; height:42px; border-radius:50%; border:2px solid var(--borda); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; color:var(--amarelo); flex-shrink:0; background:linear-gradient(135deg, var(--verde-esc), var(--azul-mid)); overflow:hidden; }
 .rank-nome { font-weight:600; font-size:15px; }
 .badge-lider { background:var(--amarelo); color:var(--azul-esc); font-size:10px; font-weight:700; padding:2px 8px; border-radius:20px; letter-spacing:.8px; text-transform:uppercase; margin-left:8px; }
+
+.pontos-coluna { font-weight: 600; font-size: 14px; text-align: center; color: var(--texto); }
+.pontos-coluna small { display: block; font-size: 10px; color: var(--muted); font-weight: 400; text-transform: uppercase; margin-top: 2px;}
 .rank-acertos { font-family:'Bebas Neue',sans-serif; font-size:26px; color:var(--verde); text-align:center; min-width:56px; }
 .btn-ver { background:none; border:1px solid var(--borda); color:var(--muted); font-size:11px; padding:4px 10px; border-radius:20px; cursor:pointer; transition:all .2s; font-family:'Inter',sans-serif; }
 .btn-ver:hover { border-color:var(--verde); color:var(--verde); }
@@ -107,8 +105,7 @@ section { margin-bottom: 56px; }
 .palpites-inner { padding:16px; background:rgba(0,0,0,0.25); border-radius:0 0 var(--radius) var(--radius); }
 .palpite-item { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 0; border-bottom:1px solid var(--borda); font-size:13px; flex-wrap:wrap; }
 .palpite-item:last-child { border-bottom:none; }
-.palpite-info { display: flex; flex-direction: column; gap: 4px;}
-.palpite-info small { color: #8A9BB0; font-size: 11px;}
+.palpite-info { display: flex; flex-direction: column; gap: 4px; text-align: right;}
 
 .badge-exato  { background:#FFDD00; color:#0D1B2A; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:800; white-space:nowrap; }
 .badge-coluna { background:#00A651; color:#fff; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:700; white-space:nowrap; }
@@ -116,7 +113,7 @@ section { margin-bottom: 56px; }
 .badge-err { background:#C0392B; color:#fff; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:700; white-space:nowrap; }
 .badge-aguardando { background:#8A9BB0; color:#1A2B42; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:700; white-space:nowrap; }
 
-/* PRÓXIMOS JOGOS E CARROSSEL */
+/* ── PRÓXIMOS JOGOS E CARROSSEL ── */
 .jogos-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:14px; }
 .jogo-card { background:var(--azul-card); border-radius:var(--radius); padding:18px; border:1px solid var(--borda); position:relative; overflow:hidden; transition:transform .2s, box-shadow .2s; }
 .jogo-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--verde), var(--amarelo)); }
@@ -157,74 +154,129 @@ footer strong { color:var(--verde); }
       </div>
     </div>
     <nav>
-      <a href="#corrida-ancora">Corrida</a>
+      <a href="#regras">Regras</a>
       <a href="#ranking" class="ativo">Ranking</a>
-      <a href="#proximos">⚔️ Fase Final</a>
+      <a href="#proximos">Próximos</a>
       <a href="#participantes">Participantes</a>
     </nav>
   </div>
 </header>
 
-<div class="hero-strip">🏆 Copa do Mundo 2026 &nbsp;·&nbsp; <strong>Bolão dos Amigos</strong> &nbsp;·&nbsp; O bicho vai pegar! ⚽</div>
+<div class="hero-strip">🏆 Copa do Mundo 2026 &nbsp;·&nbsp; <strong>Bolão dos Amigos</strong> &nbsp;·&nbsp; Quem vai faturar? ⚽</div>
 
 <main>
-  <section id="corrida-ancora">
-    <div class="section-title">🏃‍♂️ Corrida do Ouro</div>
-    <div class="pista-container" id="pista-container"></div>
+
+  <!-- ── AO VIVO (AGORA DE VOLTA!) ── -->
+  <section id="ao-vivo-section" style="display: none;">
+    <div class="section-title"><span class="piscar-vermelho">🔴</span> Jogos em Andamento</div>
+    <div id="ao-vivo-list"></div>
+  </section>
+
+  <!-- ── REGRAS RESTAURADAS E SEPARADAS ── -->
+  <section id="regras">
+    <div class="section-title">📖 Regras de Pontuação</div>
+    
+    <div class="subsection-title" style="color: var(--verde);">⚽ Fase de Grupos</div>
+    <div class="regras-grid">
+      <div class="regra-card">
+        <div class="regra-pts exato">3 Pts</div>
+        <div class="regra-txt"><strong>Placar Exato</strong>Acertou na mosca o resultado do jogo.</div>
+      </div>
+      <div class="regra-card">
+        <div class="regra-pts resultado">1 Pt</div>
+        <div class="regra-txt"><strong>Tendência Certa</strong>Acertou o vencedor ou empate, mas errou o placar.</div>
+      </div>
+      <div class="regra-card">
+        <div class="regra-pts zero">0 Pts</div>
+        <div class="regra-txt"><strong>Errou Tudo</strong>Não acertou nada ou não palpitou no prazo.</div>
+      </div>
+    </div>
+
+    <div class="subsection-title" style="color: var(--amarelo); margin-top: 20px;">⚔️ Fase Final (Mata-Mata)</div>
+    <div class="regras-grid">
+      <div class="regra-card">
+        <div class="regra-pts exato">5 Pts</div>
+        <div class="regra-txt"><strong>Placar (90 Min)</strong>Acertou na mosca o resultado antes dos pênaltis.</div>
+      </div>
+      <div class="regra-card">
+        <div class="regra-pts classificado">+3 Pts</div>
+        <div class="regra-txt"><strong>Quem Passa?</strong>Pontos extras se adivinhar quem avança.</div>
+      </div>
+      <div class="regra-card">
+        <div class="regra-pts resultado">2 Pts</div>
+        <div class="regra-txt"><strong>Tendência (90 Min)</strong>Acertou o vencedor/empate, mas errou placar.</div>
+      </div>
+    </div>
   </section>
 
   <section id="ranking">
     <div class="section-title">🏆 Classificação Geral</div>
 
     <div id="loading-banner">
-      <div class="spinner"></div> Carregando sistema Mãe Dináh...
-    </div>
-
-    <div class="regras-grid">
-      <div class="regra-card destaque">
-        <div class="regra-pts exato">5 Pts</div>
-        <div class="regra-txt"><strong>Placar (90 Min)</strong>Acertou na mosca o resultado antes dos pênaltis.</div>
-      </div>
-      <div class="regra-card destaque">
-        <div class="regra-pts classificado">+3 Pts</div>
-        <div class="regra-txt"><strong>Quem Passa?</strong>Pontos extras se adivinhar quem avança (mesmo nos pênaltis).</div>
-      </div>
-      <div class="regra-card destaque">
-        <div class="regra-pts resultado">2 Pts</div>
-        <div class="regra-txt"><strong>Tendência (90 Min)</strong>Acertou o vencedor/empate, mas errou o placar.</div>
-      </div>
+      <div class="spinner"></div> Carregando palpites e pontos da planilha...
     </div>
 
     <div id="podio-container" class="podio"></div>
     <table class="ranking-table">
-      <thead><tr><th>#</th><th>Jogador</th><th>Pontuação Total</th><th>Palpites</th></tr></thead>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Jogador</th>
+          <th style="text-align:center;">Pts Grupos</th>
+          <th style="text-align:center;">Pts Mata-Mata</th>
+          <th style="text-align:center;">Total</th>
+          <th>Palpites</th>
+        </tr>
+      </thead>
       <tbody id="ranking-body"></tbody>
     </table>
   </section>
 
   <section id="proximos">
-    <div class="section-title">⚔️ Fase Final (Mata-Mata)</div>
+    <div class="section-title">📅 Próximos Jogos</div>
     <div class="jogos-grid" id="proximos-grid"></div>
   </section>
 
+  <!-- ── CARROSSEL COM DESCRIÇÕES RESTAURADAS ── -->
   <section id="participantes">
     <div class="section-title">🏃‍♂️ Elenco do Bolão</div>
     <div class="carousel-container"><div class="carousel-track" id="carousel-track"></div></div>
   </section>
+
 </main>
 
 <footer><p>⚽ Bolão Copa do Mundo 2026 &nbsp;·&nbsp; <strong>USA · México · Canadá</strong></p></footer>
 
 <script>
+const tradutorTimes = {
+  "Canada": "🇨🇦 Canadá", "Bosnia & Herzegovina": "🇧🇦 Bósnia e Herz.", "Bosnia": "🇧🇦 Bósnia e Herz.",
+  "USA": "🇺🇸 Estados Unidos", "Paraguay": "🇵🇾 Paraguai", "Qatar": "🇶🇦 Catar", "Switzerland": "🇨🇭 Suíça",
+  "Brazil": "🇧🇷 Brasil", "Morocco": "🇲🇦 Marrocos", "Mexico": "🇲🇽 México", "South Africa": "🇿🇦 África do Sul",
+  "Korea Republic": "🇰🇷 Coreia do Sul", "Czechia": "🇨🇿 Tchéquia", "Haiti": "🇭🇹 Haiti", "Scotland": "🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escócia",
+  "Australia": "🇦🇺 Austrália", "Turkey": "🇹🇷 Turquia", "Germany": "🇩🇪 Alemanha", "Curacao": "🇨🇼 Curaçao",
+  "Netherlands": "🇳🇱 Holanda", "Japan": "🇯🇵 Japão", "Ivory Coast": "🇨🇮 Costa do Marfim", "Côte d'Ivoire": "🇨🇮 Costa do Marfim",
+  "Cote d'Ivoire": "🇨🇮 Costa do Marfim", "Cote dIvoire": "🇨🇮 Costa do Marfim", "Ecuador": "🇪🇨 Equador", 
+  "Sweden": "🇸🇪 Suécia", "Tunisia": "🇹🇳 Tunísia", "Spain": "🇪🇸 Espanha", "Cape Verde": "🇨🇻 Cabo Verde", 
+  "Belgium": "🇧🇪 Bélgica", "Egypt": "🇪🇬 Egito", "Saudi Arabia": "🇸🇦 Arábia Saudita", "Uruguay": "🇺🇾 Uruguai", 
+  "Iran": "🇮🇷 Irã", "IR Iran": "🇮🇷 Irã", "Iran (Islamic Republic of)": "🇮🇷 Irã", 
+  "New Zealand": "🇳🇿 Nova Zelândia", "France": "🇫🇷 França", "Senegal": "🇸🇳 Senegal", 
+  "Iraq": "🇮🇶 Iraque", "Norway": "🇳🇴 Noruega", "Argentina": "🇦🇷 Argentina", "Algeria": "🇩🇿 Argélia",
+  "Portugal": "🇵🇹 Portugal", "Congo DR": "🇨🇩 RD Congo", "DR Congo": "🇨🇩 RD Congo", 
+  "England": "🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra", "Croatia": "🇭🇷 Croácia", 
+  "Ghana": "🇬🇭 Gana", "Panama": "🇵🇦 Panamá", 
+  "Uzbekistan": "🇺🇿 Uzbequistão", "Colombia": "🇨🇴 Colômbia", "Austria": "🇦🇹 Áustria", "Jordan": "🇯🇴 Jordânia"
+};
+
 const estado = {
   jogadores: [
-    { id: 1, nome: 'Momô dos Macarrões',    foto: 'momo.png',    pontos: 0, palpites: [] },
-    { id: 2, nome: 'Jao Larangeta',         foto: 'JAO.png',     pontos: 0, palpites: [] },
-    { id: 3, nome: 'Julin Bê Xoginho',      foto: 'julin.png',   pontos: 0, palpites: [] },
-    { id: 4, nome: 'Henrick Receita',       foto: 'HENRICK.png', pontos: 0, palpites: [] },
-    { id: 5, nome: 'Betao Refem da Karen',  foto: 'BETAO.png',   pontos: 0, palpites: [] },
-    { id: 6, nome: 'Lulu Gay do Vôlei',     foto: 'lulu.png',    pontos: 0, palpites: [] }
+    { id: 1, nome: 'Momô dos Macarrões',    foto: 'momo.png',    descricao: 'Momô que perde chinelo, vende macarrão e toma golpe do Ramon.',         pontosGrupos: 0, pontosMata: 0, palpitesGrupos: [], palpitesMata: [] },
+    { id: 2, nome: 'Jao Larangeta',         foto: 'JAO.png',     descricao: 'Primeiro laranja da história que saiu pobre do esquema. Conhece Dogecoin e BCT.', pontosGrupos: 0, pontosMata: 0, palpitesGrupos: [], palpitesMata: [] },
+    { id: 3, nome: 'Julin Bê Xoginho',      foto: 'julin.png',   descricao: 'Alerta de fofura no microfone! O carro não pode ficar xoginho que estraga.',  pontosGrupos: 0, pontosMata: 0, palpitesGrupos: [], palpitesMata: [] },
+    { id: 5, nome: 'Betao Refem da Karen',  foto: 'BETAO.png',   descricao: 'Nem me lembro a última vez que vi, creio que sofre abuso doméstico.',         pontosGrupos: 0, pontosMata: 0, palpitesGrupos: [], palpitesMata: [] },
+    { id: 4, nome: 'Henrick Receita',       foto: 'HENRICK.png', descricao: 'A última vez que pagou uma DAE foi em 2008. Aprendeu a sonegar antes de falar.', pontosGrupos: 0, pontosMata: 0, palpitesGrupos: [], palpitesMata: [] },
+    { id: 6, nome: 'Lulu Gay do Vôlei',     foto: 'lulu.png',    descricao: 'Pega e levanta bola com as gays do vôlei, mas ele é hétero sim.',             pontosGrupos: 0, pontosMata: 0, palpitesGrupos: [], palpitesMata: [] }
   ],
+  aoVivo: [],
   proximos: [
     { id: 18, time1:'🇵🇹 Portugal',       time2:'🇨🇩 RD Congo',      fase:'Oitavas', data:'2026-06-17', hora:'13:00' },
     { id: 19, time1:'🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra',     time2:'🇭🇷 Croácia',       fase:'Oitavas', data:'2026-06-17', hora:'16:00' },
@@ -232,6 +284,32 @@ const estado = {
     { id: 21, time1:'🇺🇿 Uzbequistão',    time2:'🇨🇴 Colômbia',      fase:'Oitavas', data:'2026-06-17', hora:'22:00' }
   ]
 };
+
+// ── SISTEMA DA API PARA AO VIVO ──
+async function buscarPlacarAoVivoDaAPI() {
+  const TOKEN = "7385d7783f804b23b41b4bf9fcaadcb0";
+  const url = "https://corsproxy.io/?https://api.football-data.org/v4/matches";
+  try {
+    const resposta = await fetch(url, { method: "GET", headers: { "X-Auth-Token": TOKEN, "Accept": "application/json" }});
+    if (!resposta.ok) return;
+    const dados = await resposta.json();
+    estado.aoVivo = [];
+    if (dados.matches && dados.matches.length > 0) {
+      const jogosRodando = dados.matches.filter(m => m.status === 'IN_PLAY' || m.status === 'PAUSED');
+      jogosRodando.forEach(jogoAPI => {
+        const timeCasa = tradutorTimes[jogoAPI.homeTeam.name] || jogoAPI.homeTeam.name;
+        const timeFora = tradutorTimes[jogoAPI.awayTeam.name] || jogoAPI.awayTeam.name;
+        estado.aoVivo.push({
+          time1: timeCasa, time2: timeFora,
+          gols1: jogoAPI.score?.fullTime?.home ?? jogoAPI.score?.halfTime?.home ?? 0,
+          gols2: jogoAPI.score?.fullTime?.away ?? jogoAPI.score?.halfTime?.away ?? 0,
+          tempo: jogoAPI.status === 'PAUSED' ? 'Intervalo 🔴' : 'Ao Vivo 🔴'
+        });
+      });
+    }
+  } catch (erro) { console.warn("API ao vivo indisponível:", erro.message); }
+  renderAoVivo();
+}
 
 function parseCSVLinha(linha) {
   const resultado = []; let atual = ''; let dentroAspas = false;
@@ -247,53 +325,51 @@ function parseCSVLinha(linha) {
 function iniciais(nome) { return nome.split(' ').slice(0, 2).map(w => w[0].toUpperCase()).join(''); }
 function avatarHTML(jogador) { return jogador.foto ? `<img src="${jogador.foto}" alt="${jogador.nome}" onerror="this.parentNode.innerHTML='${iniciais(jogador.nome)}'">` : iniciais(jogador.nome); }
 
-function renderCorrida() {
-  const container = document.getElementById('pista-container');
-  const maxPts = Math.max(...estado.jogadores.map(j => j.pontos), 1);
-  const players = [...estado.jogadores].sort((a, b) => a.id - b.id);
-  let html = '<div class="raia-linha-chegada"></div>';
+function fotoCardHTML(jogador) {
+  if (jogador.foto) {
+    return `<div class="card-photo-wrapper"><img src="${jogador.foto}" alt="${jogador.nome}" onerror="this.parentNode.innerHTML='<div class=\\'card-photo-fallback\\'>${iniciais(jogador.nome)}</div>'"></div>`;
+  }
+  return `<div class="card-photo-wrapper"><div class="card-photo-fallback">${iniciais(jogador.nome)}</div></div>`;
+}
 
-  players.forEach(j => {
-    const position = (j.pontos / maxPts); 
-    const isLeader = j.pontos === maxPts && j.pontos > 0;
-    const coroaHtml = isLeader ? `<div class="campeao-coroa">👑</div>` : '';
-    const borderColor = isLeader ? 'var(--ouro)' : 'var(--amarelo)';
-    const delay = -Math.random().toFixed(2);
-
-    html += `
-      <div class="raia">
-        <div class="cavalo-wrapper" style="left: calc(${position * 100}% - ${position * 60}px); animation-delay: ${delay}s;">
-          ${coroaHtml}
-          <div class="cavalo-nome">${j.nome.split(' ')[0]}</div>
-          <div class="cavalo-avatar" style="border: 2px solid ${borderColor};">${avatarHTML(j)}</div>
-        </div>
+function renderAoVivo() {
+  const section = document.getElementById('ao-vivo-section');
+  const list = document.getElementById('ao-vivo-list');
+  if (estado.aoVivo.length > 0) {
+    section.style.display = 'block';
+    list.innerHTML = estado.aoVivo.map(j => `
+      <div class="ao-vivo-card">
+        <div class="ao-vivo-tempo"><span class="piscar-vermelho">🔴</span> ${j.tempo}</div>
+        <div class="resultado-times">${j.time1}</div>
+        <div class="ao-vivo-placar">${j.gols1} x ${j.gols2}</div>
+        <div class="resultado-times">${j.time2}</div>
       </div>
-    `;
-  });
-  container.innerHTML = html;
+    `).join('');
+  } else {
+    section.style.display = 'none';
+  }
 }
 
 function renderRanking() {
-  const sorted = [...estado.jogadores].sort((a, b) => b.pontos - a.pontos || a.nome.localeCompare(b.nome));
+  const sorted = [...estado.jogadores].sort((a, b) => (b.pontosGrupos + b.pontosMata) - (a.pontosGrupos + a.pontosMata) || a.nome.localeCompare(b.nome));
   
-  // Pódio
   document.getElementById('podio-container').innerHTML = sorted.slice(0, 3).map((j, i) => `
     <div class="podio-item">
       <span>${['🥇','🥈','🥉'][i]}</span>
       <div class="podio-avatar">${avatarHTML(j)}</div>
       <div class="podio-nome">${j.nome}</div>
-      <div class="podio-pts">${j.pontos} <small>Pts</small></div>
+      <div class="podio-pts">${j.pontosGrupos + j.pontosMata} <small>Pts</small></div>
       <div class="podio-base" style="height:${[88,66,48][i]}px">${i+1}</div>
     </div>
   `).join('');
 
-  // Tabela
   document.getElementById('ranking-body').innerHTML = sorted.map((j, i) => {
-    const lider = (i === 0 && j.pontos > 0) ? '<span class="badge-lider">Líder</span>' : '';
-    const temPalpites = j.palpites && j.palpites.length > 0;
+    const totalPts = j.pontosGrupos + j.pontosMata;
+    const lider = (i === 0 && totalPts > 0) ? '<span class="badge-lider">Líder</span>' : '';
+    const temPalpites = j.palpitesGrupos.length > 0 || j.palpitesMata.length > 0;
 
     return `
-      <tr>
+      <tr class="main-row">
         <td><div class="rank-pos">${i+1}</div></td>
         <td>
           <div class="rank-player">
@@ -301,22 +377,42 @@ function renderRanking() {
             <div><span class="rank-nome">${j.nome}</span>${lider}</div>
           </div>
         </td>
-        <td><div class="rank-acertos">${j.pontos} pts</div></td>
+        <td><div class="pontos-coluna">${j.pontosGrupos} <small>pts</small></div></td>
+        <td><div class="pontos-coluna">${j.pontosMata} <small>pts</small></div></td>
+        <td><div class="rank-acertos">${totalPts}</div></td>
         <td>${temPalpites ? `<button class="btn-ver" onclick="togglePalpites('p${j.id}')">Ver palpites ▾</button>` : '–'}</td>
       </tr>
       ${temPalpites ? `
         <tr class="palpites-row" id="p${j.id}">
-          <td colspan="4">
+          <td colspan="6">
             <div class="palpites-inner">
-              ${j.palpites.map(p => `
-                <div class="palpite-item">
-                  <span style="flex:1"><b>${p.jogo}</b></span>
-                  <div class="palpite-info">
-                     <span>90m: <b>${p.palpitePlacar}</b> <span class="badge-${p.statusPlacar || 'aguardando'}">${p.statusPlacar}</span></span>
-                     ${p.isMataMata ? `<span>Avança: <b>${p.palpitePassa || '?'}</b> <span class="badge-${p.statusPassa || 'aguardando'}">${p.statusPassa}</span></span>` : ''}
+              
+              ${j.palpitesMata.length > 0 ? `
+                <div class="subsection-title" style="color: var(--amarelo); margin-top:0;">⚔️ Palpites Mata-Mata</div>
+                ${j.palpitesMata.map(p => `
+                  <div class="palpite-item">
+                    <span style="flex:1"><b>${p.jogo}</b></span>
+                    <div class="palpite-info">
+                       <span>90m: <b>${p.palpitePlacar}</b> <span class="badge-${p.statusPlacar || 'aguardando'}">${p.statusPlacar}</span></span>
+                       <span>Avança: <b>${p.palpitePassa || '?'}</b> <span class="badge-${p.statusPassa || 'aguardando'}">${p.statusPassa}</span></span>
+                    </div>
                   </div>
-                </div>
-              `).join('')}
+                `).join('')}
+                <hr style="border-top: 1px solid var(--borda); margin: 16px 0;">
+              ` : ''}
+
+              ${j.palpitesGrupos.length > 0 ? `
+                <div class="subsection-title" style="color: var(--verde); margin-top:0;">⚽ Palpites Grupos</div>
+                ${j.palpitesGrupos.map(p => `
+                  <div class="palpite-item">
+                    <span style="flex:1"><b>${p.jogo}</b></span>
+                    <div class="palpite-info">
+                       <span>Palpite: <b>${p.palpitePlacar}</b> <span class="badge-${p.statusPlacar || 'aguardando'}">${p.statusPlacar}</span></span>
+                    </div>
+                  </div>
+                `).join('')}
+              ` : ''}
+
             </div>
           </td>
         </tr>` : ''}
@@ -344,8 +440,9 @@ function renderProximos() {
 function renderCarrossel() {
   document.getElementById('carousel-track').innerHTML = [...estado.jogadores, ...estado.jogadores].map(j => `
     <div class="card-participante">
-      <div class="card-photo-wrapper">${avatarHTML(j)}</div>
+      ${fotoCardHTML(j)}
       <div class="card-nome">${j.nome}</div>
+      <div class="card-desc">${j.descricao || 'Pronto para os palpites!'}</div>
     </div>
   `).join('');
 }
@@ -367,7 +464,12 @@ async function iniciarApp() {
     const dadosCsv = await resposta.text();
     const linhas = dadosCsv.split('\n').slice(1);
 
-    estado.jogadores.forEach(j => { j.palpites = []; j.pontos = 0; });
+    estado.jogadores.forEach(j => { 
+      j.palpitesGrupos = []; 
+      j.palpitesMata = []; 
+      j.pontosGrupos = 0; 
+      j.pontosMata = 0; 
+    });
 
     linhas.forEach(linha => {
       if (!linha.trim()) return;
@@ -383,27 +485,26 @@ async function iniciarApp() {
       let statusPlacar = (colunas[3] || '').toLowerCase().trim();
       let statusPassa = "";
 
-      // Se a coluna D não for um status antigo, assumimos que é uma aposta do Mata-Mata
       if (statusPlacar !== 'exato' && statusPlacar !== 'coluna' && statusPlacar !== 'err' && statusPlacar !== 'aguardando' && statusPlacar !== '') {
          isMataMata = true;
-         palpitePassa = colunas[3]; // Coluna D: Quem passa
-         statusPlacar = (colunas[4] || '').toLowerCase().trim(); // Coluna E: Pontos 90min
-         statusPassa = (colunas[5] || '').toLowerCase().trim(); // Coluna F: Pontos Classificação
+         palpitePassa = colunas[3]; 
+         statusPlacar = (colunas[4] || '').toLowerCase().trim(); 
+         statusPassa = (colunas[5] || '').toLowerCase().trim(); 
       }
 
       const dono = estado.jogadores.find(j => j.id === idJogador);
       if (!dono) return;
 
-      dono.palpites.push({ jogo, palpitePlacar, palpitePassa, statusPlacar, statusPassa, isMataMata });
-
-      // SISTEMA DE PONTOS GERAL
-      if (statusPlacar === 'exato') dono.pontos += 3; // Grupos
-      if (statusPlacar === 'coluna') dono.pontos += 1; // Grupos
-      
-      if (statusPlacar === 'exato-mata') dono.pontos += 5; // Mata-Mata
-      if (statusPlacar === 'coluna-mata') dono.pontos += 2; // Mata-Mata
-      
-      if (statusPassa === 'classificado') dono.pontos += 3; // Ponto Extra Classificação
+      if (isMataMata) {
+        dono.palpitesMata.push({ jogo, palpitePlacar, palpitePassa, statusPlacar, statusPassa });
+        if (statusPlacar === 'exato-mata') dono.pontosMata += 5;
+        if (statusPlacar === 'coluna-mata') dono.pontosMata += 2;
+        if (statusPassa === 'classificado') dono.pontosMata += 3;
+      } else {
+        dono.palpitesGrupos.push({ jogo, palpitePlacar, statusPlacar });
+        if (statusPlacar === 'exato') dono.pontosGrupos += 3;
+        if (statusPlacar === 'coluna') dono.pontosGrupos += 1;
+      }
     });
 
     document.getElementById('loading-banner').style.display = 'none';
@@ -411,13 +512,17 @@ async function iniciarApp() {
     console.error("Erro na planilha:", erro);
   }
 
-  renderCorrida();
+  // Renderiza a parte de planilha
   renderRanking();
   renderProximos();
   renderCarrossel();
+  
+  // Chama a API do Ao Vivo
+  await buscarPlacarAoVivoDaAPI();
 }
 
 iniciarApp();
+setInterval(buscarPlacarAoVivoDaAPI, 180_000);
 </script>
 </body>
 </html>
