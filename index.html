@@ -285,6 +285,29 @@ const estado = {
   ]
 };
 
+// ── SISTEMA DE TRADUÇÃO DOS SELOS (ADICIONADO) ──
+const formatarBadge = (status) => {
+  switch(status) {
+    case 'exato': return '🏆 +3 PTS EXATO';
+    case 'coluna': return '✅ +1 PT TENDÊNCIA';
+    case 'exato-mata': return '🏆 +5 PTS EXATO';
+    case 'coluna-mata': return '✅ +2 PTS TENDÊNCIA';
+    case 'classificado': return '🔵 +3 PTS PASSOU';
+    case 'err': return '❌ 0 PTS ERROU';
+    case 'aguardando': return '⏳ AGUARDANDO';
+    case 'aguardando-mata': return '⏳ AGUARDANDO';
+    default: return status ? status.toUpperCase() : '⏳ AGUARDANDO';
+  }
+};
+
+const getClass = (status) => {
+  if(status === 'exato' || status === 'exato-mata') return 'badge-exato';
+  if(status === 'coluna' || status === 'coluna-mata') return 'badge-coluna';
+  if(status === 'classificado') return 'badge-classificado';
+  if(status === 'err') return 'badge-err';
+  return 'badge-aguardando';
+};
+
 // ── SISTEMA DA API PARA AO VIVO ──
 async function buscarPlacarAoVivoDaAPI() {
   const TOKEN = "7385d7783f804b23b41b4bf9fcaadcb0";
@@ -393,8 +416,8 @@ function renderRanking() {
                   <div class="palpite-item">
                     <span style="flex:1"><b>${p.jogo}</b></span>
                     <div class="palpite-info">
-                       <span>90m: <b>${p.palpitePlacar}</b> <span class="badge-${p.statusPlacar || 'aguardando'}">${p.statusPlacar}</span></span>
-                       <span>Avança: <b>${p.palpitePassa || '?'}</b> <span class="badge-${p.statusPassa || 'aguardando'}">${p.statusPassa}</span></span>
+                       <span>90m: <b>${p.palpitePlacar}</b> <span class="${getClass(p.statusPlacar)}">${formatarBadge(p.statusPlacar)}</span></span>
+                       <span>Avança: <b>${p.palpitePassa || '?'}</b> <span class="${getClass(p.statusPassa)}">${formatarBadge(p.statusPassa)}</span></span>
                     </div>
                   </div>
                 `).join('')}
@@ -407,7 +430,7 @@ function renderRanking() {
                   <div class="palpite-item">
                     <span style="flex:1"><b>${p.jogo}</b></span>
                     <div class="palpite-info">
-                       <span>Palpite: <b>${p.palpitePlacar}</b> <span class="badge-${p.statusPlacar || 'aguardando'}">${p.statusPlacar}</span></span>
+                       <span>Palpite: <b>${p.palpitePlacar}</b> <span class="${getClass(p.statusPlacar)}">${formatarBadge(p.statusPlacar)}</span></span>
                     </div>
                   </div>
                 `).join('')}
@@ -512,7 +535,7 @@ async function iniciarApp() {
     console.error("Erro na planilha:", erro);
   }
 
-  // Renderiza a parte de planilha
+  // Renderiza a parte de planilha (AGORA COM OS SELOS TRADUZIDOS)
   renderRanking();
   renderProximos();
   renderCarrossel();
