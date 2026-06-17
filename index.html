@@ -129,7 +129,7 @@ section { margin-bottom: 56px; }
 .badge-err { background:#C0392B; color:#fff; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:700; white-space:nowrap; }
 .badge-aguardando { background:#8A9BB0; color:#1A2B42; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:700; white-space:nowrap; }
 
-/* ── PRÓXIMOS JOGOS E CARROSSEL ── */
+/* ── PRÓXIMOS JOGOS ── */
 .jogos-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:14px; }
 .jogo-card { background:var(--azul-card); border-radius:var(--radius); padding:18px; border:1px solid var(--borda); position:relative; overflow:hidden; transition:transform .2s, box-shadow .2s; }
 .jogo-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg, var(--verde), var(--amarelo)); }
@@ -141,6 +141,26 @@ section { margin-bottom: 56px; }
 .jogo-vs { font-family:'Bebas Neue',sans-serif; font-size:18px; color:var(--muted); }
 .jogo-meta { display:flex; align-items:center; justify-content:space-between; border-top:1px solid var(--borda); padding-top:10px; font-size:12px; color:var(--muted); }
 
+/* ── 🏆 CHAVE DO MATA-MATA (BRACKET) 🏆 ── */
+.bracket-wrapper { width: 100%; overflow-x: auto; padding-bottom: 20px; margin-top: 20px; }
+.bracket-wrapper::-webkit-scrollbar { height: 8px; }
+.bracket-wrapper::-webkit-scrollbar-thumb { background: var(--verde); border-radius: 4px; }
+.bracket-wrapper::-webkit-scrollbar-track { background: var(--azul-mid); border-radius: 4px; }
+
+.bracket { display: flex; min-width: 1100px; justify-content: center; gap: 8px; padding: 20px 0; }
+.bracket-col { display: flex; flex-direction: column; justify-content: space-around; width: 130px; gap: 8px; }
+
+.bracket-match { background: var(--azul-card); border: 1px solid var(--borda); border-radius: 6px; padding: 6px; display: flex; flex-direction: column; gap: 4px; position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+.bracket-team { display: flex; justify-content: space-between; align-items: center; padding: 4px 6px; border-radius: 4px; background: rgba(0,0,0,0.3); font-size: 11px; font-weight: 600; color: #fff; }
+.bracket-team.win { background: rgba(0,166,81,0.25); color: var(--amarelo); border-left: 2px solid var(--verde); }
+.bracket-score { font-family: 'Bebas Neue', sans-serif; font-size: 13px; color: var(--amarelo); }
+
+.bracket-center { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 140px; }
+.trophy-icon { font-size: 70px; filter: drop-shadow(0 0 20px #FFD700); animation: flutuar-coroa 2s infinite alternate ease-in-out; margin-bottom: 15px; }
+.match-final { border-color: var(--amarelo); box-shadow: 0 0 15px rgba(255,215,0,0.3); }
+@keyframes flutuar-coroa { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+/* ── CARROSSEL ── */
 .carousel-container { width: 100%; overflow: hidden; position: relative; padding: 20px 0; }
 .carousel-track { display: flex; gap: 24px; width: max-content; animation: scroll 32s linear infinite; }
 .carousel-track:hover { animation-play-state: paused; }
@@ -173,7 +193,8 @@ footer strong { color:var(--verde); }
       <a href="#regras">Regras</a>
       <a href="#ranking" class="ativo">Ranking</a>
       <a href="#proximos">Próximos</a>
-      <a href="#participantes">Participantes</a>
+      <a href="#chaveamento">Chave</a>
+      <a href="#participantes">Elenco</a>
     </nav>
   </div>
 </header>
@@ -182,13 +203,11 @@ footer strong { color:var(--verde); }
 
 <main>
 
-  <!-- ── AO VIVO ── -->
   <section id="ao-vivo-section" style="display: none;">
     <div class="section-title"><span class="piscar-vermelho">🔴</span> Jogos em Andamento</div>
     <div id="ao-vivo-list"></div>
   </section>
 
-  <!-- ── REGRAS ── -->
   <section id="regras">
     <div class="section-title">📖 Regras de Pontuação</div>
     
@@ -253,6 +272,88 @@ footer strong { color:var(--verde); }
     <div class="jogos-grid" id="proximos-grid"></div>
   </section>
 
+  <!-- ── CHAVEAMENTO MATA-MATA ── -->
+  <section id="chaveamento">
+    <div class="section-title">⚔️ Caminho para o Título</div>
+    
+    <div class="bracket-wrapper">
+      <div class="bracket">
+        
+        <!-- ESQUERDA: 16-avos (8 Jogos) -->
+        <div class="bracket-col">
+          <div class="bracket-match"><div class="bracket-team"><span>1º A</span><span class="bracket-score"></span></div><div class="bracket-team"><span>2º B</span><span class="bracket-score"></span></div></div>
+          <div class="bracket-match"><div class="bracket-team"><span>1º C</span><span class="bracket-score"></span></div><div class="bracket-team"><span>2º D</span><span class="bracket-score"></span></div></div>
+          <div class="bracket-match"><div class="bracket-team"><span>1º E</span><span class="bracket-score"></span></div><div class="bracket-team"><span>3º F/G/H</span><span class="bracket-score"></span></div></div>
+          <div class="bracket-match"><div class="bracket-team"><span>1º G</span><span class="bracket-score"></span></div><div class="bracket-team"><span>3º H/I/J</span><span class="bracket-score"></span></div></div>
+          <div class="bracket-match"><div class="bracket-team"><span>2º A</span><span class="bracket-score"></span></div><div class="bracket-team"><span>2º C</span><span class="bracket-score"></span></div></div>
+          <div class="bracket-match"><div class="bracket-team"><span>1º D</span><span class="bracket-score"></span></div><div class="bracket-team"><span>3º B/E/F</span><span class="bracket-score"></span></div></div>
+          <div class="bracket-match"><div class="bracket-team"><span>1º F</span><span class="bracket-score"></span></div><div class="bracket-team"><span>2º E</span><span class="bracket-score"></span></div></div>
+          <div class="bracket-match"><div class="bracket-team"><span>1º H</span><span class="bracket-score"></span></div><div class="bracket-team"><span>2º G</span><span class="bracket-score"></span></div></div>
+        </div>
+
+        <!-- ESQUERDA: Oitavas (4 Jogos) -->
+        <div class="bracket-col">
+          <div class="bracket-match"><div class="bracket-team win"><span>🇵🇹 POR</span><span class="bracket-score">2</span></div><div class="bracket-team"><span>🇨🇩 RDC</span><span class="bracket-score">0</span></div></div>
+          <div class="bracket-match"><div class="bracket-team win"><span>🏴󠁧󠁢󠁥󠁮󠁧󠁿 ING</span><span class="bracket-score">1</span></div><div class="bracket-team"><span>🇭🇷 CRO</span><span class="bracket-score">0</span></div></div>
+          <div class="bracket-match"><div class="bracket-team"><span>Venc. 3</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>Venc. 4</span><span class="bracket-score">-</span></div></div>
+          <div class="bracket-match"><div class="bracket-team"><span>Venc. 5</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>Venc. 6</span><span class="bracket-score">-</span></div></div>
+        </div>
+
+        <!-- ESQUERDA: Quartas (2 Jogos) -->
+        <div class="bracket-col">
+          <div class="bracket-match"><div class="bracket-team"><span>Venc. O1</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>Venc. O2</span><span class="bracket-score">-</span></div></div>
+          <div class="bracket-match"><div class="bracket-team"><span>Venc. O3</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>Venc. O4</span><span class="bracket-score">-</span></div></div>
+        </div>
+
+        <!-- ESQUERDA: Semi (1 Jogo) -->
+        <div class="bracket-col">
+          <div class="bracket-match"><div class="bracket-team"><span>Venc. Q1</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>Venc. Q2</span><span class="bracket-score">-</span></div></div>
+        </div>
+
+        <!-- CENTRO: Final & Troféu -->
+        <div class="bracket-center">
+          <div class="trophy-icon">🏆</div>
+          <div class="bracket-match match-final" style="width: 100%;">
+            <div class="bracket-team" style="text-align: center; justify-content: center; color: var(--amarelo);"><span>FINAL</span></div>
+            <div class="bracket-team" style="text-align: center; justify-content: center; color: var(--amarelo);"><span>19/07/26</span></div>
+          </div>
+        </div>
+
+        <!-- DIREITA: Semi (1 Jogo) -->
+        <div class="bracket-col">
+          <div class="bracket-match"><div class="bracket-team"><span>Venc. Q3</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>Venc. Q4</span><span class="bracket-score">-</span></div></div>
+        </div>
+
+        <!-- DIREITA: Quartas (2 Jogos) -->
+        <div class="bracket-col">
+          <div class="bracket-match"><div class="bracket-team"><span>Venc. O5</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>Venc. O6</span><span class="bracket-score">-</span></div></div>
+          <div class="bracket-match"><div class="bracket-team"><span>Venc. O7</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>Venc. O8</span><span class="bracket-score">-</span></div></div>
+        </div>
+
+        <!-- DIREITA: Oitavas (4 Jogos) -->
+        <div class="bracket-col">
+          <div class="bracket-match"><div class="bracket-team"><span>🇬🇭 GAN</span><span class="bracket-score">1 (P)</span></div><div class="bracket-team"><span>🇵🇦 PAN</span><span class="bracket-score">1</span></div></div>
+          <div class="bracket-match"><div class="bracket-team"><span>🇺🇿 UZB</span><span class="bracket-score">0</span></div><div class="bracket-team win"><span>🇨🇴 COL</span><span class="bracket-score">2</span></div></div>
+          <div class="bracket-match"><div class="bracket-team"><span>Venc. 11</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>Venc. 12</span><span class="bracket-score">-</span></div></div>
+          <div class="bracket-match"><div class="bracket-team"><span>Venc. 13</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>Venc. 14</span><span class="bracket-score">-</span></div></div>
+        </div>
+
+        <!-- DIREITA: 16-avos (8 Jogos) -->
+        <div class="bracket-col">
+          <div class="bracket-match"><div class="bracket-team"><span>1º B</span><span class="bracket-score"></span></div><div class="bracket-team"><span>3º A/C/D</span><span class="bracket-score"></span></div></div>
+          <div class="bracket-match"><div class="bracket-team"><span>1º I</span><span class="bracket-score"></span></div><div class="bracket-team"><span>3º C/D/E</span><span class="bracket-score"></span></div></div>
+          <div class="bracket-match"><div class="bracket-team"><span>1º J</span><span class="bracket-score"></span></div><div class="bracket-team"><span>2º I</span><span class="bracket-score"></span></div></div>
+          <div class="bracket-match"><div class="bracket-team"><span>1º K</span><span class="bracket-score"></span></div><div class="bracket-team"><span>3º A/B/F</span><span class="bracket-score"></span></div></div>
+          <div class="bracket-match"><div class="bracket-team"><span>2º B</span><span class="bracket-score"></span></div><div class="bracket-team"><span>2º D</span><span class="bracket-score"></span></div></div>
+          <div class="bracket-match"><div class="bracket-team"><span>1º L</span><span class="bracket-score"></span></div><div class="bracket-team"><span>3º G/H/I</span><span class="bracket-score"></span></div></div>
+          <div class="bracket-match"><div class="bracket-team"><span>2º F</span><span class="bracket-score"></span></div><div class="bracket-team"><span>2º H</span><span class="bracket-score"></span></div></div>
+          <div class="bracket-match"><div class="bracket-team"><span>2º J</span><span class="bracket-score"></span></div><div class="bracket-team"><span>2º L</span><span class="bracket-score"></span></div></div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
   <section id="participantes">
     <div class="section-title">🏃‍♂️ Elenco do Bolão</div>
     <div class="carousel-container"><div class="carousel-track" id="carousel-track"></div></div>
@@ -300,7 +401,6 @@ const estado = {
   ]
 };
 
-// ── SISTEMA DE TRADUÇÃO DOS SELOS ──
 const formatarBadge = (status) => {
   switch(status) {
     case 'exato': return '🏆 +3 PTS EXATO';
@@ -323,7 +423,6 @@ const getClass = (status) => {
   return 'badge-aguardando';
 };
 
-// ── SISTEMA DA API PARA AO VIVO ──
 async function buscarPlacarAoVivoDaAPI() {
   const TOKEN = "7385d7783f804b23b41b4bf9fcaadcb0";
   const url = "https://corsproxy.io/?https://api.football-data.org/v4/matches";
@@ -362,13 +461,7 @@ function parseCSVLinha(linha) {
 
 function iniciais(nome) { return nome.split(' ').slice(0, 2).map(w => w[0].toUpperCase()).join(''); }
 function avatarHTML(jogador) { return jogador.foto ? `<img src="${jogador.foto}" alt="${jogador.nome}" onerror="this.parentNode.innerHTML='${iniciais(jogador.nome)}'">` : iniciais(jogador.nome); }
-
-function fotoCardHTML(jogador) {
-  if (jogador.foto) {
-    return `<div class="card-photo-wrapper"><img src="${jogador.foto}" alt="${jogador.nome}" onerror="this.parentNode.innerHTML='<div class=\\'card-photo-fallback\\'>${iniciais(jogador.nome)}</div>'"></div>`;
-  }
-  return `<div class="card-photo-wrapper"><div class="card-photo-fallback">${iniciais(jogador.nome)}</div></div>`;
-}
+function fotoCardHTML(jogador) { return jogador.foto ? `<div class="card-photo-wrapper"><img src="${jogador.foto}" alt="${jogador.nome}" onerror="this.parentNode.innerHTML='<div class=\\'card-photo-fallback\\'>${iniciais(jogador.nome)}</div>'"></div>` : `<div class="card-photo-wrapper"><div class="card-photo-fallback">${iniciais(jogador.nome)}</div></div>`; }
 
 function renderAoVivo() {
   const section = document.getElementById('ao-vivo-section');
@@ -554,12 +647,9 @@ async function iniciarApp() {
     console.error("Erro na planilha:", erro);
   }
 
-  // Renderiza a parte de planilha
   renderRanking();
   renderProximos();
   renderCarrossel();
-  
-  // Chama a API do Ao Vivo
   await buscarPlacarAoVivoDaAPI();
 }
 
