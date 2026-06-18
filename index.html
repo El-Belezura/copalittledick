@@ -699,3 +699,123 @@ function renderRanking() {
                         aoVivoAtual = true; ptsAv = calcularPtsAoVivo(p, av.g1, av.g2, false); break;
                       } else if ((avT1.includes(pT2) || pT2.includes(avT1)) && (avT2.includes(pT1) || pT1.includes(avT2))) {
                         aoVivoAtual = true; ptsAv = calcularPtsAoVivo(p, av.g2, av.g1, false); break;
+                      }
+                    }
+                  }
+                  const badgeExtra = (aoVivoAtual && (p.statusPlacar==='aguardando' || p.statusPlacar==='')) ? `<span class="badge-ao-vivo-pts">🔴 +${ptsAv}pt provisório</span>` : '';
+                  return `
+                  <div class="palpite-item">
+                    <span style="flex:1"><b>${p.jogo}</b></span>
+                    <div class="palpite-info">
+                      <span>Palpite: <b>${p.palpitePlacar}</b> <span class="${getClass(p.statusPlacar)}">${formatarBadge(p.statusPlacar)}</span></span>
+                      ${badgeExtra}
+                    </div>
+                  </div>`;
+                }).join('')}
+              `:''}
+            </div>
+          </td>
+        </tr>`:''}
+    `;
+  }).join('');
+}
+
+function renderProximos() {
+  document.getElementById('proximos-grid').innerHTML = estado.proximos.map(j=>`
+    <div class="jogo-card">
+      <div class="jogo-fase">${j.fase}</div>
+      <div class="jogos-times">
+        <div class="jogo-time"><span class="jogo-time-nome">${j.time1}</span></div>
+        <span class="jogo-vs">VS</span>
+        <div class="jogo-time"><span class="jogo-time-nome">${j.time2}</span></div>
+      </div>
+      <div class="jogo-meta">
+        <span>📅 ${new Date(j.data+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}</span>
+        <span>⏰ ${j.hora}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderCarrossel() {
+  document.getElementById('carousel-track').innerHTML = [...estado.jogadores,...estado.jogadores].map(j=>`
+    <div class="card-participante">
+      ${fotoCardHTML(j)}
+      <div class="card-nome">${j.nome}</div>
+      <div class="card-desc">${j.descricao||'Pronto para os palpites!'}</div>
+    </div>
+  `).join('');
+}
+
+function togglePalpites(id) {
+  const row = document.getElementById(id);
+  if (!row) return;
+  const aberto = row.classList.contains('open');
+  document.querySelectorAll('.palpites-row.open').forEach(r=>r.classList.remove('open'));
+  if (!aberto) row.classList.add('open');
+}
+
+async function carregarPlanilha() {
+  try {
+    const r = await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vTbH86mCclRAWsdCJ5mHibzeRAKR-EOOx-Z6r-j031dYyc0zDn9o7XzfY64OBTtCnSgt25fPDjTrUrt/pub?gid=425039932&single=true&output=csv&cb="+Date.now());
+    if (!r.ok) throw new Error('HTTP '+r.status);
+    const csv = await r.text();
+    const linhas = csv.split('\n').slice(1);
+
+    estado.jogadores.forEach(j=>{j.palpitesGrupos=[];j.palpitesMata=[];j.pontosGrupos=0;j.pontosMata=0;j.pontosAnteriores=0});
+
+    const jogosComputados = [];
+    linhas.forEach(linha=>{
+      if (!linha.trim()) return;
+      const c = parseCSVLinha(linha);
+      if (c.length < 4) return;
+      const idJ = parseInt(c[0],10), jogo = c[1], palpitePlacar = c[2];
+      let isMataMata=false, palpitePassa='', statusPlacar=(c[3]||'').toLowerCase().trim(), statusPassa='';
+      if (!['exato','coluna','err','aguardando',''].includes(statusPlacar)) {
+        isMataMata=true; palpitePassa=c[3]; statusPlacar=(c[4]||'').toLowerCase().trim(); statusPassa=(c[5]||'').toLowerCase().trim();
+      }
+      if (statusPlacar && statusPlacar !== 'aguardando' && statusPlacar !== 'aguardando-mata' && !jogosComputados.includes(jogo)) jogosComputados.push(jogo);
+      const dono = estado.jogadores.find(j=>j.id===idJ);
+      if (!dono) return;
+      if (isMataMata) {
+        dono.palpitesMata.push({jogo,palpitePlacar,palpitePassa,statusPlacar,statusPassa});
+        if (statusPlacar==='exato-mata') dono.pontosMata+=5;
+        if (statusPlacar==='coluna-mata') dono.pontosMata+=2;
+        if (statusPassa==='classificado') dono.pontosMata+=3;
+      } else {
+        dono.palpitesGrupos.push({jogo,palpitePlacar,statusPlacar});
+        if (statusPlacar==='exato') dono.pontosGrupos+=3;
+        if (statusPlacar==='coluna') dono.pontosGrupos+=1;
+      }
+    });
+
+    const ultimos = jogosComputados.slice(-4);
+    estado.jogadores.forEach(j=>{
+      j.pontosAnteriores = j.pontosGrupos + j.pontosMata;
+      ultimos.forEach(lg=>{
+        const pm = j.palpitesMata.find(p=>p.jogo===lg);
+        if (pm) { if (pm.statusPlacar==='exato-mata') j.pontosAnteriores-=5; if (pm.statusPlacar==='coluna-mata') j.pontosAnteriores-=2; if (pm.statusPassa==='classificado') j.pontosAnteriores-=3; }
+        const pg = j.palpitesGrupos.find(p=>p.jogo===lg);
+        if (pg) { if (pg.statusPlacar==='exato') j.pontosAnteriores-=3; if (pg.statusPlacar==='coluna') j.pontosAnteriores-=1; }
+      });
+    });
+    const sortAnt = [...estado.jogadores].sort((a,b)=>b.pontosAnteriores-a.pontosAnteriores||a.nome.localeCompare(b.nome));
+    sortAnt.forEach((j,i)=>j.posicaoAnterior=i+1);
+    document.getElementById('loading-banner').style.display='none';
+  } catch(e) { console.error('Planilha:', e); }
+}
+
+async function iniciarApp() {
+  await carregarPlanilha();
+  renderRanking();
+  renderProximos();
+  renderCarrossel();
+  await buscarAoVivo();
+}
+
+iniciarApp();
+setInterval(async ()=>{ await carregarPlanilha(); await buscarAoVivo(); }, 60_000);
+setInterval(async ()=>{ if(estado.aoVivo.length>0) await buscarAoVivo(); }, 30_000);
+</script>
+</body>
+</html>
