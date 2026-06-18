@@ -93,7 +93,7 @@ section { margin-bottom: 56px; }
 .podio-item:nth-child(2) .podio-base { height:66px; background:linear-gradient(180deg,#8A939E,#5C6570); }
 .podio-item:nth-child(3) .podio-base { height:48px; background:linear-gradient(180deg,#8C5E2A,#5C3D1A); }
 
-/* ── TABELA E PALPITES ── */
+/* ── TABELA, TENDÊNCIAS E PALPITES ── */
 .ranking-table { width:100%; border-collapse:separate; border-spacing:0 6px; }
 .ranking-table thead th { text-transform:uppercase; font-size:11px; letter-spacing:1.2px; color:var(--muted); padding:0 16px 8px; text-align:left; font-weight:600; }
 .ranking-table tbody tr.main-row { background:var(--azul-card); border-radius:var(--radius); transition:transform .15s, box-shadow .15s; }
@@ -101,7 +101,14 @@ section { margin-bottom: 56px; }
 .ranking-table tbody td { padding:13px 16px; vertical-align:middle; }
 .ranking-table tbody td:first-child { border-radius:var(--radius) 0 0 var(--radius); } 
 .ranking-table tbody td:last-child  { border-radius:0 var(--radius) var(--radius) 0; }
-.rank-pos { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--muted); min-width:26px; }
+
+.rank-pos-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 32px; gap: 4px; }
+.rank-pos { font-family:'Bebas Neue',sans-serif; font-size:22px; color:var(--muted); line-height: 1; }
+.trend { font-size: 10px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; padding: 2px 4px; border-radius: 4px; line-height: 1; min-width: 24px; }
+.trend.up { background: rgba(0, 166, 81, 0.15); color: var(--verde); }
+.trend.down { background: rgba(255, 71, 87, 0.15); color: #ff4757; }
+.trend.flat { color: var(--muted); }
+
 .rank-player { display:flex; align-items:center; gap:12px; }
 .rank-avatar { width:42px; height:42px; border-radius:50%; border:2px solid var(--borda); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; color:var(--amarelo); flex-shrink:0; background:linear-gradient(135deg, var(--verde-esc), var(--azul-mid)); overflow:hidden; }
 .rank-avatar img { width:100%; height:100%; object-fit:cover; object-position:top; border-radius:50%; }
@@ -248,7 +255,7 @@ footer strong { color:var(--verde); }
     <div class="section-title">🏆 Classificação Geral</div>
 
     <div id="loading-banner">
-      <div class="spinner"></div> Carregando palpites e pontos da planilha...
+      <div class="spinner"></div> Calculando a máquina do tempo e os palpites...
     </div>
 
     <div id="podio-container" class="podio"></div>
@@ -272,14 +279,12 @@ footer strong { color:var(--verde); }
     <div class="jogos-grid" id="proximos-grid"></div>
   </section>
 
-<!-- ── CHAVEAMENTO MATA-MATA ── -->
-  <section id="chaveamento">
+<section id="chaveamento">
     <div class="section-title">⚔️ Caminho para o Título</div>
     
     <div class="bracket-wrapper">
       <div class="bracket">
         
-        <!-- ESQUERDA: 16-avos (8 Jogos) -->
         <div class="bracket-col">
           <div class="bracket-match"><div style="font-size: 8px; color: var(--amarelo); text-align: center; margin-bottom: 2px;">28 JUN 16:00 - LOS ANGELES</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
           <div class="bracket-match"><div style="font-size: 8px; color: var(--amarelo); text-align: center; margin-bottom: 2px;">29 JUN 14:00 - HOUSTON</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
@@ -291,7 +296,6 @@ footer strong { color:var(--verde); }
           <div class="bracket-match"><div style="font-size: 8px; color: var(--amarelo); text-align: center; margin-bottom: 2px;">01 JUL 13:00 - ATLANTA</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
         </div>
 
-        <!-- ESQUERDA: Oitavas (4 Jogos) -->
         <div class="bracket-col">
           <div class="bracket-match"><div style="font-size: 8px; color: var(--verde); text-align: center; margin-bottom: 2px;">04 JUL 14:00 - HOUSTON</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
           <div class="bracket-match"><div style="font-size: 8px; color: var(--verde); text-align: center; margin-bottom: 2px;">04 JUL 18:00 - FILADÉLFIA</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
@@ -299,18 +303,15 @@ footer strong { color:var(--verde); }
           <div class="bracket-match"><div style="font-size: 8px; color: var(--verde); text-align: center; margin-bottom: 2px;">05 JUL 21:00 - C. DO MÉXICO</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
         </div>
 
-        <!-- ESQUERDA: Quartas (2 Jogos) -->
         <div class="bracket-col">
           <div class="bracket-match"><div style="font-size: 8px; color: var(--ouro); text-align: center; margin-bottom: 2px;">09 JUL 17:00 - BOSTON</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
           <div class="bracket-match"><div style="font-size: 8px; color: var(--ouro); text-align: center; margin-bottom: 2px;">10 JUL 16:00 - LOS ANGELES</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
         </div>
 
-        <!-- ESQUERDA: Semi (1 Jogo) -->
         <div class="bracket-col">
           <div class="bracket-match"><div style="font-size: 8px; color: #00d2ff; text-align: center; margin-bottom: 2px;">14 JUL 16:00 - DALLAS</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
         </div>
 
-        <!-- CENTRO: Final & Troféu -->
         <div class="bracket-center">
           <div class="trophy-icon">🏆</div>
           <div class="bracket-match match-final" style="width: 100%; margin-bottom: 16px;">
@@ -323,18 +324,15 @@ footer strong { color:var(--verde); }
           </div>
         </div>
 
-        <!-- DIREITA: Semi (1 Jogo) -->
         <div class="bracket-col">
           <div class="bracket-match"><div style="font-size: 8px; color: #00d2ff; text-align: center; margin-bottom: 2px;">15 JUL 16:00 - ATLANTA</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
         </div>
 
-        <!-- DIREITA: Quartas (2 Jogos) -->
         <div class="bracket-col">
           <div class="bracket-match"><div style="font-size: 8px; color: var(--ouro); text-align: center; margin-bottom: 2px;">11 JUL 18:00 - MIAMI</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
           <div class="bracket-match"><div style="font-size: 8px; color: var(--ouro); text-align: center; margin-bottom: 2px;">11 JUL 22:00 - KANSAS CITY</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
         </div>
 
-        <!-- DIREITA: Oitavas (4 Jogos) -->
         <div class="bracket-col">
           <div class="bracket-match"><div style="font-size: 8px; color: var(--verde); text-align: center; margin-bottom: 2px;">06 JUL 16:00 - DALLAS</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
           <div class="bracket-match"><div style="font-size: 8px; color: var(--verde); text-align: center; margin-bottom: 2px;">06 JUL 21:00 - SEATTLE</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
@@ -342,7 +340,6 @@ footer strong { color:var(--verde); }
           <div class="bracket-match"><div style="font-size: 8px; color: var(--verde); text-align: center; margin-bottom: 2px;">07 JUL 17:00 - VANCOUVER</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
         </div>
 
-        <!-- DIREITA: 16-avos (8 Jogos) -->
         <div class="bracket-col">
           <div class="bracket-match"><div style="font-size: 8px; color: var(--amarelo); text-align: center; margin-bottom: 2px;">01 JUL 17:00 - SEATTLE</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
           <div class="bracket-match"><div style="font-size: 8px; color: var(--amarelo); text-align: center; margin-bottom: 2px;">01 JUL 21:00 - SÃO FRANCISCO</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
@@ -487,10 +484,10 @@ function renderAoVivo() {
 }
 
 function renderRanking() {
-  const sorted = [...estado.jogadores].sort((a, b) => (b.pontosGrupos + b.pontosMata) - (a.pontosGrupos + a.pontosMata) || a.nome.localeCompare(b.nome));
+  const sortedAtual = [...estado.jogadores].sort((a, b) => (b.pontosGrupos + b.pontosMata) - (a.pontosGrupos + a.pontosMata) || a.nome.localeCompare(b.nome));
   
   // Renderiza Pódio com Efeito de Fogo no 1º lugar
-  document.getElementById('podio-container').innerHTML = sorted.slice(0, 3).map((j, i) => `
+  document.getElementById('podio-container').innerHTML = sortedAtual.slice(0, 3).map((j, i) => `
     <div class="podio-item">
       <span>${['🥇','🥈','🥉'][i]}</span>
       <div class="podio-avatar ${i === 0 ? 'campeao-glow' : ''}">${avatarHTML(j)}</div>
@@ -500,17 +497,28 @@ function renderRanking() {
     </div>
   `).join('');
 
-  // Renderiza Tabela com Tags
-  document.getElementById('ranking-body').innerHTML = sorted.map((j, i) => {
+  // Renderiza Tabela com Tags de Tendência (Subiu/Desceu/Ficou)
+  document.getElementById('ranking-body').innerHTML = sortedAtual.map((j, i) => {
     const totalPts = j.pontosGrupos + j.pontosMata;
     const lider = (i === 0 && totalPts > 0) ? '<span class="badge-lider">👑 Líder</span>' : '';
-    const isUltimo = (i === sorted.length - 1 && sorted.length > 1);
+    const isUltimo = (i === sortedAtual.length - 1 && sortedAtual.length > 1);
     const azarao = isUltimo ? '<span class="badge-azarao">🐢 Azarão</span>' : '';
     const temPalpites = j.palpitesGrupos.length > 0 || j.palpitesMata.length > 0;
 
+    // Lógica Visual da Tendência
+    const diff = j.posicaoAnterior - j.posicaoAtual;
+    let trendHtml = '<span class="trend flat">▪</span>';
+    if (diff > 0) trendHtml = `<span class="trend up">▴ ${diff}</span>`;
+    if (diff < 0) trendHtml = `<span class="trend down">▾ ${Math.abs(diff)}</span>`;
+
     return `
       <tr class="main-row">
-        <td><div class="rank-pos">${i+1}</div></td>
+        <td>
+           <div class="rank-pos-wrapper">
+              <div class="rank-pos">${i+1}</div>
+              ${trendHtml}
+           </div>
+        </td>
         <td>
           <div class="rank-player">
             <div class="rank-avatar">${avatarHTML(j)}</div>
@@ -609,7 +617,10 @@ async function iniciarApp() {
       j.palpitesMata = []; 
       j.pontosGrupos = 0; 
       j.pontosMata = 0; 
+      j.pontosAnteriores = 0;
     });
+
+    const scoredGames = [];
 
     linhas.forEach(linha => {
       if (!linha.trim()) return;
@@ -632,6 +643,11 @@ async function iniciarApp() {
          statusPassa = (colunas[5] || '').toLowerCase().trim(); 
       }
 
+      // Máquina do tempo: Registra jogos já computados
+      if (statusPlacar !== 'aguardando' && statusPlacar !== 'aguardando-mata' && statusPlacar !== '') {
+         if (!scoredGames.includes(jogo)) scoredGames.push(jogo);
+      }
+
       const dono = estado.jogadores.find(j => j.id === idJogador);
       if (!dono) return;
 
@@ -646,6 +662,36 @@ async function iniciarApp() {
         if (statusPlacar === 'coluna') dono.pontosGrupos += 1;
       }
     });
+
+    // ── CALCULA A TENDÊNCIA DE POSIÇÃO ──
+    // Pega os últimos 4 jogos (uma "rodada") para simular o passado
+    const lastGames = scoredGames.slice(-4); 
+    
+    estado.jogadores.forEach(j => {
+        j.pontosAnteriores = j.pontosGrupos + j.pontosMata;
+        
+        lastGames.forEach(lg => {
+            const pMata = j.palpitesMata.find(p => p.jogo === lg);
+            if (pMata) {
+                if (pMata.statusPlacar === 'exato-mata') j.pontosAnteriores -= 5;
+                if (pMata.statusPlacar === 'coluna-mata') j.pontosAnteriores -= 2;
+                if (pMata.statusPassa === 'classificado') j.pontosAnteriores -= 3;
+            }
+            const pGrupo = j.palpitesGrupos.find(p => p.jogo === lg);
+            if (pGrupo) {
+                if (pGrupo.statusPlacar === 'exato') j.pontosAnteriores -= 3;
+                if (pGrupo.statusPlacar === 'coluna') j.pontosAnteriores -= 1;
+            }
+        });
+    });
+
+    // Descobre qual era a posição da pessoa ANTES da última rodada
+    const sortedAnterior = [...estado.jogadores].sort((a, b) => b.pontosAnteriores - a.pontosAnteriores || a.nome.localeCompare(b.nome));
+    sortedAnterior.forEach((j, index) => { j.posicaoAnterior = index + 1; });
+
+    // Descobre a posição ATUAL
+    const sortedAtual = [...estado.jogadores].sort((a, b) => (b.pontosGrupos + b.pontosMata) - (a.pontosGrupos + a.pontosMata) || a.nome.localeCompare(b.nome));
+    sortedAtual.forEach((j, index) => { j.posicaoAtual = index + 1; });
 
     document.getElementById('loading-banner').style.display = 'none';
   } catch (erro) {
