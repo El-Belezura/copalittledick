@@ -409,6 +409,7 @@ const estado = {
     {id:6,nome:'Lulu Gay do Vôlei',foto:'lulu.png',descricao:'Pega e levanta bola com as gays do vôlei, mas ele é hétero sim.',pontosGrupos:0,pontosMata:0,palpitesGrupos:[],palpitesMata:[]}
   ],
   aoVivo:[],
+  jogosAoVivoNomes:{},
   proximos:[
     {id:22,time1:'🇨🇿 Tchéquia',time2:'🇿🇦 África do Sul',fase:'Grupo A',data:'2026-06-18',hora:'13:00'},
     {id:23,time1:'🇨🇭 Suíça',time2:'🇧🇦 Bósnia e Herz.',fase:'Grupo B',data:'2026-06-18',hora:'16:00'},
@@ -524,7 +525,6 @@ function calcularPtsAoVivo(palpite, gols1Real, gols2Real, ehMataMata = false) {
 }
 
 async function buscarAoVivo() {
-  // CORREÇÃO 1: Adicionado `_nocache=${Date.now()}` para forçar o proxy a não usar resposta antiga cacheada
   const url = `https://corsproxy.io/?https://api.football-data.org/v4/matches?_nocache=${Date.now()}`;
   try {
     const r = await fetch(url, {headers:{"X-Auth-Token":TOKEN_API,"Accept":"application/json"}});
@@ -613,7 +613,6 @@ function renderRanking() {
     return totB - totA || a.nome.localeCompare(b.nome);
   });
 
-  // CORREÇÃO 2: A renderização visual do Pódio agora usa a variável "totalPodio" (Base + Provisórios)
   document.getElementById('podio-container').innerHTML = sorted.slice(0,3).map((j,i) => {
     const totalPodio = j.pontosGrupos + j.pontosMata + ptsProvisoriosJogador(j);
     return `
@@ -631,7 +630,7 @@ function renderRanking() {
   document.getElementById('ranking-body').innerHTML = sorted.map((j,i) => {
     const base = j.pontosGrupos + j.pontosMata;
     const prov = ptsProvisoriosJogador(j);
-    const total = base + prov;
+    const total = base + prov; // O cálculo do total está correto aqui
     const lider = (i===0 && total>0) ? '<span class="badge-lider">👑 Líder</span>' : '';
     const azarao = (i===sorted.length-1 && sorted.length>1) ? '<span class="badge-azarao">🐢 Azarão</span>' : '';
     const temPalpites = j.palpitesGrupos.length>0 || j.palpitesMata.length>0;
@@ -650,8 +649,7 @@ function renderRanking() {
         <td><div class="rank-player"><div class="rank-avatar">${avatarHTML(j)}</div><div><span class="rank-nome">${j.nome}</span>${lider}${azarao}</div></div></td>
         <td><div class="pontos-coluna">${j.pontosGrupos}<small>pts</small></div></td>
         <td><div class="pontos-coluna">${j.pontosMata}<small>pts</small></div></td>
-        <td><div class="rank-total">${base}${provHTML}</div></td>
-        <td>${temPalpites?`<button class="btn-ver" onclick="togglePalpites('p${j.id}')">Ver ▾</button>`:'–'}</td>
+        <td><div class="rank-total">${total}${provHTML}</div></td> <td>${temPalpites?`<button class="btn-ver" onclick="togglePalpites('p${j.id}')">Ver ▾</button>`:'–'}</td>
       </tr>
       ${temPalpites?`
         <tr class="palpites-row" id="p${j.id}">
@@ -814,7 +812,10 @@ async function iniciarApp() {
 }
 
 iniciarApp();
+
+// Atualiza a cada 60 segundos
 setInterval(async ()=>{ await carregarPlanilha(); await buscarAoVivo(); }, 60_000);
+// Ao vivo mais frequente (30s) só enquanto há jogos rolando
 setInterval(async ()=>{ if(estado.aoVivo.length>0) await buscarAoVivo(); }, 30_000);
 </script>
 </body>
