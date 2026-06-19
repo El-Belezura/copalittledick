@@ -314,16 +314,34 @@ footer strong{color:var(--verde)}
       </div>
     </div>
     <div class="podio" id="podio-container"></div>
-    <div class="table-scroll">
+    
+    <div class="subsection-title" style="color:var(--ouro); margin-top: 20px; font-size: 20px; text-align: center; text-shadow: 0 0 10px rgba(255,215,0,0.5);">🍆 LIGA BIG DICK</div>
+    <div class="table-scroll" style="background: linear-gradient(180deg, rgba(255,215,0,0.1) 0%, transparent 100%); border: 1px solid rgba(255,215,0,0.3); border-radius: var(--radius); padding: 12px; margin-bottom: 32px; box-shadow: inset 0 10px 20px rgba(255,215,0,0.05);">
       <table class="ranking-table">
         <thead><tr>
-          <th>#</th><th>Jogador</th>
-          <th style="text-align:center">Grupos</th>
-          <th style="text-align:center">Mata-Mata</th>
-          <th style="text-align:center">Total</th>
+          <th style="color: var(--ouro);">#</th>
+          <th style="color: var(--ouro);">Jogador</th>
+          <th style="text-align:center; color: var(--ouro);">Grupos</th>
+          <th style="text-align:center; color: var(--ouro);">Mata-Mata</th>
+          <th style="text-align:center; color: var(--ouro);">Total</th>
           <th></th>
         </tr></thead>
-        <tbody id="ranking-body"></tbody>
+        <tbody id="ranking-body-big"></tbody>
+      </table>
+    </div>
+
+    <div class="subsection-title" style="color:var(--verde); font-size: 20px; text-align: center; text-shadow: 0 0 10px rgba(0,166,81,0.5);">🤏 LIGA SMALL DICK</div>
+    <div class="table-scroll" style="background: linear-gradient(180deg, rgba(0,166,81,0.1) 0%, transparent 100%); border: 1px solid rgba(0,166,81,0.3); border-radius: var(--radius); padding: 12px; box-shadow: inset 0 10px 20px rgba(0,166,81,0.05);">
+      <table class="ranking-table">
+        <thead><tr>
+          <th style="color: var(--verde);">#</th>
+          <th style="color: var(--verde);">Jogador</th>
+          <th style="text-align:center; color: var(--verde);">Grupos</th>
+          <th style="text-align:center; color: var(--verde);">Mata-Mata</th>
+          <th style="text-align:center; color: var(--verde);">Total</th>
+          <th></th>
+        </tr></thead>
+        <tbody id="ranking-body-small"></tbody>
       </table>
     </div>
   </section>
@@ -583,23 +601,28 @@ function renderRanking(){
     const tB=b.pontosGrupos+b.pontosMata+ptsProvisorios(b);
     return tB-tA||a.nome.localeCompare(b.nome);
   });
+  
   document.getElementById('podio-container').innerHTML=sorted.slice(0,3).map((j,i)=>{
     const tot=j.pontosGrupos+j.pontosMata+ptsProvisorios(j);
     return`<div class="podio-item"><span>${['🥇','🥈','🥉'][i]}</span><div class="podio-avatar ${i===0?'campeao-glow':''}">${avatarHTML(j)}</div><div class="podio-nome">${j.nome}</div><div class="podio-pts">${tot}<small>Pts</small></div><div class="podio-base">${i+1}</div></div>`;
   }).join('');
-  document.getElementById('ranking-body').innerHTML=sorted.map((j,i)=>{
+
+  // Função isolada para gerar a linha da tabela
+  const renderRow = (j) => {
     const base=j.pontosGrupos+j.pontosMata,prov=ptsProvisorios(j),total=base+prov;
-    const lider=i===0&&total>0?'<span class="badge-lider">👑 Líder</span>':'';
-    const azarao=i===sorted.length-1&&sorted.length>1?'<span class="badge-azarao">🐢 Azarão</span>':'';
+    const posGlobal = sorted.indexOf(j); // Posição real no ranking geral
+    const lider=posGlobal===0&&total>0?'<span class="badge-lider">👑 Líder</span>':'';
+    const azarao=posGlobal===sorted.length-1&&sorted.length>1?'<span class="badge-azarao">🐢 Azarão</span>':'';
     const tem=j.palpitesGrupos.length>0||j.palpitesMata.length>0;
-    const diff=(j.posicaoAnterior||i+1)-(i+1);
+    const diff=(j.posicaoAnterior||posGlobal+1)-(posGlobal+1);
     let tr='<span class="trend flat">▪</span>';
     if(diff>0)tr=`<span class="trend up">▴${diff}</span>`;
     if(diff<0)tr=`<span class="trend down">▾${Math.abs(diff)}</span>`;
     const provH=prov>0?`<span class="pts-delta">+${prov} ao vivo</span>`:'';
-    return`
+
+    return `
       <tr class="${prov>0?'main-row row-ao-vivo':'main-row'}">
-        <td><div class="rank-pos-wrapper"><div class="rank-pos">${i+1}</div>${tr}</div></td>
+        <td><div class="rank-pos-wrapper"><div class="rank-pos">${posGlobal+1}</div>${tr}</div></td>
         <td><div class="rank-player"><div class="rank-avatar">${avatarHTML(j)}</div><div><span class="rank-nome">${j.nome}</span>${lider}${azarao}</div></div></td>
         <td><div class="pontos-coluna">${j.pontosGrupos}<small>pts</small></div></td>
         <td><div class="pontos-coluna">${j.pontosMata}<small>pts</small></div></td>
@@ -620,7 +643,14 @@ function renderRanking(){
           return`<div class="palpite-item"><span style="flex:1"><b>${p.jogo}</b></span><div class="palpite-info"><span>Palpite: <b>${p.palpitePlacar}</b> <span class="${getClass(p.statusPlacar)}">${formatarBadge(p.statusPlacar)}</span></span>${bv}</div></div>`;
         }).join('')}`:''}
       </div></td></tr>`:''}`;
-  }).join('');
+  };
+
+  // Separação das Ligas
+  const bigDick = sorted.slice(0, 3);
+  const smallDick = sorted.slice(3);
+
+  document.getElementById('ranking-body-big').innerHTML = bigDick.map(j => renderRow(j)).join('');
+  document.getElementById('ranking-body-small').innerHTML = smallDick.map(j => renderRow(j)).join('');
 }
 function renderPossivel(){
   const sorted=[...estado.jogadores].sort((a,b)=>(b.pontosGrupos+b.pontosMata)-(a.pontosGrupos+a.pontosMata));
@@ -760,7 +790,6 @@ function renderRivalidades(){
   if(!top.length){document.getElementById('rival-grid').innerHTML='<div style="color:var(--muted);font-size:13px">Ainda sem jogos suficientes para rivalidades.</div>';return}
   document.getElementById('rival-grid').innerHTML=top.map(r=>{
     const totPts=r.ptsTotA+r.ptsTotB||1;
-    // Correção: Evita o erro visual de 100% para B em caso de zero pontos para ambos
     const wA = (r.ptsTotA === 0 && r.ptsTotB === 0) ? 50 : Math.round((r.ptsTotA/totPts)*100);
     const wB = 100 - wA;
     const totW = r.winsA+r.winsB+r.empates||1;
@@ -796,7 +825,6 @@ function renderRivalidades(){
 }
 function renderProximos(){
   document.getElementById('proximos-grid').innerHTML=estado.proximos.map(j=>{
-    // Correção: A data base 'j.data' já está em ISO correto, não precisa concatenar string de horas novamente
     const dtFormatada = new Date(j.data).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
     return `
     <div class="jogo-card">
