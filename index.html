@@ -193,19 +193,24 @@ section{margin-bottom:52px}
 .trophy-icon{font-size:60px;filter:drop-shadow(0 0 18px #FFD700);animation:flutuar 2s infinite alternate ease-in-out;margin-bottom:12px}
 @keyframes flutuar{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 .match-final{border-color:var(--amarelo);box-shadow:0 0 12px rgba(255,215,0,.3)}
-/* CARROSSEL */
+/* CARROSSEL E BADGES */
 .carousel-container{width:100%;overflow:hidden;position:relative;padding:16px 0}
-.carousel-track{display:flex;gap:20px;width:max-content;animation:scrollC 32s linear infinite}
+.carousel-track{display:flex;gap:20px;width:max-content;animation:scrollC 40s linear infinite}
 .carousel-track:hover{animation-play-state:paused}
 @keyframes scrollC{0%{transform:translateX(0)}100%{transform:translateX(calc(-264px * 6 - 20px * 6))}}
-.card-participante{background:var(--azul-card);border:1px solid var(--borda);border-radius:var(--radius);width:264px;padding:0 0 20px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px;overflow:hidden;transition:transform .2s,border-color .2s}
+.card-participante{background:var(--azul-card);border:1px solid var(--borda);border-radius:var(--radius);width:264px;padding:0 0 16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;overflow:hidden;transition:transform .2s,border-color .2s}
 .card-participante:hover{transform:translateY(-4px);border-color:var(--verde)}
 .card-photo-wrapper{width:100%;height:190px;position:relative;background:var(--azul-mid)}
 .card-photo-wrapper img{width:100%;height:100%;object-fit:cover;object-position:top}
 .card-photo-wrapper::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 55%,var(--azul-card) 100%);pointer-events:none}
 .card-photo-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:700;color:var(--amarelo);font-family:'Bebas Neue',sans-serif}
-.card-nome{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--amarelo);letter-spacing:1px;padding:0 14px}
-.card-desc{font-size:12px;color:var(--muted);line-height:1.4;min-height:48px;padding:0 14px}
+.card-nome{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--amarelo);letter-spacing:1px;padding:0 14px;margin-bottom:-4px}
+.card-desc{font-size:12px;color:var(--muted);line-height:1.4;min-height:36px;padding:0 14px}
+.badges-grid{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;padding:0 14px}
+.badge-icon{width:26px;height:26px;border-radius:50%;background:var(--azul-mid);border:1px solid var(--borda);display:flex;align-items:center;justify-content:center;font-size:13px;cursor:help;transition:transform .2s,background .2s}
+.badge-icon.unlocked{background:rgba(255,215,0,.15);border-color:var(--amarelo);filter:none;opacity:1}
+.badge-icon.locked{filter:grayscale(100%);opacity:.2}
+.badge-icon.unlocked:hover{transform:scale(1.25);z-index:2;background:var(--amarelo);border-color:#fff}
 /* TOAST */
 #toast-container{position:fixed;bottom:20px;right:16px;z-index:999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
 .toast{background:var(--azul-card);border:1px solid var(--verde);border-radius:var(--radius-sm);padding:10px 16px;font-size:13px;color:#fff;box-shadow:0 4px 16px rgba(0,0,0,.4);animation:slideIn .3s ease;max-width:300px}
@@ -270,6 +275,7 @@ footer strong{color:var(--verde)}
       <a href="#ranking" class="ativo">Ranking</a>
       <a href="#historico">Histórico</a>
       <a href="#estatisticas">Stats</a>
+      <a href="#choradeira">Choradeira</a>
       <a href="#proximos">Próximos</a>
       <a href="#chaveamento">Chave</a>
       <a href="#participantes">Elenco</a>
@@ -315,6 +321,7 @@ footer strong{color:var(--verde)}
     </div>
     <div class="podio" id="podio-container"></div>
     
+    <!-- LIGA BIG DICK -->
     <div class="subsection-title" style="color:var(--ouro); margin-top: 20px; font-size: 20px; text-align: center; text-shadow: 0 0 10px rgba(255,215,0,0.5);">🍆 LIGA BIG DICK</div>
     <div class="table-scroll" style="background: linear-gradient(180deg, rgba(255,215,0,0.1) 0%, transparent 100%); border: 1px solid rgba(255,215,0,0.3); border-radius: var(--radius); padding: 12px; margin-bottom: 32px; box-shadow: inset 0 10px 20px rgba(255,215,0,0.05);">
       <table class="ranking-table">
@@ -330,6 +337,7 @@ footer strong{color:var(--verde)}
       </table>
     </div>
 
+    <!-- LIGA SMALL DICK -->
     <div class="subsection-title" style="color:var(--verde); font-size: 20px; text-align: center; text-shadow: 0 0 10px rgba(0,166,81,0.5);">🤏 LIGA SMALL DICK</div>
     <div class="table-scroll" style="background: linear-gradient(180deg, rgba(0,166,81,0.1) 0%, transparent 100%); border: 1px solid rgba(0,166,81,0.3); border-radius: var(--radius); padding: 12px; box-shadow: inset 0 10px 20px rgba(0,166,81,0.05);">
       <table class="ranking-table">
@@ -362,6 +370,13 @@ footer strong{color:var(--verde)}
       <div class="mural-grid" id="mural-grid"></div>
     </div>
   </section>
+  
+  <!-- NOVA CENTRAL DA CHORADEIRA -->
+  <section id="choradeira">
+    <div class="section-title">😭 Central da Choradeira</div>
+    <div class="mural-grid" id="choradeira-grid"></div>
+  </section>
+
   <section id="rivalidades">
     <div class="section-title">⚔️ Rivalidades</div>
     <div class="rival-grid" id="rival-grid"></div>
@@ -440,8 +455,7 @@ footer strong{color:var(--verde)}
 <footer><p>⚽ Bolão Copa do Mundo 2026 &nbsp;·&nbsp; <strong>USA · México · Canadá</strong> &nbsp;·&nbsp; Atualização automática a cada 60s 🔄</p></footer>
 <div id="toast-container"></div>
 <script>
-// AVISO DE SEGURANÇA: Expor Tokens no GitHub (mesmo gratuitos) pode fazer com que o rastreador
-// do GitHub revogue a chave ou a API bloqueie seu acesso. Cuidado ao subir repositórios públicos.
+// AVISO DE SEGURANÇA: Expor Tokens no GitHub (mesmo gratuitos) pode fazer com que o rastreador revogue a chave.
 const TOKEN_API="7385d7783f804b23b41b4bf9fcaadcb0";
 const CORES_JOGADORES=['#00A651','#FFDD00','#00d2ff','#ff4757','#a29bfe','#fd79a8'];
 const tradutorTimes={"Canada":"🇨🇦 Canadá","Bosnia & Herzegovina":"🇧🇦 Bósnia","Bosnia":"🇧🇦 Bósnia","USA":"🇺🇸 EUA","Paraguay":"🇵🇾 Paraguai","Qatar":"🇶🇦 Catar","Switzerland":"🇨🇭 Suíça","Brazil":"🇧🇷 Brasil","Morocco":"🇲🇦 Marrocos","Mexico":"🇲🇽 México","South Africa":"🇿🇦 África do Sul","Korea Republic":"🇰🇷 Coreia do Sul","Czechia":"🇨🇿 Tchéquia","Haiti":"🇭🇹 Haiti","Scotland":"🏴󠁧󠁢󠁳󠁣󠁴󠁿 Escócia","Australia":"🇦🇺 Austrália","Turkey":"🇹🇷 Turquia","Germany":"🇩🇪 Alemanha","Curacao":"🇨🇼 Curaçao","Netherlands":"🇳🇱 Holanda","Japan":"🇯🇵 Japão","Ivory Coast":"🇨🇮 Costa do Marfim","Côte d'Ivoire":"🇨🇮 Costa do Marfim","Cote d'Ivoire":"🇨🇮 Costa do Marfim","Ecuador":"🇪🇨 Equador","Sweden":"🇸🇪 Suécia","Tunisia":"🇹🇳 Tunísia","Spain":"🇪🇸 Espanha","Cape Verde":"🇨🇻 Cabo Verde","Belgium":"🇧🇪 Bélgica","Egypt":"🇪🇬 Egito","Saudi Arabia":"🇸🇦 Arábia Saudita","Uruguay":"🇺🇾 Uruguai","Iran":"🇮🇷 Irã","IR Iran":"🇮🇷 Irã","New Zealand":"🇳🇿 Nova Zelândia","France":"🇫🇷 França","Senegal":"🇸🇳 Senegal","Iraq":"🇮🇶 Iraque","Norway":"🇳🇴 Noruega","Argentina":"🇦🇷 Argentina","Algeria":"🇩🇿 Argélia","Portugal":"🇵🇹 Portugal","Congo DR":"🇨🇩 RD Congo","DR Congo":"🇨🇩 RD Congo","England":"🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra","Croatia":"🇭🇷 Croácia","Ghana":"🇬🇭 Gana","Panama":"🇵🇦 Panamá","Uzbekistan":"🇺🇿 Uzbequistão","Colombia":"🇨🇴 Colômbia","Austria":"🇦🇹 Áustria","Jordan":"🇯🇴 Jordânia"};
@@ -465,7 +479,39 @@ const estado={
   jogosOrdem:[],
   totalJogosComPalpite:0
 };
-/* ── HELPERS ── */
+
+/* ── HELPERS GLOBAIS DE ESTATÍSTICA ── */
+function totalAcertos(j){return j.palpitesGrupos.filter(p=>p.statusPlacar==='exato'||p.statusPlacar==='coluna').length+j.palpitesMata.filter(p=>p.statusPlacar==='exato-mata'||p.statusPlacar==='coluna-mata').length}
+function totalErros(j){return j.palpitesGrupos.filter(p=>p.statusPlacar==='err').length+j.palpitesMata.filter(p=>p.statusPlacar==='err').length}
+function totalExatos(j){return j.palpitesGrupos.filter(p=>p.statusPlacar==='exato').length+j.palpitesMata.filter(p=>p.statusPlacar==='exato-mata').length}
+function totalColuna(j){return j.palpitesGrupos.filter(p=>p.statusPlacar==='coluna').length+j.palpitesMata.filter(p=>p.statusPlacar==='coluna-mata').length}
+function totalEmpates(j){return j.palpitesGrupos.filter(p=>{const pts=p.palpitePlacar.split(/[-xX]/);return pts.length>=2&&pts[0].trim()===pts[1].trim()}).length}
+
+/* ── HELPERS PARA BADGES ── */
+const getTodosPalpites = j => [...j.palpitesGrupos, ...j.palpitesMata];
+const isEmpateStr = pStr => { const pts = pStr.split(/[-xX]/); return pts.length===2 && pts[0].trim()===pts[1].trim(); };
+const totGolsStr = pStr => { const pts = pStr.split(/[-xX]/); return pts.length===2 ? parseInt(pts[0])+parseInt(pts[1]) : 0; };
+const difGolsStr = pStr => { const pts = pStr.split(/[-xX]/); return pts.length===2 ? Math.abs(parseInt(pts[0])-parseInt(pts[1])) : 0; };
+
+const BADGES_DEFS = [
+  { id: 'b1', icon: '🔮', nome: 'Oráculo', desc: 'Acertou 3 placares exatos', check: j => totalExatos(j) >= 3 },
+  { id: 'b2', icon: '🎯', nome: 'Na Mosca', desc: 'Acertou 1 placar exato', check: j => totalExatos(j) >= 1 },
+  { id: 'b3', icon: '🥅', nome: 'Na Trave', desc: 'Acertou 5 tendências', check: j => totalColuna(j) >= 5 },
+  { id: 'b4', icon: '🥶', nome: 'Pé Frio', desc: 'Já acumulou 5 erros no bolão', check: j => totalErros(j) >= 5 },
+  { id: 'b5', icon: '🤡', nome: 'Zica Máxima', desc: 'Acumulou 10 erros totais', check: j => totalErros(j) >= 10 },
+  { id: 'b6', icon: '🤝', nome: 'Rei do Empate', desc: 'Apostou em 5 empates', check: j => getTodosPalpites(j).filter(p => isEmpateStr(p.palpitePlacar)).length >= 5 },
+  { id: 'b7', icon: '🧱', nome: 'Retranqueiro', desc: 'Apostou em um 0x0', check: j => getTodosPalpites(j).some(p => p.palpitePlacar.includes('0') && isEmpateStr(p.palpitePlacar)) },
+  { id: 'b8', icon: '⚽', nome: 'Goleador', desc: 'Apostou em jogo com 4+ gols', check: j => getTodosPalpites(j).some(p => totGolsStr(p.palpitePlacar) >= 4) },
+  { id: 'b9', icon: '⚖️', nome: 'Equilibrado', desc: 'Apostou em 1x1 ou 2x2', check: j => getTodosPalpites(j).some(p => (p.palpitePlacar.includes('1') || p.palpitePlacar.includes('2')) && isEmpateStr(p.palpitePlacar)) },
+  { id: 'b10', icon: '🛡️', nome: '1x0 é Goleada', desc: 'Apostou no clássico 1x0 / 0x1', check: j => getTodosPalpites(j).some(p => difGolsStr(p.palpitePlacar) === 1 && totGolsStr(p.palpitePlacar) === 1) },
+  { id: 'b11', icon: '🎲', nome: 'Ousado', desc: 'Apostou em diferença de 3+ gols', check: j => getTodosPalpites(j).some(p => difGolsStr(p.palpitePlacar) >= 3) },
+  { id: 'b12', icon: '⚔️', nome: 'Sobrevivente', desc: 'Deu palpite no Mata-Mata', check: j => j.palpitesMata.length > 0 },
+  { id: 'b13', icon: '👁️', nome: 'Vidente', desc: 'Acertou um classificado de fase', check: j => j.palpitesMata.some(p => p.statusPassa === 'classificado') },
+  { id: 'b14', icon: '👑', nome: 'Rei do Camarote', desc: 'Chegou a 10 pontos totais', check: j => (j.pontosGrupos + j.pontosMata) >= 10 },
+  { id: 'b15', icon: '🏆', nome: 'O Especialista', desc: 'Exato no mata-mata', check: j => j.palpitesMata.some(p => p.statusPlacar === 'exato-mata') }
+];
+
+/* ── UTILS ── */
 function pad(n){return String(n).padStart(2,'0')}
 function parseCSV(linha){
   const r=[];let a='';let q=false;
@@ -488,31 +534,26 @@ function showToast(msg){
   c.appendChild(t);
   setTimeout(()=>{t.classList.add('fade-out');setTimeout(()=>t.remove(),500)},3500)
 }
+
 /* ── COUNTDOWN ── */
 function initCountdown(){
   const agora=new Date();
-  const proximo=estado.proximos
-    .map(j=>({...j,dt:new Date(j.data)}))
-    .filter(j=>j.dt>agora)
-    .sort((a,b)=>a.dt-b.dt)[0];
+  const proximo=estado.proximos.map(j=>({...j,dt:new Date(j.data)})).filter(j=>j.dt>agora).sort((a,b)=>a.dt-b.dt)[0];
   if(!proximo){document.getElementById('countdown-bar').style.display='none';return}
   document.getElementById('cd-times').textContent=`${proximo.time1} vs ${proximo.time2}`;
   document.getElementById('cd-fase').textContent=proximo.fase;
   function tick(){
     const diff=new Date(proximo.dt)-new Date();
     if(diff<=0){document.getElementById('countdown-bar').style.display='none';return}
-    const d=Math.floor(diff/86400000);
-    const h=Math.floor((diff%86400000)/3600000);
-    const m=Math.floor((diff%3600000)/60000);
-    const s=Math.floor((diff%60000)/1000);
-    document.getElementById('cd-d').textContent=pad(d);
-    document.getElementById('cd-h').textContent=pad(h);
-    document.getElementById('cd-m').textContent=pad(m);
-    document.getElementById('cd-s').textContent=pad(s);
+    document.getElementById('cd-d').textContent=pad(Math.floor(diff/86400000));
+    document.getElementById('cd-h').textContent=pad(Math.floor((diff%86400000)/3600000));
+    document.getElementById('cd-m').textContent=pad(Math.floor((diff%3600000)/60000));
+    document.getElementById('cd-s').textContent=pad(Math.floor((diff%60000)/1000));
   }
   tick();setInterval(tick,1000);
 }
-/* ── PONTOS PROVISÓRIOS AO VIVO ── */
+
+/* ── PONTOS AO VIVO ── */
 function calcPtsAoVivo(palpite,g1,g2,isMata=false){
   if(!palpite)return 0;
   const st=palpite.statusPlacar;
@@ -522,15 +563,13 @@ function calcPtsAoVivo(palpite,g1,g2,isMata=false){
   const p1=parseInt(pts[0].trim()),p2=parseInt(pts[1].trim());
   if(isNaN(p1)||isNaN(p2))return 0;
   if(p1===g1&&p2===g2)return isMata?5:3;
-  const tR=g1>g2?1:g1<g2?-1:0,tP=p1>p2?1:p1<p2?-1:0;
-  if(tR===tP)return isMata?2:1;
+  if((g1>g2?1:g1<g2?-1:0)===(p1>p2?1:p1<p2?-1:0))return isMata?2:1;
   return 0;
 }
 function matchJogo(jogoNome,av){
   const pN=normT(jogoNome).split(' x ');
   if(pN.length<2)return null;
-  const pT1=pN[0].trim(),pT2=pN[1].trim();
-  const avT1=normT(av.t1),avT2=normT(av.t2);
+  const pT1=pN[0].trim(),pT2=pN[1].trim(),avT1=normT(av.t1),avT2=normT(av.t2);
   if((avT1.includes(pT1)||pT1.includes(avT1))&&(avT2.includes(pT2)||pT2.includes(avT2)))return{g1:av.g1,g2:av.g2};
   if((avT1.includes(pT2)||pT2.includes(avT1))&&(avT2.includes(pT1)||pT1.includes(avT2)))return{g1:av.g2,g2:av.g1};
   return null;
@@ -538,24 +577,20 @@ function matchJogo(jogoNome,av){
 function ptsProvisorios(j){
   if(!estado.aoVivo.length)return 0;
   let extra=0;
-  for(const p of j.palpitesGrupos){
-    for(const av of estado.aoVivo){const m=matchJogo(p.jogo,av);if(m){extra+=calcPtsAoVivo(p,m.g1,m.g2,false);break}}
-  }
-  for(const p of j.palpitesMata){
-    for(const av of estado.aoVivo){const m=matchJogo(p.jogo,av);if(m){extra+=calcPtsAoVivo(p,m.g1,m.g2,true);break}}
-  }
+  j.palpitesGrupos.forEach(p=>{const m=estado.aoVivo.map(av=>matchJogo(p.jogo,av)).find(x=>x);if(m)extra+=calcPtsAoVivo(p,m.g1,m.g2,false);});
+  j.palpitesMata.forEach(p=>{const m=estado.aoVivo.map(av=>matchJogo(p.jogo,av)).find(x=>x);if(m)extra+=calcPtsAoVivo(p,m.g1,m.g2,true);});
   return extra;
 }
-/* ── PONTOS MÁXIMOS POSSÍVEIS ── */
 function calcMaxPossivel(j){
   let max=j.pontosGrupos+j.pontosMata;
-  for(const p of j.palpitesGrupos){if(p.statusPlacar==='aguardando'||p.statusPlacar==='')max+=3}
-  for(const p of j.palpitesMata){
+  j.palpitesGrupos.forEach(p=>{if(p.statusPlacar==='aguardando'||p.statusPlacar==='')max+=3});
+  j.palpitesMata.forEach(p=>{
     if(p.statusPlacar==='aguardando'||p.statusPlacar==='aguardando-mata'||p.statusPlacar==='')max+=5;
     if(p.statusPassa==='aguardando'||p.statusPassa==='')max+=3;
-  }
+  });
   return max;
 }
+
 /* ── BUSCA AO VIVO ── */
 async function buscarAoVivo(){
   try{
@@ -565,12 +600,9 @@ async function buscarAoVivo(){
     estado.aoVivo=[];
     if(dados.matches){
       dados.matches.filter(m=>m.status==='IN_PLAY'||m.status==='PAUSED').forEach(m=>{
-        const t1=tradutorTimes[m.homeTeam.name]||m.homeTeam.name;
-        const t2=tradutorTimes[m.awayTeam.name]||m.awayTeam.name;
-        const g1=m.score?.fullTime?.home??m.score?.halfTime?.home??0;
-        const g2=m.score?.fullTime?.away??m.score?.halfTime?.away??0;
-        const chave=`${m.homeTeam.name}-${m.awayTeam.name}`;
-        const ant=estado.ultimoPlacarAoVivo[chave];
+        const t1=tradutorTimes[m.homeTeam.name]||m.homeTeam.name, t2=tradutorTimes[m.awayTeam.name]||m.awayTeam.name;
+        const g1=m.score?.fullTime?.home??m.score?.halfTime?.home??0, g2=m.score?.fullTime?.away??m.score?.halfTime?.away??0;
+        const chave=`${m.homeTeam.name}-${m.awayTeam.name}`, ant=estado.ultimoPlacarAoVivo[chave];
         if(ant&&(ant.g1!==g1||ant.g2!==g2))showToast(`⚽ GOL! ${g1>ant.g1?t1:t2} (${g1}x${g2})`);
         estado.ultimoPlacarAoVivo[chave]={g1,g2};
         estado.aoVivo.push({t1,t2,g1,g2,fase:m.competition?.name||'',minuto:m.minute?`${m.minute}'`:(m.status==='PAUSED'?'Intervalo':'Ao Vivo')});
@@ -579,15 +611,15 @@ async function buscarAoVivo(){
   }catch(e){console.warn('API ao vivo:',e.message)}
   renderAoVivo();renderRanking();
 }
+
 /* ── RENDERS ── */
 function renderAoVivo(){
   const sec=document.getElementById('ao-vivo-section');
-  const list=document.getElementById('ao-vivo-list');
   if(!estado.aoVivo.length){sec.style.display='none';return}
   sec.style.display='block';
-  list.innerHTML=estado.aoVivo.map(j=>`
+  document.getElementById('ao-vivo-list').innerHTML=estado.aoVivo.map(j=>`
     <div class="ao-vivo-card">
-      <div class="av-header"><span class="av-fase">${j.fase||'Copa do Mundo 2026'}</span><span class="av-badge"><span class="piscar-vermelho">🔴</span> ${j.minuto}</span></div>
+      <div class="av-header"><span class="av-fase">${j.fase||'Copa 2026'}</span><span class="av-badge"><span class="piscar-vermelho">🔴</span> ${j.minuto}</span></div>
       <div class="av-body">
         <div class="av-time"><span style="font-size:18px">${j.t1.split(' ')[0]}</span><span>${j.t1.split(' ').slice(1).join(' ')}</span></div>
         <div><div class="av-placar">${j.g1} – ${j.g2}</div></div>
@@ -595,11 +627,10 @@ function renderAoVivo(){
       </div>
     </div>`).join('');
 }
+
 function renderRanking(){
   const sorted=[...estado.jogadores].sort((a,b)=>{
-    const tA=a.pontosGrupos+a.pontosMata+ptsProvisorios(a);
-    const tB=b.pontosGrupos+b.pontosMata+ptsProvisorios(b);
-    return tB-tA||a.nome.localeCompare(b.nome);
+    return (b.pontosGrupos+b.pontosMata+ptsProvisorios(b))-(a.pontosGrupos+a.pontosMata+ptsProvisorios(a))||a.nome.localeCompare(b.nome);
   });
   
   document.getElementById('podio-container').innerHTML=sorted.slice(0,3).map((j,i)=>{
@@ -607,254 +638,168 @@ function renderRanking(){
     return`<div class="podio-item"><span>${['🥇','🥈','🥉'][i]}</span><div class="podio-avatar ${i===0?'campeao-glow':''}">${avatarHTML(j)}</div><div class="podio-nome">${j.nome}</div><div class="podio-pts">${tot}<small>Pts</small></div><div class="podio-base">${i+1}</div></div>`;
   }).join('');
 
-  // Função isolada para gerar a linha da tabela
   const renderRow = (j) => {
-    const base=j.pontosGrupos+j.pontosMata,prov=ptsProvisorios(j),total=base+prov;
-    const posGlobal = sorted.indexOf(j); // Posição real no ranking geral
+    const base=j.pontosGrupos+j.pontosMata, prov=ptsProvisorios(j), total=base+prov;
+    const posGlobal = sorted.indexOf(j);
     const lider=posGlobal===0&&total>0?'<span class="badge-lider">👑 Líder</span>':'';
     const azarao=posGlobal===sorted.length-1&&sorted.length>1?'<span class="badge-azarao">🐢 Azarão</span>':'';
     const tem=j.palpitesGrupos.length>0||j.palpitesMata.length>0;
     const diff=(j.posicaoAnterior||posGlobal+1)-(posGlobal+1);
     let tr='<span class="trend flat">▪</span>';
-    if(diff>0)tr=`<span class="trend up">▴${diff}</span>`;
-    if(diff<0)tr=`<span class="trend down">▾${Math.abs(diff)}</span>`;
-    const provH=prov>0?`<span class="pts-delta">+${prov} ao vivo</span>`:'';
-
+    if(diff>0)tr=`<span class="trend up">▴${diff}</span>`; if(diff<0)tr=`<span class="trend down">▾${Math.abs(diff)}</span>`;
     return `
       <tr class="${prov>0?'main-row row-ao-vivo':'main-row'}">
         <td><div class="rank-pos-wrapper"><div class="rank-pos">${posGlobal+1}</div>${tr}</div></td>
         <td><div class="rank-player"><div class="rank-avatar">${avatarHTML(j)}</div><div><span class="rank-nome">${j.nome}</span>${lider}${azarao}</div></div></td>
         <td><div class="pontos-coluna">${j.pontosGrupos}<small>pts</small></div></td>
         <td><div class="pontos-coluna">${j.pontosMata}<small>pts</small></div></td>
-        <td><div class="rank-total">${total}${provH}</div></td>
+        <td><div class="rank-total">${total}${prov>0?`<span class="pts-delta">+${prov} ao vivo</span>`:''}</div></td>
         <td>${tem?`<button class="btn-ver" onclick="toggleP('p${j.id}')">Ver ▾</button>`:'–'}</td>
       </tr>
       ${tem?`<tr class="palpites-row" id="p${j.id}"><td colspan="6"><div class="palpites-inner">
         ${j.palpitesMata.length?`<div class="subsection-title" style="color:var(--amarelo);margin-top:0">⚔️ Mata-Mata</div>${j.palpitesMata.map(p=>{
-          let ptsAv=0,vivo=false;
-          for(const av of estado.aoVivo){const m=matchJogo(p.jogo,av);if(m){vivo=true;ptsAv=calcPtsAoVivo(p,m.g1,m.g2,true);break}}
-          const bv=vivo&&(p.statusPlacar==='aguardando'||p.statusPlacar==='')?`<span class="badge-ao-vivo-pts">🔴 +${ptsAv}pt provisório</span>`:'';
-          return`<div class="palpite-item"><span style="flex:1"><b>${p.jogo}</b></span><div class="palpite-info"><span>90min: <b>${p.palpitePlacar}</b> <span class="${getClass(p.statusPlacar)}">${formatarBadge(p.statusPlacar)}</span></span><span>Avança: <b>${p.palpitePassa||'?'}</b> <span class="${getClass(p.statusPassa)}">${formatarBadge(p.statusPassa)}</span></span>${bv}</div></div>`;
+          let ptsAv=0,vivo=false; const m=estado.aoVivo.map(av=>matchJogo(p.jogo,av)).find(x=>x);
+          if(m){vivo=true;ptsAv=calcPtsAoVivo(p,m.g1,m.g2,true);}
+          return`<div class="palpite-item"><span style="flex:1"><b>${p.jogo}</b></span><div class="palpite-info"><span>90min: <b>${p.palpitePlacar}</b> <span class="${getClass(p.statusPlacar)}">${formatarBadge(p.statusPlacar)}</span></span><span>Avança: <b>${p.palpitePassa||'?'}</b> <span class="${getClass(p.statusPassa)}">${formatarBadge(p.statusPassa)}</span></span>${vivo&&(p.statusPlacar==='aguardando'||p.statusPlacar==='')?`<span class="badge-ao-vivo-pts">🔴 +${ptsAv}pt</span>`:''}</div></div>`;
         }).join('')}<hr style="border-top:1px solid var(--borda);margin:12px 0">`:''}
         ${j.palpitesGrupos.length?`<div class="subsection-title" style="color:var(--verde);margin-top:0">⚽ Grupos</div>${j.palpitesGrupos.map(p=>{
-          let ptsAv=0,vivo=false;
-          for(const av of estado.aoVivo){const m=matchJogo(p.jogo,av);if(m){vivo=true;ptsAv=calcPtsAoVivo(p,m.g1,m.g2,false);break}}
-          const bv=vivo&&(p.statusPlacar==='aguardando'||p.statusPlacar==='')?`<span class="badge-ao-vivo-pts">🔴 +${ptsAv}pt provisório</span>`:'';
-          return`<div class="palpite-item"><span style="flex:1"><b>${p.jogo}</b></span><div class="palpite-info"><span>Palpite: <b>${p.palpitePlacar}</b> <span class="${getClass(p.statusPlacar)}">${formatarBadge(p.statusPlacar)}</span></span>${bv}</div></div>`;
+          let ptsAv=0,vivo=false; const m=estado.aoVivo.map(av=>matchJogo(p.jogo,av)).find(x=>x);
+          if(m){vivo=true;ptsAv=calcPtsAoVivo(p,m.g1,m.g2,false);}
+          return`<div class="palpite-item"><span style="flex:1"><b>${p.jogo}</b></span><div class="palpite-info"><span>Palpite: <b>${p.palpitePlacar}</b> <span class="${getClass(p.statusPlacar)}">${formatarBadge(p.statusPlacar)}</span></span>${vivo&&(p.statusPlacar==='aguardando'||p.statusPlacar==='')?`<span class="badge-ao-vivo-pts">🔴 +${ptsAv}pt</span>`:''}</div></div>`;
         }).join('')}`:''}
       </div></td></tr>`:''}`;
   };
 
-  // Separação das Ligas
-  const bigDick = sorted.slice(0, 3);
-  const smallDick = sorted.slice(3);
-
-  document.getElementById('ranking-body-big').innerHTML = bigDick.map(j => renderRow(j)).join('');
-  document.getElementById('ranking-body-small').innerHTML = smallDick.map(j => renderRow(j)).join('');
+  document.getElementById('ranking-body-big').innerHTML = sorted.slice(0,3).map(renderRow).join('');
+  document.getElementById('ranking-body-small').innerHTML = sorted.slice(3).map(renderRow).join('');
 }
+
 function renderPossivel(){
   const sorted=[...estado.jogadores].sort((a,b)=>(b.pontosGrupos+b.pontosMata)-(a.pontosGrupos+a.pontosMata));
   const maxGlobal=Math.max(...sorted.map(j=>calcMaxPossivel(j)),1);
   document.getElementById('possivel-grid').innerHTML=sorted.map(j=>{
-    const atual=j.pontosGrupos+j.pontosMata;
-    const max=calcMaxPossivel(j);
-    const pct=Math.round((atual/maxGlobal)*100);
-    const pctMax=Math.round((max/maxGlobal)*100);
+    const atual=j.pontosGrupos+j.pontosMata, max=calcMaxPossivel(j);
     return`<div class="possivel-card">
       <div class="poss-avatar">${avatarHTML(j)}</div>
       <div class="poss-info">
         <div class="poss-nome">${j.nome}</div>
-        <div class="poss-bar-wrap" title="Atual: ${atual} | Máx: ${max}">
-          <div class="poss-bar" style="width:${pctMax}%;opacity:.3"></div>
-        </div>
-        <div class="poss-bar-wrap" style="margin-top:3px">
-          <div class="poss-bar" style="width:${pct}%"></div>
-        </div>
+        <div class="poss-bar-wrap" title="Máx: ${max}"><div class="poss-bar" style="width:${Math.round((max/maxGlobal)*100)}%;opacity:.3"></div></div>
+        <div class="poss-bar-wrap" style="margin-top:3px"><div class="poss-bar" style="width:${Math.round((atual/maxGlobal)*100)}%"></div></div>
         <div class="poss-nums"><span class="poss-atual">${atual} pts</span><span class="poss-max">máx ${max}</span></div>
       </div>
     </div>`;
   }).join('');
 }
+
 function renderGrafico(){
-  const jogos=estado.jogosOrdem;
-  if(!jogos.length)return;
-  const labels=jogos.map((_,i)=>`Jogo ${i+1}`);
-  const datasets=estado.jogadores.map((j,idx)=>({
-    label:j.nome.split(' ')[0],
-    data:j.historico,
-    borderColor:CORES_JOGADORES[idx%CORES_JOGADORES.length],
-    backgroundColor:'transparent',
-    borderWidth:2,pointRadius:3,pointHoverRadius:6,tension:.35
-  }));
-  const ctx=document.getElementById('grafico-historico');
-  if(!ctx)return;
+  if(!estado.jogosOrdem.length)return;
+  const ctx=document.getElementById('grafico-historico');if(!ctx)return;
   if(estado.graficoInstance)estado.graficoInstance.destroy();
   estado.graficoInstance=new Chart(ctx,{
     type:'line',
-    data:{labels,datasets},
-    options:{
-      responsive:true,maintainAspectRatio:true,
-      plugins:{legend:{labels:{color:'#8A9BB0',font:{family:'Inter',size:11},boxWidth:12,padding:16}},tooltip:{backgroundColor:'#1A2B42',borderColor:'rgba(255,255,255,.1)',borderWidth:1,titleColor:'#E8EDF2',bodyColor:'#8A9BB0'}},
-      scales:{
-        x:{grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#8A9BB0',font:{size:10}}},
-        y:{grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#8A9BB0',font:{size:10}}}
-      }
-    }
+    data:{labels:estado.jogosOrdem.map((_,i)=>`Jogo ${i+1}`), datasets:estado.jogadores.map((j,idx)=>({label:j.nome.split(' ')[0], data:j.historico, borderColor:CORES_JOGADORES[idx%CORES_JOGADORES.length], backgroundColor:'transparent', borderWidth:2,pointRadius:3,tension:.35}))},
+    options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{labels:{color:'#8A9BB0',font:{size:11},boxWidth:12}},tooltip:{backgroundColor:'#1A2B42',borderColor:'rgba(255,255,255,.1)',borderWidth:1}},scales:{x:{grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#8A9BB0'}},y:{grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#8A9BB0'}}}}
   });
 }
+
 function renderEstatisticas(){
   const jogs=estado.jogadores;
-  function totalAcertos(j){return j.palpitesGrupos.filter(p=>p.statusPlacar==='exato'||p.statusPlacar==='coluna').length+j.palpitesMata.filter(p=>p.statusPlacar==='exato-mata'||p.statusPlacar==='coluna-mata').length}
-  function totalErros(j){return j.palpitesGrupos.filter(p=>p.statusPlacar==='err').length+j.palpitesMata.filter(p=>p.statusPlacar==='err').length}
-  function totalExatos(j){return j.palpitesGrupos.filter(p=>p.statusPlacar==='exato').length+j.palpitesMata.filter(p=>p.statusPlacar==='exato-mata').length}
-  function totalEmpates(j){
-    return j.palpitesGrupos.filter(p=>{const pts=p.palpitePlacar.split(/[-xX]/);return pts.length>=2&&pts[0].trim()===pts[1].trim()}).length
-  }
-  const sortedAcertos=[...jogs].sort((a,b)=>totalAcertos(b)-totalAcertos(a));
-  const sortedErros=[...jogs].sort((a,b)=>totalErros(b)-totalErros(a));
-  const sortedExatos=[...jogs].sort((a,b)=>totalExatos(b)-totalExatos(a));
-  const sortedEmpates=[...jogs].sort((a,b)=>totalEmpates(b)-totalEmpates(a));
-  function listaStats(arr,fn,classe){
-    return arr.slice(0,3).map((j,i)=>`
-      <div class="stat-item">
-        <span class="stat-rank">${i+1}</span>
-        <div class="stat-avatar-sm">${avatarHTML(j)}</div>
-        <span class="stat-nome">${j.nome.split(' ')[0]}</span>
-        <span class="stat-val ${classe}">${fn(j)}</span>
-      </div>`).join('');
-  }
+  const sAcertos=[...jogs].sort((a,b)=>totalAcertos(b)-totalAcertos(a));
+  const sErros=[...jogs].sort((a,b)=>totalErros(b)-totalErros(a));
+  const sExatos=[...jogs].sort((a,b)=>totalExatos(b)-totalExatos(a));
+  const sEmpates=[...jogs].sort((a,b)=>totalEmpates(b)-totalEmpates(a));
+
+  const listStat = (arr,fn,cls) => arr.slice(0,3).map((j,i)=>`<div class="stat-item"><span class="stat-rank">${i+1}</span><div class="stat-avatar-sm">${avatarHTML(j)}</div><span class="stat-nome">${j.nome.split(' ')[0]}</span><span class="stat-val ${cls}">${fn(j)}</span></div>`).join('');
+
   document.getElementById('stats-grid').innerHTML=`
-    <div class="stat-card">
-      <div class="stat-card-title">🎯 Mais Acertos (exatos + tendência)</div>
-      ${listaStats(sortedAcertos,totalAcertos,'verde')}
-    </div>
-    <div class="stat-card">
-      <div class="stat-card-title">🏆 Mais Placares Exatos</div>
-      ${listaStats(sortedExatos,totalExatos,'ouro')}
-    </div>
-    <div class="stat-card">
-      <div class="stat-card-title">❌ Mais Erros</div>
-      ${listaStats(sortedErros,totalErros,'vermelho')}
-    </div>
-    <div class="stat-card">
-      <div class="stat-card-title">🤝 Maior Apostador de Empate</div>
-      ${listaStats(sortedEmpates,totalEmpates,'')}
-    </div>`;
-  const todosPalpitesGrupos=[];
-  jogs.forEach(j=>j.palpitesGrupos.forEach(p=>todosPalpitesGrupos.push({...p,jogador:j})));
-  const exatos=todosPalpitesGrupos.filter(p=>p.statusPlacar==='exato').slice(0,3);
-  const erros=todosPalpitesGrupos.filter(p=>p.statusPlacar==='err').slice(0,3);
+    <div class="stat-card"><div class="stat-card-title">🎯 Mais Acertos</div>${listStat(sAcertos,totalAcertos,'verde')}</div>
+    <div class="stat-card"><div class="stat-card-title">🏆 Placares Exatos</div>${listStat(sExatos,totalExatos,'ouro')}</div>
+    <div class="stat-card"><div class="stat-card-title">❌ Mais Erros</div>${listStat(sErros,totalErros,'vermelho')}</div>
+    <div class="stat-card"><div class="stat-card-title">🤝 Mestre do Empate</div>${listStat(sEmpates,totalEmpates,'')}</div>`;
+  
+  const all=[]; jogs.forEach(j=>j.palpitesGrupos.forEach(p=>all.push({...p,j})));
+  const exa=all.filter(p=>p.statusPlacar==='exato').slice(0,3);
+  const err=all.filter(p=>p.statusPlacar==='err').slice(0,3);
   document.getElementById('mural-grid').innerHTML=`
-    <div class="mural-card fama">
-      <div class="mural-title" style="color:var(--amarelo)">🏅 Mural da Fama</div>
-      ${exatos.length?exatos.map(p=>`
-        <div class="mural-item">
-          <span class="mural-emoji">⭐</span>
-          <div class="mural-txt"><strong>${p.jogador.nome.split(' ')[0]}</strong>${p.jogo} · ${p.palpitePlacar}</div>
-          <span class="mural-pts ouro">+3</span>
-        </div>`).join(''):'<div style="color:var(--muted);font-size:13px;padding:8px 0">Nenhum placar exato ainda.</div>'}
+    <div class="mural-card fama"><div class="mural-title" style="color:var(--amarelo)">🏅 Mural da Fama</div>${exa.map(p=>`<div class="mural-item"><span class="mural-emoji">⭐</span><div class="mural-txt"><strong>${p.j.nome.split(' ')[0]}</strong>${p.jogo} · ${p.palpitePlacar}</div><span class="mural-pts ouro">+3</span></div>`).join('')||'<div style="color:var(--muted);font-size:13px;padding:8px 0">Sem exatos ainda.</div>'}</div>
+    <div class="mural-card vergonha"><div class="mural-title" style="color:var(--vivo)">💀 Mural da Vergonha</div>${err.map(p=>`<div class="mural-item"><span class="mural-emoji">💀</span><div class="mural-txt"><strong>${p.j.nome.split(' ')[0]}</strong>${p.jogo} · tentou ${p.palpitePlacar}</div><span class="mural-pts erro">0</span></div>`).join('')||'<div style="color:var(--muted);font-size:13px;padding:8px 0">Galera tá afiada.</div>'}</div>`;
+}
+
+function renderChoradeira(){
+  const jogs=estado.jogadores;
+  const traves=[...jogs].sort((a,b)=>totalColuna(b)-totalColuna(a)).slice(0,3);
+  const zicas=[...jogs].sort((a,b)=>totalErros(b)-totalErros(a)).slice(0,3);
+
+  document.getElementById('choradeira-grid').innerHTML=`
+    <div class="mural-card" style="border-color: rgba(0, 210, 255, 0.3);">
+      <div class="mural-title" style="color: #00d2ff">🥅 Reis da Trave (Faltou 1 Gol)</div>
+      ${traves.filter(j=>totalColuna(j)>0).map(j=>`<div class="mural-item"><span class="mural-emoji">😩</span><div class="mural-txt"><strong>${j.nome.split(' ')[0]}</strong>Acertou a tendência mas errou o placar</div><span class="mural-pts" style="color:#00d2ff">${totalColuna(j)}x</span></div>`).join('') || '<div style="color:var(--muted);font-size:13px;padding:8px 0">Ninguém na trave ainda.</div>'}
     </div>
-    <div class="mural-card vergonha">
-      <div class="mural-title" style="color:var(--vivo)">💀 Mural da Vergonha</div>
-      ${erros.length?erros.map(p=>`
-        <div class="mural-item">
-          <span class="mural-emoji">💀</span>
-          <div class="mural-txt"><strong>${p.jogador.nome.split(' ')[0]}</strong>${p.jogo} · tentou ${p.palpitePlacar}</div>
-          <span class="mural-pts erro">0</span>
-        </div>`).join(''):'<div style="color:var(--muted);font-size:13px;padding:8px 0">Todos acertando. Suspeito.</div>'}
+    <div class="mural-card" style="border-color: rgba(255, 71, 87, 0.3);">
+      <div class="mural-title" style="color: var(--vivo)">🤡 Cemitério de Palpites</div>
+      ${zicas.filter(j=>totalErros(j)>0).map(j=>`<div class="mural-item"><span class="mural-emoji">💩</span><div class="mural-txt"><strong>${j.nome.split(' ')[0]}</strong>Errou absolutamente tudo no jogo</div><span class="mural-pts erro">${totalErros(j)}x</span></div>`).join('') || '<div style="color:var(--muted);font-size:13px;padding:8px 0">Incrível, sem erros totais!</div>'}
     </div>`;
 }
+
 function renderRivalidades(){
-  const jogs=estado.jogadores;
-  const pares=[];
+  const jogs=estado.jogadores, pares=[];
   for(let i=0;i<jogs.length;i++){
     for(let k=i+1;k<jogs.length;k++){
-      const a=jogs[i],b=jogs[k];
-      const jogosComuns=a.palpitesGrupos.map(p=>p.jogo).filter(jn=>b.palpitesGrupos.find(p=>p.jogo===jn));
-      if(!jogosComuns.length)continue;
-      let winsA=0,winsB=0,empates=0;
-      let ptsTotA=0,ptsTotB=0;
-      jogosComuns.forEach(jn=>{
-        const pa=a.palpitesGrupos.find(p=>p.jogo===jn);
-        const pb=b.palpitesGrupos.find(p=>p.jogo===jn);
-        const ptA=pa.statusPlacar==='exato'?3:pa.statusPlacar==='coluna'?1:0;
-        const ptB=pb.statusPlacar==='exato'?3:pb.statusPlacar==='coluna'?1:0;
-        ptsTotA+=ptA;ptsTotB+=ptB;
-        if(ptA>ptB)winsA++;else if(ptB>ptA)winsB++;else empates++;
+      const a=jogs[i], b=jogs[k];
+      const comuns=a.palpitesGrupos.map(p=>p.jogo).filter(jn=>b.palpitesGrupos.find(p=>p.jogo===jn));
+      if(!comuns.length)continue;
+      let wA=0,wB=0,e=0,pA=0,pB=0;
+      comuns.forEach(jn=>{
+        const ptA=a.palpitesGrupos.find(p=>p.jogo===jn).statusPlacar==='exato'?3:a.palpitesGrupos.find(p=>p.jogo===jn).statusPlacar==='coluna'?1:0;
+        const ptB=b.palpitesGrupos.find(p=>p.jogo===jn).statusPlacar==='exato'?3:b.palpitesGrupos.find(p=>p.jogo===jn).statusPlacar==='coluna'?1:0;
+        pA+=ptA; pB+=ptB;
+        if(ptA>ptB)wA++; else if(ptB>ptA)wB++; else e++;
       });
-      if(jogosComuns.length>0)pares.push({a,b,winsA,winsB,empates,ptsTotA,ptsTotB,total:jogosComuns.length});
+      pares.push({a,b,wA,wB,e,pA,pB,tot:comuns.length});
     }
   }
-  pares.sort((x,y)=>Math.abs(x.ptsTotA-x.ptsTotB)-Math.abs(y.ptsTotA-y.ptsTotB));
-  const top=pares.slice(0,4);
-  if(!top.length){document.getElementById('rival-grid').innerHTML='<div style="color:var(--muted);font-size:13px">Ainda sem jogos suficientes para rivalidades.</div>';return}
+  const top=pares.sort((x,y)=>Math.abs(x.pA-x.pB)-Math.abs(y.pA-y.pB)).slice(0,4);
+  if(!top.length){document.getElementById('rival-grid').innerHTML='<div style="color:var(--muted);font-size:13px">Ainda sem jogos suficientes.</div>';return}
   document.getElementById('rival-grid').innerHTML=top.map(r=>{
-    const totPts=r.ptsTotA+r.ptsTotB||1;
-    const wA = (r.ptsTotA === 0 && r.ptsTotB === 0) ? 50 : Math.round((r.ptsTotA/totPts)*100);
-    const wB = 100 - wA;
-    const totW = r.winsA+r.winsB+r.empates||1;
-    const wRA = (r.winsA === 0 && r.winsB === 0 && r.empates === 0) ? 50 : Math.round((r.winsA/totW)*100);
-    const wRB = 100 - wRA;
-    
+    const pctA=(r.pA===0&&r.pB===0)?50:Math.round((r.pA/(r.pA+r.pB))*100), pctWA=(r.wA===0&&r.wB===0&&r.e===0)?50:Math.round((r.wA/(r.wA+r.wB+r.e))*100);
     return`<div class="rival-card">
-      <div class="rival-header">
-        <div class="rival-player"><div class="rival-avatar">${avatarHTML(r.a)}</div><div class="rival-nome-sm">${r.a.nome.split(' ')[0]}</div></div>
-        <span class="rival-vs">VS</span>
-        <div class="rival-player"><div class="rival-avatar">${avatarHTML(r.b)}</div><div class="rival-nome-sm">${r.b.nome.split(' ')[0]}</div></div>
-      </div>
-      <div class="rival-stat-row">
-        <span class="rival-label">Pontos</span>
-        <div class="rival-bar-wrap">
-          <span class="rival-pct-a">${r.ptsTotA}</span>
-          <div class="rival-bar-a" style="width:${wA}%"></div>
-          <div class="rival-bar-b" style="width:${wB}%"></div>
-          <span class="rival-pct-b">${r.ptsTotB}</span>
-        </div>
-      </div>
-      <div class="rival-stat-row">
-        <span class="rival-label">Vitórias (${r.total} jogos)</span>
-        <div class="rival-bar-wrap">
-          <span class="rival-pct-a">${r.winsA}v</span>
-          <div class="rival-bar-a" style="width:${wRA}%"></div>
-          <div class="rival-bar-b" style="width:${wRB}%"></div>
-          <span class="rival-pct-b">${r.winsB}v</span>
-        </div>
-      </div>
+      <div class="rival-header"><div class="rival-player"><div class="rival-avatar">${avatarHTML(r.a)}</div><div class="rival-nome-sm">${r.a.nome.split(' ')[0]}</div></div><span class="rival-vs">VS</span><div class="rival-player"><div class="rival-avatar">${avatarHTML(r.b)}</div><div class="rival-nome-sm">${r.b.nome.split(' ')[0]}</div></div></div>
+      <div class="rival-stat-row"><span class="rival-label">Pontos</span><div class="rival-bar-wrap"><span class="rival-pct-a">${r.pA}</span><div class="rival-bar-a" style="width:${pctA}%"></div><div class="rival-bar-b" style="width:${100-pctA}%"></div><span class="rival-pct-b">${r.pB}</span></div></div>
+      <div class="rival-stat-row"><span class="rival-label">Vitórias (${r.tot}j)</span><div class="rival-bar-wrap"><span class="rival-pct-a">${r.wA}v</span><div class="rival-bar-a" style="width:${pctWA}%"></div><div class="rival-bar-b" style="width:${100-pctWA}%"></div><span class="rival-pct-b">${r.wB}v</span></div></div>
     </div>`;
   }).join('');
 }
+
 function renderProximos(){
-  document.getElementById('proximos-grid').innerHTML=estado.proximos.map(j=>{
-    const dtFormatada = new Date(j.data).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'});
-    return `
-    <div class="jogo-card">
-      <div class="jogo-fase">${j.fase}</div>
-      <div class="jogos-times">
-        <div class="jogo-time"><span class="jogo-time-nome">${j.time1}</span></div>
-        <span class="jogo-vs">VS</span>
-        <div class="jogo-time"><span class="jogo-time-nome">${j.time2}</span></div>
-      </div>
-      <div class="jogo-meta">
-        <span>📅 ${dtFormatada}</span>
-        <span>⏰ ${j.hora}</span>
-      </div>
-    </div>`
-  }).join('');
+  document.getElementById('proximos-grid').innerHTML=estado.proximos.map(j=>`
+    <div class="jogo-card"><div class="jogo-fase">${j.fase}</div><div class="jogos-times"><div class="jogo-time"><span class="jogo-time-nome">${j.time1}</span></div><span class="jogo-vs">VS</span><div class="jogo-time"><span class="jogo-time-nome">${j.time2}</span></div></div><div class="jogo-meta"><span>📅 ${new Date(j.data).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}</span><span>⏰ ${j.hora}</span></div></div>
+  `).join('');
 }
+
 function renderCarrossel(){
-  document.getElementById('carousel-track').innerHTML=[...estado.jogadores,...estado.jogadores].map(j=>`
+  document.getElementById('carousel-track').innerHTML=[...estado.jogadores,...estado.jogadores].map(j=>{
+    const badgesHtml = `<div class="badges-grid">` + BADGES_DEFS.map(b => {
+      const unlocked = b.check(j);
+      return `<div class="badge-icon ${unlocked ? 'unlocked' : 'locked'}" title="${b.nome}\n${b.desc}">${b.icon}</div>`;
+    }).join('') + `</div>`;
+
+    return `
     <div class="card-participante">
       ${fotoCardHTML(j)}
       <div class="card-nome">${j.nome}</div>
       <div class="card-desc">${j.descricao||'Pronto para os palpites!'}</div>
-    </div>`).join('');
+      ${badgesHtml}
+    </div>`;
+  }).join('');
 }
+
 function toggleP(id){
   const row=document.getElementById(id);if(!row)return;
   const ab=row.classList.contains('open');
   document.querySelectorAll('.palpites-row.open').forEach(r=>r.classList.remove('open'));
   if(!ab)row.classList.add('open');
 }
+
 /* ── CARREGA PLANILHA ── */
 async function carregarPlanilha(){
   try{
@@ -863,47 +808,36 @@ async function carregarPlanilha(){
     const linhas=(await r.text()).split('\n').slice(1);
     estado.jogadores.forEach(j=>{j.palpitesGrupos=[];j.palpitesMata=[];j.pontosGrupos=0;j.pontosMata=0;j.historico=[];j.pontosAnteriores=0});
     const jogosComputados=[];
-    const jogosOrdemSet=[];
     linhas.forEach(linha=>{
       if(!linha.trim())return;
       const c=parseCSV(linha);if(c.length<4)return;
-      const idJ=parseInt(c[0],10),jogo=c[1],palpitePlacar=c[2];
-      let isMata=false,palpitePassa='',statusPlacar=(c[3]||'').toLowerCase().trim(),statusPassa='';
-      if(!['exato','coluna','err','aguardando',''].includes(statusPlacar)){
-        isMata=true;palpitePassa=c[3];statusPlacar=(c[4]||'').toLowerCase().trim();statusPassa=(c[5]||'').toLowerCase().trim();
-      }
-      const computado=statusPlacar&&statusPlacar!=='aguardando'&&statusPlacar!=='aguardando-mata';
-      if(computado&&!jogosComputados.includes(jogo))jogosComputados.push(jogo);
-      if(!jogosOrdemSet.includes(jogo))jogosOrdemSet.push(jogo);
-      const dono=estado.jogadores.find(j=>j.id===idJ);if(!dono)return;
+      const dono=estado.jogadores.find(j=>j.id===parseInt(c[0],10));if(!dono)return;
+      let isMata=false,palpitePassa='',stPlacar=(c[3]||'').toLowerCase().trim(),stPassa='';
+      if(!['exato','coluna','err','aguardando',''].includes(stPlacar)){ isMata=true; palpitePassa=c[3]; stPlacar=(c[4]||'').toLowerCase().trim(); stPassa=(c[5]||'').toLowerCase().trim(); }
+      
+      if(stPlacar&&stPlacar!=='aguardando'&&stPlacar!=='aguardando-mata'&&!jogosComputados.includes(c[1])) jogosComputados.push(c[1]);
+      
       if(isMata){
-        dono.palpitesMata.push({jogo,palpitePlacar,palpitePassa,statusPlacar,statusPassa});
-        if(statusPlacar==='exato-mata')dono.pontosMata+=5;
-        if(statusPlacar==='coluna-mata')dono.pontosMata+=2;
-        if(statusPassa==='classificado')dono.pontosMata+=3;
+        dono.palpitesMata.push({jogo:c[1],palpitePlacar:c[2],palpitePassa,statusPlacar:stPlacar,statusPassa:stPassa});
+        if(stPlacar==='exato-mata')dono.pontosMata+=5; if(stPlacar==='coluna-mata')dono.pontosMata+=2; if(stPassa==='classificado')dono.pontosMata+=3;
       }else{
-        dono.palpitesGrupos.push({jogo,palpitePlacar,statusPlacar});
-        if(statusPlacar==='exato')dono.pontosGrupos+=3;
-        if(statusPlacar==='coluna')dono.pontosGrupos+=1;
+        dono.palpitesGrupos.push({jogo:c[1],palpitePlacar:c[2],statusPlacar:stPlacar});
+        if(stPlacar==='exato')dono.pontosGrupos+=3; if(stPlacar==='coluna')dono.pontosGrupos+=1;
       }
     });
+    
     estado.jogosOrdem=jogosComputados;
     estado.jogadores.forEach(j=>{
       let acc=0;
       j.historico=jogosComputados.map(jn=>{
-        const pg=j.palpitesGrupos.find(p=>p.jogo===jn);
-        const pm=j.palpitesMata.find(p=>p.jogo===jn);
+        const pg=j.palpitesGrupos.find(p=>p.jogo===jn), pm=j.palpitesMata.find(p=>p.jogo===jn);
         if(pg){if(pg.statusPlacar==='exato')acc+=3;if(pg.statusPlacar==='coluna')acc+=1;}
         if(pm){if(pm.statusPlacar==='exato-mata')acc+=5;if(pm.statusPlacar==='coluna-mata')acc+=2;if(pm.statusPassa==='classificado')acc+=3;}
         return acc;
       });
-    });
-    const ult=jogosComputados.slice(-4);
-    estado.jogadores.forEach(j=>{
       j.pontosAnteriores=j.pontosGrupos+j.pontosMata;
-      ult.forEach(jn=>{
-        const pg=j.palpitesGrupos.find(p=>p.jogo===jn);
-        const pm=j.palpitesMata.find(p=>p.jogo===jn);
+      jogosComputados.slice(-4).forEach(jn=>{
+        const pg=j.palpitesGrupos.find(p=>p.jogo===jn), pm=j.palpitesMata.find(p=>p.jogo===jn);
         if(pg){if(pg.statusPlacar==='exato')j.pontosAnteriores-=3;if(pg.statusPlacar==='coluna')j.pontosAnteriores-=1;}
         if(pm){if(pm.statusPlacar==='exato-mata')j.pontosAnteriores-=5;if(pm.statusPlacar==='coluna-mata')j.pontosAnteriores-=2;if(pm.statusPassa==='classificado')j.pontosAnteriores-=3;}
       });
@@ -912,15 +846,16 @@ async function carregarPlanilha(){
     document.getElementById('loading-banner').style.display='none';
   }catch(e){console.error('Planilha:',e)}
 }
+
 /* ── INIT ── */
 async function iniciarApp(){
   await carregarPlanilha();
-  renderRanking();renderPossivel();renderGrafico();renderEstatisticas();renderRivalidades();
+  renderRanking();renderPossivel();renderGrafico();renderEstatisticas();renderChoradeira();renderRivalidades();
   renderProximos();renderCarrossel();initCountdown();
   await buscarAoVivo();
 }
 iniciarApp();
-setInterval(async()=>{await carregarPlanilha();renderRanking();renderPossivel();renderGrafico();renderEstatisticas();renderRivalidades();await buscarAoVivo();},60000);
+setInterval(async()=>{await carregarPlanilha();renderRanking();renderPossivel();renderGrafico();renderEstatisticas();renderChoradeira();renderRivalidades();renderCarrossel();await buscarAoVivo();},60000);
 setInterval(async()=>{if(estado.aoVivo.length>0)await buscarAoVivo();},30000);
 </script>
 </body>
