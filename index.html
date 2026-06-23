@@ -604,7 +604,29 @@ async function buscarAoVivo(){
     }
   }catch(e){console.warn('buscarAoVivo:',e.message)}
   renderAoVivo();
-  renderRanking();
+  // Só re-renderiza o ranking se há jogo ao vivo com pontos provisórios
+  // Evita que o innerHTML da tabela seja reconstruído e feche linhas abertas
+  if(estado.aoVivo.length>0){
+    atualizarPontosAoVivoSemRerenderizar();
+  }
+}
+
+/* ── ATUALIZA PONTOS AO VIVO SEM REESCREVER A TABELA ── */
+// Cirúrgico: só toca nos elementos de total já existentes no DOM
+// Linhas abertas pelo usuário permanecem abertas
+function atualizarPontosAoVivoSemRerenderizar(){
+  const sorted=[...estado.jogadores].sort((a,b)=>
+    (b.pontosGrupos+b.pontosMata+ptsProvisorios(b))-(a.pontosGrupos+a.pontosMata+ptsProvisorios(a))||a.nome.localeCompare(b.nome)
+  );
+  sorted.forEach(j=>{
+    const prov=ptsProvisorios(j);
+    const total=j.pontosGrupos+j.pontosMata+prov;
+    // Atualiza só a célula de total — sem tocar no resto da linha
+    const elTotal=document.querySelector(`#ranking-body-big .rank-total[data-id="${j.id}"], #ranking-body-small .rank-total[data-id="${j.id}"]`);
+    if(elTotal){
+      elTotal.innerHTML=`${total}${prov>0?`<span class="pts-delta">+${prov} ao vivo</span>`:''}`;
+    }
+  });
 }
 
 /* ── RENDERS ── */
