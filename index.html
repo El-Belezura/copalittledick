@@ -527,10 +527,16 @@ function calcMaxPossivel(j){
   return max;
 }
 
-/* ── BUSCA PRÓXIMOS JOGOS DA API (NOVO) ── */
+/* ── FETCH COM TIMEOUT ── */
+async function fetchComTimeout(url,opts,ms=5000){
+  const ctrl=new AbortController();
+  const timer=setTimeout(()=>ctrl.abort(),ms);
+  try{return await fetch(url,{...opts,signal:ctrl.signal})}finally{clearTimeout(timer)}
+}
+
+/* ── BUSCA PRÓXIMOS JOGOS DA API ── */
 async function carregarProximos(){
   try{
-    // Dois proxies em cascata: se um falhar, tenta o outro
     const proxies=[
       u=>`https://corsproxy.io/?${encodeURIComponent(u)}`,
       u=>`https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`
@@ -539,7 +545,7 @@ async function carregarProximos(){
     let dados=null;
     for(const proxy of proxies){
       try{
-        const r=await fetch(proxy(apiUrl),{headers:{"X-Auth-Token":TOKEN_API,"Accept":"application/json"}});
+        const r=await fetchComTimeout(proxy(apiUrl),{headers:{"X-Auth-Token":TOKEN_API,"Accept":"application/json"}},5000);
         if(r.ok){dados=await r.json();break;}
       }catch(e){}
     }
@@ -550,9 +556,8 @@ async function carregarProximos(){
       const home=tradutorTimes[m.homeTeam.name]||m.homeTeam.name;
       const away=tradutorTimes[m.awayTeam.name]||m.awayTeam.name;
       const dt=new Date(m.utcDate);
-      // UTC-3 = Brasília
-      const hrBR=new Date(dt.getTime()-3*60*60*1000);
-      const hora=pad(hrBR.getUTCHours())+':'+pad(hrBR.getUTCMinutes());
+      // Deixa o browser converter para o fuso local — sem subtração manual que quebra no horário de verão
+      const hora=dt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',timeZone:'America/Sao_Paulo'});
       const fase=m.group?m.group.replace('GROUP_','Grupo '):(m.stage?m.stage.replace(/_/g,' '):'Copa 2026');
       return{id:m.id,time1:home,time2:away,fase,data:m.utcDate,hora};
     });
@@ -572,7 +577,7 @@ async function buscarAoVivo(){
     let dados=null;
     for(const proxy of proxies){
       try{
-        const r=await fetch(proxy(apiUrl),{headers:{"X-Auth-Token":TOKEN_API,"Accept":"application/json"}});
+        const r=await fetchComTimeout(proxy(apiUrl),{headers:{"X-Auth-Token":TOKEN_API,"Accept":"application/json"}},5000);
         if(r.ok){dados=await r.json();break;}
       }catch(e){}
     }
@@ -662,8 +667,16 @@ function renderPossivel(){
 function renderGrafico(){
   if(!estado.jogosOrdem.length)return;
   const ctx=document.getElementById('grafico-historico');if(!ctx)return;
+  // Só reconstrói se o número de jogos mudou — evita destruir/recriar a cada 60s desnecessariamente
+  const qtdAtual=estado.graficoInstance?.data?.labels?.length||0;
+  if(estado.graficoInstance&&qtdAtual===estado.jogosOrdem.length){
+    // Atualiza dados sem recriar o canvas
+    estado.graficoInstance.data.datasets.forEach((ds,idx)=>{ds.data=estado.jogadores[idx]?.historico||[]});
+    estado.graficoInstance.update('none');// 'none' = sem animação, mais rápido
+    return;
+  }
   if(estado.graficoInstance)estado.graficoInstance.destroy();
-  estado.graficoInstance=new Chart(ctx,{type:'line',data:{labels:estado.jogosOrdem.map((_,i)=>`Jogo ${i+1}`),datasets:estado.jogadores.map((j,idx)=>({label:j.nome.split(' ')[0],data:j.historico,borderColor:CORES_JOGADORES[idx%CORES_JOGADORES.length],backgroundColor:'transparent',borderWidth:2,pointRadius:3,tension:.35}))},options:{responsive:true,maintainAspectRatio:true,plugins:{legend:{labels:{color:'#8A9BB0',font:{size:11},boxWidth:12}},tooltip:{backgroundColor:'#1A2B42',borderColor:'rgba(255,255,255,.1)',borderWidth:1}},scales:{x:{grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#8A9BB0'}},y:{grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#8A9BB0'}}}}});
+  estado.graficoInstance=new Chart(ctx,{type:'line',data:{labels:estado.jogosOrdem.map((_,i)=>`Jogo ${i+1}`),datasets:estado.jogadores.map((j,idx)=>({label:j.nome.split(' ')[0],data:j.historico,borderColor:CORES_JOGADORES[idx%CORES_JOGADORES.length],backgroundColor:'transparent',borderWidth:2,pointRadius:3,tension:.35}))},options:{responsive:true,maintainAspectRatio:true,animation:false,plugins:{legend:{labels:{color:'#8A9BB0',font:{size:11},boxWidth:12}},tooltip:{backgroundColor:'#1A2B42',borderColor:'rgba(255,255,255,.1)',borderWidth:1}},scales:{x:{grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#8A9BB0'}},y:{grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#8A9BB0'}}}}});
 }
 
 function renderEstatisticas(){
@@ -781,11 +794,13 @@ async function iniciarApp(){
 
 iniciarApp();
 
-// Planilha: a cada 60s
-setInterval(async()=>{
-  await carregarPlanilha();
-  renderRanking();renderPossivel();renderGrafico();renderEstatisticas();renderChoradeira();renderRivalidades();renderCarrossel();
-},60000);
+// Planilha: a cada 90s — 60s era agressivo demais para o Google Sheets CSV
+// Não bloqueia: carrega em background, renderiza ao terminar
+setInterval(()=>{
+  carregarPlanilha().then(()=>{
+    renderRanking();renderPossivel();renderGrafico();renderEstatisticas();renderChoradeira();renderRivalidades();renderCarrossel();
+  }).catch(e=>console.warn('Planilha erro:',e));
+},90000);
 
 // Próximos jogos: a cada 10 minutos
 setInterval(carregarProximos, 10*60*1000);
