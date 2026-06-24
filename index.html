@@ -604,16 +604,19 @@ async function buscarAoVivo(){
     }
   }catch(e){console.warn('buscarAoVivo:',e.message)}
   renderAoVivo();
-  // Só re-renderiza o ranking se há jogo ao vivo com pontos provisórios
-  // Evita que o innerHTML da tabela seja reconstruído e feche linhas abertas
+  // Sempre atualiza os pontos provisórios no DOM após busca ao vivo
+  // Se não há jogos ao vivo, zera os deltas fazendo um renderRanking completo
+  // mas só se havia jogos antes (evita renderRanking desnecessário)
   if(estado.aoVivo.length>0){
     atualizarPontosAoVivoSemRerenderizar();
+  } else if(_hadLiveGames){
+    // Jogo terminou — re-renderiza ranking completo para remover "+X ao vivo"
+    renderRanking();
   }
+  _hadLiveGames = estado.aoVivo.length>0;
 }
 
 /* ── ATUALIZA PONTOS AO VIVO SEM REESCREVER A TABELA ── */
-// Cirúrgico: só toca nos elementos de total já existentes no DOM
-// Linhas abertas pelo usuário permanecem abertas
 function atualizarPontosAoVivoSemRerenderizar(){
   const sorted=[...estado.jogadores].sort((a,b)=>
     (b.pontosGrupos+b.pontosMata+ptsProvisorios(b))-(a.pontosGrupos+a.pontosMata+ptsProvisorios(a))||a.nome.localeCompare(b.nome)
@@ -621,11 +624,14 @@ function atualizarPontosAoVivoSemRerenderizar(){
   sorted.forEach(j=>{
     const prov=ptsProvisorios(j);
     const total=j.pontosGrupos+j.pontosMata+prov;
-    // Atualiza só a célula de total — sem tocar no resto da linha
-    const elTotal=document.querySelector(`#ranking-body-big .rank-total[data-id="${j.id}"], #ranking-body-small .rank-total[data-id="${j.id}"]`);
-    if(elTotal){
-      elTotal.innerHTML=`${total}${prov>0?`<span class="pts-delta">+${prov} ao vivo</span>`:''}`;
-    }
+    // querySelectorAll busca em todo o documento — funciona nos dois tbodies
+    const els=document.querySelectorAll(`.rank-total[data-id="${j.id}"]`);
+    els.forEach(el=>{
+      el.innerHTML=`${total}${prov>0?`<span class="pts-delta">+${prov} ao vivo</span>`:''}`;
+    });
+    // Atualiza também o pódio se estiver visível
+    const podioEl=document.querySelector(`.podio-pts[data-id="${j.id}"]`);
+    if(podioEl) podioEl.innerHTML=`${total}<small>Pts</small>`;
   });
 }
 
@@ -649,7 +655,7 @@ function renderRanking(){
   const sorted=[...estado.jogadores].sort((a,b)=>(b.pontosGrupos+b.pontosMata+ptsProvisorios(b))-(a.pontosGrupos+a.pontosMata+ptsProvisorios(a))||a.nome.localeCompare(b.nome));
   document.getElementById('podio-container').innerHTML=sorted.slice(0,3).map((j,i)=>{
     const tot=j.pontosGrupos+j.pontosMata+ptsProvisorios(j);
-    return`<div class="podio-item"><span>${['🥇','🥈','🥉'][i]}</span><div class="podio-avatar ${i===0?'campeao-glow':''}">${avatarHTML(j)}</div><div class="podio-nome">${j.nome}</div><div class="podio-pts">${tot}<small>Pts</small></div><div class="podio-base">${i+1}</div></div>`;
+    return`<div class="podio-item"><span>${['🥇','🥈','🥉'][i]}</span><div class="podio-avatar ${i===0?'campeao-glow':''}">${avatarHTML(j)}</div><div class="podio-nome">${j.nome}</div><div class="podio-pts" data-id="${j.id}">${tot}<small>Pts</small></div><div class="podio-base">${i+1}</div></div>`;
   }).join('');
   const renderRow=(j)=>{
     const base=j.pontosGrupos+j.pontosMata,prov=ptsProvisorios(j),total=base+prov;
@@ -665,7 +671,7 @@ function renderRanking(){
       <td><div class="rank-player"><div class="rank-avatar">${avatarHTML(j)}</div><div><span class="rank-nome">${j.nome}</span>${lider}${azarao}</div></div></td>
       <td><div class="pontos-coluna">${j.pontosGrupos}<small>pts</small></div></td>
       <td><div class="pontos-coluna">${j.pontosMata}<small>pts</small></div></td>
-      <td><div class="rank-total">${total}${prov>0?`<span class="pts-delta">+${prov} ao vivo</span>`:''}</div></td>
+      <td><div class="rank-total" data-id="${j.id}">${total}${prov>0?`<span class="pts-delta">+${prov} ao vivo</span>`:''}</div></td>
       <td>${tem?`<button class="btn-ver" onclick="toggleP('p${j.id}')">Ver ▾</button>`:'–'}</td>
     </tr>
     ${tem?`<tr class="palpites-row" id="p${j.id}"><td colspan="6"><div class="palpites-inner">
@@ -763,11 +769,23 @@ function toggleP(id){
 }
 
 /* ── CARREGA PLANILHA ── */
+let _csvCache=null; // cache da última resposta para evitar tela branca em falhas
 async function carregarPlanilha(){
   try{
-    const r=await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vTbH86mCclRAWsdCJ5mHibzeRAKR-EOOx-Z6r-j031dYyc0zDn9o7XzfY64OBTtCnSgt25fPDjTrUrt/pub?gid=425039932&single=true&output=csv&cb="+Date.now());
-    if(!r.ok)throw new Error('HTTP '+r.status);
-    const linhas=(await r.text()).split('\n').slice(1);
+    const ctrl=new AbortController();
+    const timer=setTimeout(()=>ctrl.abort(),8000); // timeout 8s
+    let texto;
+    try{
+      const r=await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vTbH86mCclRAWsdCJ5mHibzeRAKR-EOOx-Z6r-j031dYyc0zDn9o7XzfY64OBTtCnSgt25fPDjTrUrt/pub?gid=425039932&single=true&output=csv&cb="+Date.now(),{signal:ctrl.signal});
+      clearTimeout(timer);
+      if(!r.ok)throw new Error('HTTP '+r.status);
+      texto=await r.text();
+      _csvCache=texto; // salva cache só se ok
+    }catch(fe){
+      clearTimeout(timer);
+      if(_csvCache){texto=_csvCache;}else throw fe; // usa cache se caiu
+    }
+    const linhas=texto.split('\n').slice(1);
     estado.jogadores.forEach(j=>{j.palpitesGrupos=[];j.palpitesMata=[];j.pontosGrupos=0;j.pontosMata=0;j.historico=[];j.pontosAnteriores=0});
     const jogosComputados=[];
     linhas.forEach(linha=>{
@@ -807,6 +825,8 @@ async function carregarPlanilha(){
 }
 
 /* ── INIT ── */
+let _hadLiveGames = false; // rastreia se havia jogo ao vivo no último ciclo
+
 async function iniciarApp(){
   await carregarPlanilha();
   await Promise.all([carregarProximos(), buscarAoVivo()]);
@@ -816,19 +836,46 @@ async function iniciarApp(){
 
 iniciarApp();
 
-// Planilha: a cada 90s — 60s era agressivo demais para o Google Sheets CSV
-// Não bloqueia: carrega em background, renderiza ao terminar
+// Planilha: a cada 2 minutos, sem bloquear a UI
 setInterval(()=>{
-  carregarPlanilha().then(()=>{
-    renderRanking();renderPossivel();renderGrafico();renderEstatisticas();renderChoradeira();renderRivalidades();renderCarrossel();
-  }).catch(e=>console.warn('Planilha erro:',e));
-},90000);
+  carregarPlanilha()
+    .then(()=>{
+      renderRanking();renderPossivel();renderGrafico();
+      renderEstatisticas();renderChoradeira();renderRivalidades();renderCarrossel();
+    })
+    .catch(e=>console.warn('Planilha:',e));
+}, 2*60*1000);
 
 // Próximos jogos: a cada 10 minutos
 setInterval(carregarProximos, 10*60*1000);
 
-// Ao vivo: a cada 15s (era 30s — delay reduzido pela metade)
-setInterval(buscarAoVivo, 15000);
+// Ao vivo: a cada 60s
+setInterval(buscarAoVivo, 60*1000);
+
+// ── FIX MOBILE: quando o browser volta do background, re-executa tudo ──
+// No mobile, setInterval é suspenso quando a aba vai para background ou
+// a tela apaga. visibilitychange dispara quando o usuário volta ao app.
+let _ultimaAtualizacao = Date.now();
+document.addEventListener('visibilitychange', ()=>{
+  if(document.visibilityState !== 'visible') return;
+  const agora = Date.now();
+  const inativo = agora - _ultimaAtualizacao;
+  // Se ficou mais de 45s inativo, re-executa como se fosse o primeiro load
+  if(inativo > 45000){
+    buscarAoVivo();
+    // Se ficou mais de 90s, recarrega planilha também
+    if(inativo > 90000){
+      carregarPlanilha().then(()=>{
+        renderRanking();renderPossivel();renderEstatisticas();
+        renderChoradeira();renderRivalidades();
+      });
+    }
+  }
+  _ultimaAtualizacao = agora;
+});
+
+// Atualiza o timestamp a cada ciclo para o visibilitychange saber quando foi a última vez
+setInterval(()=>{ _ultimaAtualizacao = Date.now(); }, 30000);
 </script>
 </body>
 </html>
