@@ -618,14 +618,16 @@ async function carregarProximos(){
 /* ── BUSCA AO VIVO ── */
 async function buscarAoVivo(){
   try {
-    // Adicionado HALF_TIME, EXTRA_TIME e PENALTY_SHOOTOUT para não perder nenhum momento
     const apiUrl = `https://api.football-data.org/v4/matches?status=IN_PLAY,PAUSED,HALF_TIME,EXTRA_TIME,PENALTY_SHOOTOUT&_nc=${Date.now()}`;
     
-    // Lista de proxies atualizada: todos esses suportam o repasse de Headers customizados
+    // LISTA DE PROXIES CORRIGIDA:
+    // 1. CodeTabs: Muito estável e repassa os headers perfeitamente.
+    // 2. Corsproxy: Removido o encodeURIComponent que causava o Erro 400.
+    // 3. Chamada direta: Tenta acessar sem proxy como último recurso.
     const proxies = [
-      u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
-      u => `https://api.cors.lol/?url=${encodeURIComponent(u)}`,
-      u => `https://thingproxy.freeboard.io/fetch/${u}`
+      u => `https://api.codetabs.com/v1/proxy?quest=${u}`,
+      u => `https://corsproxy.io/?${u}`,
+      u => u 
     ];
     
     let dados = null;
@@ -638,13 +640,13 @@ async function buscarAoVivo(){
             "X-Auth-Token": TOKEN_API, 
             "Accept": "application/json" 
           }
-        }, 6000); // Aumentei um pouco o timeout
+        }, 7000); // Timeout ligeiramente maior para proxies mais lentos
 
         if (r.ok) {
           const jsonResult = await r.json();
           if (jsonResult && jsonResult.matches) {
               dados = jsonResult;
-              break; // Sucesso! Sai do loop de proxies.
+              break; // Sucesso! Sai do loop.
           }
         } else if (r.status === 429) {
           erroAPI = "LIMITE_EXCEDIDO";
@@ -652,13 +654,12 @@ async function buscarAoVivo(){
           erroAPI = "TOKEN_INVALIDO_OU_BLOQUEADO";
         }
       } catch (e) {
-        console.warn(`Proxy ${proxy('URL')} falhou:`, e.message);
+        console.warn(`Tentativa com proxy falhou:`, e.message);
       }
     }
 
     console.log("🔍 DADOS AO VIVO DA API:", dados || erroAPI || "Nenhum proxy funcionou");
 
-    // Alertas visuais se a API estiver bloqueando a requisição
     if (erroAPI === "LIMITE_EXCEDIDO") {
       showToast("⚠️ API de jogos sobrecarregada (Rate Limit). Aguarde...");
     }
