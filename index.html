@@ -216,6 +216,30 @@ footer strong{color:var(--verde)}
 .mural-txt strong{display:block;font-size:13px;color:#fff}
 .mural-pts{font-family:'Bebas Neue',sans-serif;font-size:20px}
 .mural-pts.ouro{color:var(--amarelo)}.mural-pts.erro{color:var(--vivo)}
+
+/* ── REAÇÕES AO VIVO ── */
+#reacoes-section{position:relative;overflow:hidden}
+.reacoes-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--azul-card);border:1px solid rgba(255,71,87,.3);border-radius:var(--radius);padding:14px 18px;margin-bottom:16px}
+.reacao-btn{background:var(--azul-mid);border:1px solid var(--borda);border-radius:20px;padding:6px 14px;font-size:20px;cursor:pointer;transition:transform .15s,background .15s;user-select:none;line-height:1}
+.reacao-btn:hover{transform:scale(1.25);background:rgba(255,255,255,.1)}
+.reacao-btn:active{transform:scale(0.9)}
+.reacoes-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-right:4px}
+.emoji-float{position:fixed;pointer-events:none;font-size:28px;z-index:9999;animation:floatUp 2.5s ease-out forwards}
+@keyframes floatUp{0%{opacity:1;transform:translateY(0) scale(1)}60%{opacity:.8;transform:translateY(-120px) scale(1.2)}100%{opacity:0;transform:translateY(-220px) scale(0.8)}}
+.feed-reacoes{max-height:120px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;padding:4px 0}
+.feed-reacoes::-webkit-scrollbar{width:4px}
+.feed-reacoes::-webkit-scrollbar-thumb{background:var(--borda);border-radius:4px}
+.feed-item{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;animation:fadeInItem .3s ease}
+.feed-item .fe-emoji{font-size:16px}
+.feed-item .fe-nome{color:var(--texto);font-weight:600}
+@keyframes fadeInItem{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)}}
+
+/* ── INDICADOR MODO ATUALIZAÇÃO ── */
+#update-mode-badge{position:fixed;bottom:60px;right:16px;background:var(--azul-card);border:1px solid var(--borda);border-radius:20px;padding:5px 12px;font-size:10px;color:var(--muted);display:flex;align-items:center;gap:6px;z-index:500;transition:all .3s}
+#update-mode-badge.modo-vivo{border-color:rgba(255,71,87,.5);color:var(--vivo)}
+#update-mode-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--muted);flex-shrink:0}
+#update-mode-badge.modo-vivo .dot{background:var(--vivo);animation:piscar 1.5s infinite}
+
 @media(max-width:680px){
   .nav-toggle{display:block}
   nav{display:none;width:100%;flex-direction:column;gap:4px;padding:10px 20px 14px;background:var(--azul-esc)}
@@ -263,11 +287,39 @@ footer strong{color:var(--verde)}
   </div>
 </header>
 <div class="hero-strip">🏆 Copa do Mundo 2026 &nbsp;·&nbsp; <strong>Bolão dos Amigos</strong> &nbsp;·&nbsp; Quem vai faturar? ⚽</div>
+
+<!-- Indicador do modo de atualização -->
+<div id="update-mode-badge"><div class="dot"></div><span id="update-mode-txt">Aguardando...</span></div>
+
 <main>
   <section id="ao-vivo-section" style="display:none">
     <div class="section-title"><span class="piscar-vermelho">🔴</span> Jogos em Andamento</div>
     <div class="ao-vivo-grid" id="ao-vivo-list"></div>
   </section>
+
+  <!-- REAÇÕES AO VIVO — aparece só quando há jogo rolando -->
+  <section id="reacoes-section" style="display:none">
+    <div class="section-title"><span class="piscar-vermelho">💬</span> Reações ao Vivo</div>
+    <div class="reacoes-bar">
+      <span class="reacoes-label">Reagir:</span>
+      <button class="reacao-btn" onclick="enviarReacao('⚽')" title="Gol!">⚽</button>
+      <button class="reacao-btn" onclick="enviarReacao('🔥')" title="Que jogo!">🔥</button>
+      <button class="reacao-btn" onclick="enviarReacao('😱')" title="Meu Deus">😱</button>
+      <button class="reacao-btn" onclick="enviarReacao('🤡')" title="Que vacilo">🤡</button>
+      <button class="reacao-btn" onclick="enviarReacao('🎯')" title="Acertei!">🎯</button>
+      <button class="reacao-btn" onclick="enviarReacao('💀')" title="Errei tudo">💀</button>
+      <button class="reacao-btn" onclick="enviarReacao('🤌')" title="Artístico">🤌</button>
+      <button class="reacao-btn" onclick="enviarReacao('😭')" title="Choradeira">😭</button>
+      <button class="reacao-btn" onclick="enviarReacao('🦆')" title="Que pato">🦆</button>
+    </div>
+    <div style="background:var(--azul-card);border:1px solid var(--borda);border-radius:var(--radius);padding:14px 18px">
+      <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:10px">📢 Feed da galera</div>
+      <div class="feed-reacoes" id="feed-reacoes">
+        <div style="color:var(--muted);font-size:12px">Ninguém reagiu ainda... 👀</div>
+      </div>
+    </div>
+  </section>
+
   <section id="regras">
     <div class="section-title">📖 Regras de Pontuação</div>
     <div class="subsection-title" style="color:var(--verde)">⚽ Fase de Grupos</div>
@@ -407,7 +459,7 @@ footer strong{color:var(--verde)}
     <div class="carousel-container"><div class="carousel-track" id="carousel-track"></div></div>
   </section>
 </main>
-<footer><p>⚽ Bolão Copa do Mundo 2026 &nbsp;·&nbsp; <strong>USA · México · Canadá</strong> &nbsp;·&nbsp; Ao vivo a cada 15s 🔴</p></footer>
+<footer><p>⚽ Bolão Copa do Mundo 2026 &nbsp;·&nbsp; <strong>USA · México · Canadá</strong> &nbsp;·&nbsp; Ao vivo a cada 60s 🔴</p></footer>
 <div id="toast-container"></div>
 <script>
 const TOKEN_API="7385d7783f804b23b41b4bf9fcaadcb0";
@@ -424,7 +476,7 @@ const estado={
     {id:6,nome:'Lulu Gay do Vôlei',foto:'lulu.png',descricao:'Pega e levanta bola com as gays do vôlei, mas ele é hétero sim.',pontosGrupos:0,pontosMata:0,palpitesGrupos:[],palpitesMata:[],historico:[]}
   ],
   aoVivo:[],
-  proximos:[],  // ← agora vem da API
+  proximos:[],
   ultimoPlacarAoVivo:{},
   graficoInstance:null,
   jogosOrdem:[],
@@ -550,13 +602,10 @@ async function carregarProximos(){
       }catch(e){}
     }
     if(!dados||!dados.matches||!dados.matches.length)return;
-
-    // Pega os próximos 8 jogos
     estado.proximos=dados.matches.slice(0,8).map(m=>{
       const home=tradutorTimes[m.homeTeam.name]||m.homeTeam.name;
       const away=tradutorTimes[m.awayTeam.name]||m.awayTeam.name;
       const dt=new Date(m.utcDate);
-      // Deixa o browser converter para o fuso local — sem subtração manual que quebra no horário de verão
       const hora=dt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',timeZone:'America/Sao_Paulo'});
       const fase=m.group?m.group.replace('GROUP_','Grupo '):(m.stage?m.stage.replace(/_/g,' '):'Copa 2026');
       return{id:m.id,time1:home,time2:away,fase,data:m.utcDate,hora};
@@ -566,7 +615,7 @@ async function carregarProximos(){
   }catch(e){console.warn('carregarProximos:',e.message)}
 }
 
-/* ── BUSCA AO VIVO (MELHORADA: 15s, proxy duplo, placar correto no intervalo) ── */
+/* ── BUSCA AO VIVO ── */
 async function buscarAoVivo(){
   try{
     const apiUrl=`https://api.football-data.org/v4/matches?status=IN_PLAY,PAUSED&_nc=${Date.now()}`;
@@ -581,17 +630,15 @@ async function buscarAoVivo(){
         if(r.ok){dados=await r.json();break;}
       }catch(e){}
     }
+    const tinhaAoVivo=estado.aoVivo.length>0;
     estado.aoVivo=[];
     if(dados&&dados.matches){
-      // Filtra só Copa do Mundo
       dados.matches
         .filter(m=>m.competition&&(m.competition.code==='WC'||m.competition.id===2000))
         .forEach(m=>{
           const t1=tradutorTimes[m.homeTeam.name]||m.homeTeam.name;
           const t2=tradutorTimes[m.awayTeam.name]||m.awayTeam.name;
           const isPaused=m.status==='PAUSED';
-          // Intervalo → mostra placar do 1º tempo (halfTime)
-          // Em jogo → mostra placar atual (fullTime é atualizado em tempo real)
           const g1=isPaused?(m.score?.halfTime?.home??0):(m.score?.fullTime?.home??m.score?.halfTime?.home??0);
           const g2=isPaused?(m.score?.halfTime?.away??0):(m.score?.fullTime?.away??m.score?.halfTime?.away??0);
           const minuto=isPaused?'⏸ Intervalo':(m.minute?`${m.minute}'`:'🔴 Ao Vivo');
@@ -602,18 +649,35 @@ async function buscarAoVivo(){
           estado.aoVivo.push({t1,t2,g1,g2,fase:m.competition?.name||'Copa 2026',minuto});
         });
     }
+    // Se o estado ao vivo mudou (começou ou terminou jogo), reagenda a planilha
+    // para que o intervalo se ajuste imediatamente
+    const temAoVivoAgora=estado.aoVivo.length>0;
+    if(tinhaAoVivo!==temAoVivoAgora){
+      agendarProximoPlanilha();
+    }
   }catch(e){console.warn('buscarAoVivo:',e.message)}
   renderAoVivo();
-  // Sempre atualiza os pontos provisórios no DOM após busca ao vivo
-  // Se não há jogos ao vivo, zera os deltas fazendo um renderRanking completo
-  // mas só se havia jogos antes (evita renderRanking desnecessário)
+  atualizarBadgeModo();
   if(estado.aoVivo.length>0){
     atualizarPontosAoVivoSemRerenderizar();
   } else if(_hadLiveGames){
-    // Jogo terminou — re-renderiza ranking completo para remover "+X ao vivo"
     renderRanking();
   }
-  _hadLiveGames = estado.aoVivo.length>0;
+  _hadLiveGames=estado.aoVivo.length>0;
+}
+
+/* ── BADGE DE MODO DE ATUALIZAÇÃO ── */
+function atualizarBadgeModo(){
+  const badge=document.getElementById('update-mode-badge');
+  const txt=document.getElementById('update-mode-txt');
+  if(!badge||!txt)return;
+  if(estado.aoVivo.length>0){
+    badge.className='modo-vivo';
+    txt.textContent='Modo ao vivo · planilha a cada 1min';
+  }else{
+    badge.className='';
+    txt.textContent='Modo normal · planilha a cada 1h';
+  }
 }
 
 /* ── ATUALIZA PONTOS AO VIVO SEM REESCREVER A TABELA ── */
@@ -624,12 +688,10 @@ function atualizarPontosAoVivoSemRerenderizar(){
   sorted.forEach(j=>{
     const prov=ptsProvisorios(j);
     const total=j.pontosGrupos+j.pontosMata+prov;
-    // querySelectorAll busca em todo o documento — funciona nos dois tbodies
     const els=document.querySelectorAll(`.rank-total[data-id="${j.id}"]`);
     els.forEach(el=>{
       el.innerHTML=`${total}${prov>0?`<span class="pts-delta">+${prov} ao vivo</span>`:''}`;
     });
-    // Atualiza também o pódio se estiver visível
     const podioEl=document.querySelector(`.podio-pts[data-id="${j.id}"]`);
     if(podioEl) podioEl.innerHTML=`${total}<small>Pts</small>`;
   });
@@ -638,8 +700,14 @@ function atualizarPontosAoVivoSemRerenderizar(){
 /* ── RENDERS ── */
 function renderAoVivo(){
   const sec=document.getElementById('ao-vivo-section');
-  if(!estado.aoVivo.length){sec.style.display='none';return}
+  const secReacoes=document.getElementById('reacoes-section');
+  if(!estado.aoVivo.length){
+    sec.style.display='none';
+    if(secReacoes)secReacoes.style.display='none';
+    return;
+  }
   sec.style.display='block';
+  if(secReacoes)secReacoes.style.display='block';
   document.getElementById('ao-vivo-list').innerHTML=estado.aoVivo.map(j=>`
     <div class="ao-vivo-card">
       <div class="av-header"><span class="av-fase">${j.fase}</span><span class="av-badge"><span class="piscar-vermelho">🔴</span> ${j.minuto}</span></div>
@@ -695,12 +763,10 @@ function renderPossivel(){
 function renderGrafico(){
   if(!estado.jogosOrdem.length)return;
   const ctx=document.getElementById('grafico-historico');if(!ctx)return;
-  // Só reconstrói se o número de jogos mudou — evita destruir/recriar a cada 60s desnecessariamente
   const qtdAtual=estado.graficoInstance?.data?.labels?.length||0;
   if(estado.graficoInstance&&qtdAtual===estado.jogosOrdem.length){
-    // Atualiza dados sem recriar o canvas
     estado.graficoInstance.data.datasets.forEach((ds,idx)=>{ds.data=estado.jogadores[idx]?.historico||[]});
-    estado.graficoInstance.update('none');// 'none' = sem animação, mais rápido
+    estado.graficoInstance.update('none');
     return;
   }
   if(estado.graficoInstance)estado.graficoInstance.destroy();
@@ -768,22 +834,72 @@ function toggleP(id){
   if(!ab)row.classList.add('open');
 }
 
+/* ── REAÇÕES AO VIVO ── */
+let _feedReacoes=[];
+const _bc=typeof BroadcastChannel!=='undefined'?new BroadcastChannel('bolao-reacoes-2026'):null;
+
+function enviarReacao(emoji){
+  if(!estado.aoVivo.length){showToast('⚠️ Só dá pra reagir com jogo ao vivo!');return}
+  const item={emoji,nome:'Você',ts:Date.now()};
+  adicionarFeed(item);
+  dispararEmojiFloat(emoji);
+  if(_bc)_bc.postMessage(item);
+}
+
+if(_bc){
+  _bc.onmessage=(e)=>{
+    const item={...e.data,nome:'Amigo'};
+    adicionarFeed(item);
+    dispararEmojiFloat(item.emoji);
+  };
+}
+
+function adicionarFeed(item){
+  _feedReacoes.unshift(item);
+  if(_feedReacoes.length>30)_feedReacoes=_feedReacoes.slice(0,30);
+  renderFeedReacoes();
+}
+
+function renderFeedReacoes(){
+  const feed=document.getElementById('feed-reacoes');
+  if(!feed)return;
+  if(!_feedReacoes.length){feed.innerHTML='<div style="color:var(--muted);font-size:12px">Ninguém reagiu ainda... 👀</div>';return}
+  const agora=Date.now();
+  const recentes=_feedReacoes.filter(r=>agora-r.ts<5*60*1000);
+  if(!recentes.length){feed.innerHTML='<div style="color:var(--muted);font-size:12px">Silêncio total... reaja aí! 👇</div>';return}
+  feed.innerHTML=recentes.map(r=>{
+    const mins=Math.floor((agora-r.ts)/60000);
+    const tempo=mins===0?'agora':mins+'min atrás';
+    return`<div class="feed-item"><span class="fe-emoji">${r.emoji}</span><span class="fe-nome">${r.nome}</span><span style="color:var(--muted)"> · ${tempo}</span></div>`;
+  }).join('');
+}
+
+function dispararEmojiFloat(emoji){
+  const el=document.createElement('span');
+  el.className='emoji-float';
+  el.textContent=emoji;
+  el.style.left=(15+Math.random()*70)+'vw';
+  el.style.bottom='80px';
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),2600);
+}
+
 /* ── CARREGA PLANILHA ── */
-let _csvCache=null; // cache da última resposta para evitar tela branca em falhas
+let _csvCache=null;
 async function carregarPlanilha(){
   try{
     const ctrl=new AbortController();
-    const timer=setTimeout(()=>ctrl.abort(),8000); // timeout 8s
+    const timer=setTimeout(()=>ctrl.abort(),8000);
     let texto;
     try{
       const r=await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vTbH86mCclRAWsdCJ5mHibzeRAKR-EOOx-Z6r-j031dYyc0zDn9o7XzfY64OBTtCnSgt25fPDjTrUrt/pub?gid=425039932&single=true&output=csv&cb="+Date.now(),{signal:ctrl.signal});
       clearTimeout(timer);
       if(!r.ok)throw new Error('HTTP '+r.status);
       texto=await r.text();
-      _csvCache=texto; // salva cache só se ok
+      _csvCache=texto;
     }catch(fe){
       clearTimeout(timer);
-      if(_csvCache){texto=_csvCache;}else throw fe; // usa cache se caiu
+      if(_csvCache){texto=_csvCache;}else throw fe;
     }
     const linhas=texto.split('\n').slice(1);
     estado.jogadores.forEach(j=>{j.palpitesGrupos=[];j.palpitesMata=[];j.pontosGrupos=0;j.pontosMata=0;j.historico=[];j.pontosAnteriores=0});
@@ -824,58 +940,70 @@ async function carregarPlanilha(){
   }catch(e){console.error('Planilha:',e)}
 }
 
-/* ── INIT ── */
-let _hadLiveGames = false; // rastreia se havia jogo ao vivo no último ciclo
+/* ══════════════════════════════════════════════════════════════
+   SISTEMA DE INTERVALOS ADAPTATIVO
+   • Com jogo ao vivo  → planilha a cada 1 min
+   • Sem jogo ao vivo  → planilha a cada 1 hora
+   O ao vivo sempre roda a cada 60s para detectar início de jogo.
+   ══════════════════════════════════════════════════════════════ */
+let _timerPlanilha=null;
+let _ultimaAtualizacaoPlanilha=0;
+let _hadLiveGames=false;
 
+function intervaloAtual(){
+  return estado.aoVivo.length>0 ? 60*1000 : 60*60*1000;
+}
+
+async function cicloRenderCompleto(){
+  await carregarPlanilha();
+  renderRanking();renderPossivel();renderGrafico();
+  renderEstatisticas();renderChoradeira();renderRivalidades();renderCarrossel();
+  _ultimaAtualizacaoPlanilha=Date.now();
+}
+
+function agendarProximoPlanilha(){
+  if(_timerPlanilha)clearTimeout(_timerPlanilha);
+  const delay=intervaloAtual();
+  _timerPlanilha=setTimeout(async()=>{
+    await cicloRenderCompleto().catch(e=>console.warn('Planilha ciclo:',e));
+    agendarProximoPlanilha();
+  },delay);
+}
+
+/* ── INIT ── */
 async function iniciarApp(){
   await carregarPlanilha();
-  await Promise.all([carregarProximos(), buscarAoVivo()]);
+  await Promise.all([carregarProximos(),buscarAoVivo()]);
   renderRanking();renderPossivel();renderGrafico();renderEstatisticas();
   renderChoradeira();renderRivalidades();renderCarrossel();
+  atualizarBadgeModo();
+  agendarProximoPlanilha();
 }
 
 iniciarApp();
 
-// Planilha: a cada 2 minutos, sem bloquear a UI
-setInterval(()=>{
-  carregarPlanilha()
-    .then(()=>{
-      renderRanking();renderPossivel();renderGrafico();
-      renderEstatisticas();renderChoradeira();renderRivalidades();renderCarrossel();
-    })
-    .catch(e=>console.warn('Planilha:',e));
-}, 2*60*1000);
+// Próximos jogos: fixo a cada 10 minutos
+setInterval(carregarProximos,10*60*1000);
 
-// Próximos jogos: a cada 10 minutos
-setInterval(carregarProximos, 10*60*1000);
+// Ao vivo: fixo a cada 60s — detecta início/fim de jogo e ajusta o timer da planilha
+setInterval(buscarAoVivo,60*1000);
 
-// Ao vivo: a cada 60s
-setInterval(buscarAoVivo, 60*1000);
-
-// ── FIX MOBILE: quando o browser volta do background, re-executa tudo ──
-// No mobile, setInterval é suspenso quando a aba vai para background ou
-// a tela apaga. visibilitychange dispara quando o usuário volta ao app.
-let _ultimaAtualizacao = Date.now();
-document.addEventListener('visibilitychange', ()=>{
-  if(document.visibilityState !== 'visible') return;
-  const agora = Date.now();
-  const inativo = agora - _ultimaAtualizacao;
-  // Se ficou mais de 45s inativo, re-executa como se fosse o primeiro load
-  if(inativo > 45000){
-    buscarAoVivo();
-    // Se ficou mais de 90s, recarrega planilha também
-    if(inativo > 90000){
-      carregarPlanilha().then(()=>{
-        renderRanking();renderPossivel();renderEstatisticas();
-        renderChoradeira();renderRivalidades();
-      });
-    }
+/* ── FIX MOBILE: visibilitychange ── */
+let _ultimaVisibilidade=Date.now();
+document.addEventListener('visibilitychange',async()=>{
+  if(document.visibilityState!=='visible')return;
+  const agora=Date.now();
+  const inativo=agora-_ultimaVisibilidade;
+  if(inativo>30000)await buscarAoVivo().catch(()=>{});
+  const passouIntervalo=(agora-_ultimaAtualizacaoPlanilha)>=intervaloAtual();
+  if(passouIntervalo){
+    await cicloRenderCompleto().catch(e=>console.warn('Planilha visib:',e));
+    agendarProximoPlanilha();
   }
-  _ultimaAtualizacao = agora;
+  _ultimaVisibilidade=agora;
 });
 
-// Atualiza o timestamp a cada ciclo para o visibilitychange saber quando foi a última vez
-setInterval(()=>{ _ultimaAtualizacao = Date.now(); }, 30000);
+setInterval(()=>{_ultimaVisibilidade=Date.now();},15000);
 </script>
 </body>
 </html>
