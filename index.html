@@ -619,22 +619,39 @@ async function carregarProximos(){
 async function buscarAoVivo(){
   try{
     const apiUrl=`https://api.football-data.org/v4/matches?status=IN_PLAY,PAUSED&_nc=${Date.now()}`;
+    
+    // CORREÇÃO 1: corsproxy.io primeiro, pois ele repassa o X-Auth-Token
     const proxies=[
-      u=>`https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
-      u=>`https://corsproxy.io/?${encodeURIComponent(u)}`
+      u=>`https://corsproxy.io/?${encodeURIComponent(u)}`,
+      u=>`https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`
     ];
+    
     let dados=null;
     for(const proxy of proxies){
       try{
         const r=await fetchComTimeout(proxy(apiUrl),{headers:{"X-Auth-Token":TOKEN_API,"Accept":"application/json"}},5000);
-        if(r.ok){dados=await r.json();break;}
+        if(r.ok){
+          const jsonResult = await r.json();
+          // CORREÇÃO 3: Só interrompe o loop se a API de fato retornou a lista de matches
+          if(jsonResult && jsonResult.matches) {
+              dados = jsonResult;
+              break;
+          }
+        }
       }catch(e){}
     }
+
+    // DEBUG: Olhe o console (F12) do navegador para ver o que a API está mandando
+    console.log("🔍 DADOS AO VIVO DA API:", dados);
+
     const tinhaAoVivo=estado.aoVivo.length>0;
     estado.aoVivo=[];
+    
     if(dados&&dados.matches){
       dados.matches
-        .filter(m=>m.competition&&(m.competition.code==='WC'||m.competition.id===2000))
+        // CORREÇÃO 2: Filtro comentado temporariamente para teste. 
+        // Descomente a linha abaixo na época exata da Copa se quiser bloquear outros campeonatos.
+        // .filter(m=>m.competition&&(m.competition.code==='WC'||m.competition.id===2000))
         .forEach(m=>{
           const t1=tradutorTimes[m.homeTeam.name]||m.homeTeam.name;
           const t2=tradutorTimes[m.awayTeam.name]||m.awayTeam.name;
@@ -644,20 +661,25 @@ async function buscarAoVivo(){
           const minuto=isPaused?'⏸ Intervalo':(m.minute?`${m.minute}'`:'🔴 Ao Vivo');
           const chave=`${m.homeTeam.name}-${m.awayTeam.name}`;
           const ant=estado.ultimoPlacarAoVivo[chave];
+          
           if(ant&&(ant.g1!==g1||ant.g2!==g2))showToast(`⚽ GOL! ${g1>ant.g1?t1:t2} (${g1}x${g2})`);
+          
           estado.ultimoPlacarAoVivo[chave]={g1,g2};
           estado.aoVivo.push({t1,t2,g1,g2,fase:m.competition?.name||'Copa 2026',minuto});
         });
     }
-    // Se o estado ao vivo mudou (começou ou terminou jogo), reagenda a planilha
-    // para que o intervalo se ajuste imediatamente
+
     const temAoVivoAgora=estado.aoVivo.length>0;
     if(tinhaAoVivo!==temAoVivoAgora){
       agendarProximoPlanilha();
     }
-  }catch(e){console.warn('buscarAoVivo:',e.message)}
+  }catch(e){
+      console.warn('buscarAoVivo:',e.message)
+  }
+  
   renderAoVivo();
   atualizarBadgeModo();
+  
   if(estado.aoVivo.length>0){
     atualizarPontosAoVivoSemRerenderizar();
   } else if(_hadLiveGames){
