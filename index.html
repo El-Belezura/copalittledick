@@ -661,7 +661,7 @@ async function buscarAoVivo(){
     console.log("🔍 DADOS AO VIVO DA API:", dados || erroAPI || "Nenhum proxy funcionou");
     // --- TESTE DE TELA: FORÇANDO UM JOGO FALSO ---
     // Se isso aparecer na tela, seu código está 100% certo e o problema é a API.
-    /*
+    
     dados = {
       matches: [
         {
@@ -674,7 +674,7 @@ async function buscarAoVivo(){
         }
       ]
     };
-    */
+    
     // ----------------------------------------------
     if (erroAPI === "LIMITE_EXCEDIDO") {
       showToast("⚠️ API de jogos sobrecarregada (Rate Limit). Aguarde...");
