@@ -537,10 +537,12 @@ async function fetchComTimeout(url,opts,ms=5000){
 /* ── BUSCA PRÓXIMOS JOGOS DA API ── */
 async function carregarProximos(){
   try{
-    const proxies=[
-      u=>`https://corsproxy.io/?${encodeURIComponent(u)}`,
-      u=>`https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`
-    ];
+    
+const proxies=[
+  // Adicionado disableCache=true aqui:
+  u=>`https://api.allorigins.win/raw?disableCache=true&url=${encodeURIComponent(u)}`,
+  u=>`https://corsproxy.io/?${encodeURIComponent(u)}`
+];
     const apiUrl=`https://api.football-data.org/v4/competitions/WC/matches?status=SCHEDULED,TIMED`;
     let dados=null;
     for(const proxy of proxies){
@@ -577,7 +579,10 @@ async function buscarAoVivo(){
     let dados=null;
     for(const proxy of proxies){
       try{
-        const r=await fetchComTimeout(proxy(apiUrl),{headers:{"X-Auth-Token":TOKEN_API,"Accept":"application/json"}},5000);
+        const r=await fetchComTimeout(proxy(apiUrl),{
+          headers:{"X-Auth-Token":TOKEN_API,"Accept":"application/json"},
+          cache: 'no-store' // <- ISSO PROÍBE O NAVEGADOR DE CACHEAR
+          },5000);
         if(r.ok){dados=await r.json();break;}
       }catch(e){}
     }
