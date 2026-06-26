@@ -407,7 +407,7 @@ footer strong{color:var(--verde)}
     <div class="carousel-container"><div class="carousel-track" id="carousel-track"></div></div>
   </section>
 </main>
-<footer><p>⚽ Bolão Copa do Mundo 2026 &nbsp;·&nbsp; <strong>USA · México · Canadá</strong> &nbsp;·&nbsp; Ao vivo a cada 15s 🔴</p></footer>
+<footer><p>⚽ Bolão Copa do Mundo 2026 &nbsp;·&nbsp; <strong>USA · México · Canadá</strong> &nbsp;·&nbsp; Ao vivo a cada 60s 🔴</p></footer>
 <div id="toast-container"></div>
 <script>
 const TOKEN_API="7385d7783f804b23b41b4bf9fcaadcb0";
@@ -424,7 +424,7 @@ const estado={
     {id:6,nome:'Lulu Gay do Vôlei',foto:'lulu.png',descricao:'Pega e levanta bola com as gays do vôlei, mas ele é hétero sim.',pontosGrupos:0,pontosMata:0,palpitesGrupos:[],palpitesMata:[],historico:[]}
   ],
   aoVivo:[],
-  proximos:[],  // ← agora vem da API
+  proximos:[],
   ultimoPlacarAoVivo:{},
   graficoInstance:null,
   jogosOrdem:[],
@@ -528,37 +528,29 @@ function calcMaxPossivel(j){
 }
 
 /* ── FETCH COM TIMEOUT ── */
-async function fetchComTimeout(url,opts,ms=5000){
+async function fetchComTimeout(url,opts,ms=8000){
   const ctrl=new AbortController();
   const timer=setTimeout(()=>ctrl.abort(),ms);
   try{return await fetch(url,{...opts,signal:ctrl.signal})}finally{clearTimeout(timer)}
 }
 
-/* ── BUSCA PRÓXIMOS JOGOS DA API ── */
+/* ── BUSCA PRÓXIMOS JOGOS — chamada direta à API (sem proxy) ── */
 async function carregarProximos(){
   try{
-    
-const proxies=[
-  // Adicionado disableCache=true aqui:
-  u=>`https://api.allorigins.win/raw?disableCache=true&url=${encodeURIComponent(u)}`,
-  u=>`https://corsproxy.io/?${encodeURIComponent(u)}`
-];
-    const apiUrl=`https://api.football-data.org/v4/competitions/WC/matches?status=SCHEDULED,TIMED`;
-    let dados=null;
-    for(const proxy of proxies){
-      try{
-        const r=await fetchComTimeout(proxy(apiUrl),{headers:{"X-Auth-Token":TOKEN_API,"Accept":"application/json"}},5000);
-        if(r.ok){dados=await r.json();break;}
-      }catch(e){}
-    }
+    // football-data.org envia CORS headers corretos quando o token vai no header.
+    // Proxies públicos (allorigins, corsproxy) bloqueiam o preflight no github.io.
+    const apiUrl='https://api.football-data.org/v4/competitions/WC/matches?status=SCHEDULED,TIMED';
+    const r=await fetchComTimeout(apiUrl,{
+      headers:{'X-Auth-Token':TOKEN_API,'Accept':'application/json'},
+      cache:'no-store'
+    },8000);
+    if(!r.ok){console.warn('carregarProximos HTTP',r.status);return;}
+    const dados=await r.json();
     if(!dados||!dados.matches||!dados.matches.length)return;
-
-    // Pega os próximos 8 jogos
     estado.proximos=dados.matches.slice(0,8).map(m=>{
       const home=tradutorTimes[m.homeTeam.name]||m.homeTeam.name;
       const away=tradutorTimes[m.awayTeam.name]||m.awayTeam.name;
       const dt=new Date(m.utcDate);
-      // Deixa o browser converter para o fuso local — sem subtração manual que quebra no horário de verão
       const hora=dt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',timeZone:'America/Sao_Paulo'});
       const fase=m.group?m.group.replace('GROUP_','Grupo '):(m.stage?m.stage.replace(/_/g,' '):'Copa 2026');
       return{id:m.id,time1:home,time2:away,fase,data:m.utcDate,hora};
@@ -568,35 +560,25 @@ const proxies=[
   }catch(e){console.warn('carregarProximos:',e.message)}
 }
 
-/* ── BUSCA AO VIVO (MELHORADA: 15s, proxy duplo, placar correto no intervalo) ── */
+/* ── BUSCA AO VIVO — chamada direta à API (football-data suporta CORS com header de token) ── */
 async function buscarAoVivo(){
   try{
-    const apiUrl=`https://api.football-data.org/v4/matches?status=IN_PLAY,PAUSED&_nc=${Date.now()}`;
-    const proxies=[
-      u=>`https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
-      u=>`https://corsproxy.io/?${encodeURIComponent(u)}`
-    ];
-    let dados=null;
-    for(const proxy of proxies){
-      try{
-        const r=await fetchComTimeout(proxy(apiUrl),{
-          headers:{"X-Auth-Token":TOKEN_API,"Accept":"application/json"},
-          cache: 'no-store' // <- ISSO PROÍBE O NAVEGADOR DE CACHEAR
-          },5000);
-        if(r.ok){dados=await r.json();break;}
-      }catch(e){}
-    }
+    // Sem proxy. football-data.org envia Access-Control-Allow-Origin correto
+    // quando o token vai no header X-Auth-Token (não na query string).
+    // allorigins.win e corsproxy.io bloqueiam o preflight OPTIONS no github.io.
+    const apiUrl='https://api.football-data.org/v4/competitions/WC/matches?status=IN_PLAY,PAUSED';
+    const r=await fetchComTimeout(apiUrl,{
+      headers:{'X-Auth-Token':TOKEN_API,'Accept':'application/json'},
+      cache:'no-store'
+    },8000);
     estado.aoVivo=[];
-    if(dados&&dados.matches){
-      // Filtra só Copa do Mundo
-      dados.matches
-        .filter(m=>m.competition&&(m.competition.code==='WC'||m.competition.id===2000))
-        .forEach(m=>{
+    if(r.ok){
+      const dados=await r.json();
+      if(dados&&dados.matches){
+        dados.matches.forEach(m=>{
           const t1=tradutorTimes[m.homeTeam.name]||m.homeTeam.name;
           const t2=tradutorTimes[m.awayTeam.name]||m.awayTeam.name;
           const isPaused=m.status==='PAUSED';
-          // Intervalo → mostra placar do 1º tempo (halfTime)
-          // Em jogo → mostra placar atual (fullTime é atualizado em tempo real)
           const g1=isPaused?(m.score?.halfTime?.home??0):(m.score?.fullTime?.home??m.score?.halfTime?.home??0);
           const g2=isPaused?(m.score?.halfTime?.away??0):(m.score?.fullTime?.away??m.score?.halfTime?.away??0);
           const minuto=isPaused?'⏸ Intervalo':(m.minute?`${m.minute}'`:'🔴 Ao Vivo');
@@ -604,21 +586,20 @@ async function buscarAoVivo(){
           const ant=estado.ultimoPlacarAoVivo[chave];
           if(ant&&(ant.g1!==g1||ant.g2!==g2))showToast(`⚽ GOL! ${g1>ant.g1?t1:t2} (${g1}x${g2})`);
           estado.ultimoPlacarAoVivo[chave]={g1,g2};
-          estado.aoVivo.push({t1,t2,g1,g2,fase:m.competition?.name||'Copa 2026',minuto});
+          estado.aoVivo.push({t1,t2,g1,g2,fase:'Copa do Mundo 2026',minuto});
         });
+      }
+    } else {
+      console.warn('buscarAoVivo HTTP',r.status);
     }
   }catch(e){console.warn('buscarAoVivo:',e.message)}
   renderAoVivo();
-  // Sempre atualiza os pontos provisórios no DOM após busca ao vivo
-  // Se não há jogos ao vivo, zera os deltas fazendo um renderRanking completo
-  // mas só se havia jogos antes (evita renderRanking desnecessário)
   if(estado.aoVivo.length>0){
     atualizarPontosAoVivoSemRerenderizar();
   } else if(_hadLiveGames){
-    // Jogo terminou — re-renderiza ranking completo para remover "+X ao vivo"
     renderRanking();
   }
-  _hadLiveGames = estado.aoVivo.length>0;
+  _hadLiveGames=estado.aoVivo.length>0;
 }
 
 /* ── ATUALIZA PONTOS AO VIVO SEM REESCREVER A TABELA ── */
@@ -629,12 +610,10 @@ function atualizarPontosAoVivoSemRerenderizar(){
   sorted.forEach(j=>{
     const prov=ptsProvisorios(j);
     const total=j.pontosGrupos+j.pontosMata+prov;
-    // querySelectorAll busca em todo o documento — funciona nos dois tbodies
     const els=document.querySelectorAll(`.rank-total[data-id="${j.id}"]`);
     els.forEach(el=>{
       el.innerHTML=`${total}${prov>0?`<span class="pts-delta">+${prov} ao vivo</span>`:''}`;
     });
-    // Atualiza também o pódio se estiver visível
     const podioEl=document.querySelector(`.podio-pts[data-id="${j.id}"]`);
     if(podioEl) podioEl.innerHTML=`${total}<small>Pts</small>`;
   });
@@ -700,12 +679,10 @@ function renderPossivel(){
 function renderGrafico(){
   if(!estado.jogosOrdem.length)return;
   const ctx=document.getElementById('grafico-historico');if(!ctx)return;
-  // Só reconstrói se o número de jogos mudou — evita destruir/recriar a cada 60s desnecessariamente
   const qtdAtual=estado.graficoInstance?.data?.labels?.length||0;
   if(estado.graficoInstance&&qtdAtual===estado.jogosOrdem.length){
-    // Atualiza dados sem recriar o canvas
     estado.graficoInstance.data.datasets.forEach((ds,idx)=>{ds.data=estado.jogadores[idx]?.historico||[]});
-    estado.graficoInstance.update('none');// 'none' = sem animação, mais rápido
+    estado.graficoInstance.update('none');
     return;
   }
   if(estado.graficoInstance)estado.graficoInstance.destroy();
@@ -774,21 +751,21 @@ function toggleP(id){
 }
 
 /* ── CARREGA PLANILHA ── */
-let _csvCache=null; // cache da última resposta para evitar tela branca em falhas
+let _csvCache=null;
 async function carregarPlanilha(){
   try{
     const ctrl=new AbortController();
-    const timer=setTimeout(()=>ctrl.abort(),8000); // timeout 8s
+    const timer=setTimeout(()=>ctrl.abort(),8000);
     let texto;
     try{
       const r=await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vTbH86mCclRAWsdCJ5mHibzeRAKR-EOOx-Z6r-j031dYyc0zDn9o7XzfY64OBTtCnSgt25fPDjTrUrt/pub?gid=425039932&single=true&output=csv&cb="+Date.now(),{signal:ctrl.signal});
       clearTimeout(timer);
       if(!r.ok)throw new Error('HTTP '+r.status);
       texto=await r.text();
-      _csvCache=texto; // salva cache só se ok
+      _csvCache=texto;
     }catch(fe){
       clearTimeout(timer);
-      if(_csvCache){texto=_csvCache;}else throw fe; // usa cache se caiu
+      if(_csvCache){texto=_csvCache;}else throw fe;
     }
     const linhas=texto.split('\n').slice(1);
     estado.jogadores.forEach(j=>{j.palpitesGrupos=[];j.palpitesMata=[];j.pontosGrupos=0;j.pontosMata=0;j.historico=[];j.pontosAnteriores=0});
@@ -830,18 +807,17 @@ async function carregarPlanilha(){
 }
 
 /* ── INIT ── */
-let _hadLiveGames = false; // rastreia se havia jogo ao vivo no último ciclo
+let _hadLiveGames=false;
 
 async function iniciarApp(){
   await carregarPlanilha();
-  await Promise.all([carregarProximos(), buscarAoVivo()]);
+  await Promise.all([carregarProximos(),buscarAoVivo()]);
   renderRanking();renderPossivel();renderGrafico();renderEstatisticas();
   renderChoradeira();renderRivalidades();renderCarrossel();
 }
 
 iniciarApp();
 
-// Planilha: a cada 2 minutos, sem bloquear a UI
 setInterval(()=>{
   carregarPlanilha()
     .then(()=>{
@@ -849,38 +825,29 @@ setInterval(()=>{
       renderEstatisticas();renderChoradeira();renderRivalidades();renderCarrossel();
     })
     .catch(e=>console.warn('Planilha:',e));
-}, 2*60*1000);
+},2*60*1000);
 
-// Próximos jogos: a cada 10 minutos
-setInterval(carregarProximos, 10*60*1000);
+setInterval(carregarProximos,10*60*1000);
+setInterval(buscarAoVivo,60*1000);
 
-// Ao vivo: a cada 60s
-setInterval(buscarAoVivo, 60*1000);
-
-// ── FIX MOBILE: quando o browser volta do background, re-executa tudo ──
-// No mobile, setInterval é suspenso quando a aba vai para background ou
-// a tela apaga. visibilitychange dispara quando o usuário volta ao app.
-let _ultimaAtualizacao = Date.now();
-document.addEventListener('visibilitychange', ()=>{
-  if(document.visibilityState !== 'visible') return;
-  const agora = Date.now();
-  const inativo = agora - _ultimaAtualizacao;
-  // Se ficou mais de 45s inativo, re-executa como se fosse o primeiro load
-  if(inativo > 45000){
+let _ultimaAtualizacao=Date.now();
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  const agora=Date.now();
+  const inativo=agora-_ultimaAtualizacao;
+  if(inativo>45000){
     buscarAoVivo();
-    // Se ficou mais de 90s, recarrega planilha também
-    if(inativo > 90000){
+    if(inativo>90000){
       carregarPlanilha().then(()=>{
         renderRanking();renderPossivel();renderEstatisticas();
         renderChoradeira();renderRivalidades();
       });
     }
   }
-  _ultimaAtualizacao = agora;
+  _ultimaAtualizacao=agora;
 });
 
-// Atualiza o timestamp a cada ciclo para o visibilitychange saber quando foi a última vez
-setInterval(()=>{ _ultimaAtualizacao = Date.now(); }, 30000);
+setInterval(()=>{_ultimaAtualizacao=Date.now();},30000);
 </script>
 </body>
 </html>
