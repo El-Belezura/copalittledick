@@ -240,6 +240,65 @@ footer strong{color:var(--verde)}
   .possivel-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:380px){.possivel-grid{grid-template-columns:1fr}}
+
+/* ── CAMPEÃO PONTOS CORRIDOS ── */
+.pc-section{background:linear-gradient(135deg,rgba(255,215,0,0.06) 0%,rgba(13,27,42,0) 60%);border:1px solid rgba(255,215,0,0.2);border-radius:var(--radius);padding:28px 20px 32px;margin-bottom:52px;position:relative;overflow:hidden}
+.pc-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,215,0,0.08) 0%,transparent 70%);pointer-events:none}
+.pc-titulo{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--amarelo);text-align:center;margin-bottom:6px;text-shadow:0 0 20px rgba(255,215,0,0.5)}
+.pc-subtitulo{font-size:11px;text-align:center;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-bottom:32px}
+.pc-podio{display:flex;align-items:flex-end;justify-content:center;gap:16px;flex-wrap:wrap}
+.pc-item{display:flex;flex-direction:column;align-items:center;gap:8px}
+.pc-item:nth-child(1){order:2}.pc-item:nth-child(2){order:1}.pc-item:nth-child(3){order:3}
+
+/* Fogo animado */
+@keyframes pc-fogo{
+  0%{box-shadow:0 0 20px #ff4500,0 0 40px #ff6a00,0 0 60px #ffd700,0 0 80px rgba(255,215,0,0.3);transform:scale(1)}
+  33%{box-shadow:0 0 30px #ff0000,0 0 60px #ff4500,0 0 90px #ff8c00,0 -8px 40px rgba(255,100,0,0.6);transform:scale(1.04) translateY(-3px)}
+  66%{box-shadow:0 0 25px #ff6a00,0 0 50px #ffd700,0 0 75px #ffe066,0 -5px 30px rgba(255,200,0,0.5);transform:scale(1.02) translateY(-1px)}
+  100%{box-shadow:0 0 20px #ff4500,0 0 40px #ff6a00,0 0 60px #ffd700,0 0 80px rgba(255,215,0,0.3);transform:scale(1)}
+}
+@keyframes pc-prata{
+  0%,100%{box-shadow:0 0 12px #8a939e,0 0 24px rgba(192,200,212,0.4)}
+  50%{box-shadow:0 0 20px #c0c8d4,0 0 40px rgba(192,200,212,0.6)}
+}
+@keyframes pc-bronze{
+  0%,100%{box-shadow:0 0 10px #cd7f32,0 0 20px rgba(205,127,50,0.4)}
+  50%{box-shadow:0 0 18px #e8922a,0 0 36px rgba(205,127,50,0.5)}
+}
+@keyframes float-1st{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+.pc-avatar-wrap{position:relative;display:flex;align-items:center;justify-content:center}
+.pc-avatar{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;background:var(--azul-mid);overflow:hidden;flex-shrink:0;border:3px solid transparent}
+.pc-avatar img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:50%}
+
+.pc-item:nth-child(1) .pc-avatar{width:110px;height:110px;font-size:30px;border-color:var(--ouro);animation:pc-fogo 1.6s ease-in-out infinite,float-1st 2.5s ease-in-out infinite}
+.pc-item:nth-child(2) .pc-avatar{width:82px;height:82px;font-size:22px;border-color:var(--prata);animation:pc-prata 2s ease-in-out infinite}
+.pc-item:nth-child(3) .pc-avatar{width:72px;height:72px;font-size:18px;border-color:var(--bronze);animation:pc-bronze 2.2s ease-in-out infinite}
+
+/* Partículas de fogo atrás do 1º */
+.pc-item:nth-child(1) .pc-avatar-wrap::before{
+  content:'🔥';font-size:28px;position:absolute;top:-18px;left:-12px;
+  animation:ember1 1.8s ease-in-out infinite;filter:hue-rotate(0deg)
+}
+.pc-item:nth-child(1) .pc-avatar-wrap::after{
+  content:'🔥';font-size:22px;position:absolute;top:-14px;right:-10px;
+  animation:ember2 2.1s ease-in-out infinite
+}
+@keyframes ember1{0%,100%{transform:translateY(0) rotate(-15deg);opacity:.8}50%{transform:translateY(-8px) rotate(10deg);opacity:1}}
+@keyframes ember2{0%,100%{transform:translateY(0) rotate(15deg);opacity:.7}50%{transform:translateY(-6px) rotate(-10deg);opacity:1}}
+
+.pc-coroa{font-size:24px;margin-bottom:-4px;animation:float-1st 2s ease-in-out infinite}
+.pc-medalha{font-size:18px;margin-bottom:-2px}
+.pc-nome{font-weight:700;font-size:12px;text-align:center;max-width:110px;line-height:1.3;color:#fff}
+.pc-item:nth-child(1) .pc-nome{font-size:14px;color:var(--amarelo);text-shadow:0 0 10px rgba(255,215,0,0.5)}
+.pc-pts{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--verde);display:flex;align-items:center;gap:3px}
+.pc-item:nth-child(1) .pc-pts{font-size:26px;color:var(--amarelo)}
+.pc-pts small{font-size:10px;font-family:'Inter',sans-serif;color:var(--muted);font-weight:500}
+.pc-base{border-radius:var(--radius-sm) var(--radius-sm) 0 0;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:8px;font-family:'Bebas Neue',sans-serif;font-size:28px;color:rgba(255,255,255,.15);width:100px}
+.pc-item:nth-child(1) .pc-base{height:100px;background:linear-gradient(180deg,rgba(191,165,42,0.9),rgba(138,116,32,0.9));box-shadow:0 0 20px rgba(255,215,0,0.3)}
+.pc-item:nth-child(2) .pc-base{height:74px;background:linear-gradient(180deg,rgba(138,147,158,0.9),rgba(92,101,112,0.9));width:90px}
+.pc-item:nth-child(3) .pc-base{height:54px;background:linear-gradient(180deg,rgba(140,94,42,0.9),rgba(92,61,26,0.9));width:86px}
+.pc-label-base{font-size:11px;color:rgba(255,255,255,.5);font-family:'Inter',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase}
 </style>
 </head>
 <body>
@@ -251,7 +310,7 @@ footer strong{color:var(--verde)}
     </a>
     <button class="nav-toggle" onclick="document.querySelector('nav').classList.toggle('open')" aria-label="Menu">☰</button>
     <nav>
-      <a href="#regras">Regras</a>
+      <a href="#pontos-corridos">🏆 Grupos</a><a href="#regras">Regras</a>
       <a href="#ranking" class="ativo">Ranking</a>
       <a href="#historico">Histórico</a>
       <a href="#estatisticas">Stats</a>
@@ -283,7 +342,13 @@ footer strong{color:var(--verde)}
       <div class="regra-card"><div class="regra-pts resultado">2</div><div class="regra-txt"><strong>Tendência 90min</strong>Acertou vencedor mas errou placar.</div></div>
     </div>
   </section>
-  <section id="ranking">
+  
+  <section id="pontos-corridos" class="pc-section">
+    <div class="pc-titulo">🏆 Campeões dos Pontos Corridos</div>
+    <div class="pc-subtitulo">Última rodada da fase de grupos · Classificação final</div>
+    <div class="pc-podio" id="pc-podio"></div>
+  </section>
+<section id="ranking">
     <div class="section-title">🏆 Classificação Geral</div>
     <div id="loading-banner"><div class="spinner"></div> Carregando palpites...</div>
     <div class="countdown-bar" id="countdown-bar">
@@ -809,10 +874,35 @@ async function carregarPlanilha(){
 /* ── INIT ── */
 let _hadLiveGames=false;
 
+
+/* ── RENDER PÓDIO PONTOS CORRIDOS ── */
+function renderPontosCorreidos(){
+  const sorted=[...estado.jogadores].sort((a,b)=>(b.pontosGrupos+b.pontosMata)-(a.pontosGrupos+a.pontosMata)||a.nome.localeCompare(b.nome));
+  const top3=sorted.slice(0,3);
+  const emojis=['👑','🥈','🥉'];
+  const labels=['Campeão','Vice','3º Lugar'];
+  document.getElementById('pc-podio').innerHTML=top3.map((j,i)=>{
+    const pts=j.pontosGrupos+j.pontosMata;
+    const avatarEl=j.foto
+      ?`<img src="${j.foto}" alt="${j.nome}" onerror="this.parentNode.innerHTML='${iniciais(j.nome)}'">` 
+      :iniciais(j.nome);
+    const decorTopo=i===0
+      ?`<div class="pc-coroa">👑</div>`
+      :`<div class="pc-medalha">${emojis[i]}</div>`;
+    return`<div class="pc-item">
+      ${decorTopo}
+      <div class="pc-avatar-wrap"><div class="pc-avatar">${avatarEl}</div></div>
+      <div class="pc-nome">${j.nome}</div>
+      <div class="pc-pts">${pts}<small>Pts</small></div>
+      <div class="pc-base"><span class="pc-label-base">${labels[i]}</span></div>
+    </div>`;
+  }).join('');
+}
+
 async function iniciarApp(){
   await carregarPlanilha();
   await Promise.all([carregarProximos(),buscarAoVivo()]);
-  renderRanking();renderPossivel();renderGrafico();renderEstatisticas();
+  renderPontosCorreidos();renderRanking();renderPossivel();renderGrafico();renderEstatisticas();
   renderChoradeira();renderRivalidades();renderCarrossel();
 }
 
@@ -821,7 +911,7 @@ iniciarApp();
 setInterval(()=>{
   carregarPlanilha()
     .then(()=>{
-      renderRanking();renderPossivel();renderGrafico();
+      renderPontosCorreidos();renderRanking();renderPossivel();renderGrafico();
       renderEstatisticas();renderChoradeira();renderRivalidades();renderCarrossel();
     })
     .catch(e=>console.warn('Planilha:',e));
