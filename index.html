@@ -697,7 +697,17 @@ async function fetchComTimeout(url,opts,ms=8000){
 
 async function carregarProximos(){
   try{
-    const r=await fetchComTimeout('https://api.football-data.org/v4/competitions/WC/matches?status=SCHEDULED,TIMED',{headers:{'X-Auth-Token':TOKEN_API,'Accept':'application/json'},cache:'no-store'},8000);
+    // Substitua a URL antiga por esta:
+      const urlDestino = 'https://api.football-data.org/v4/competitions/WC/matches?status=SCHEDULED,TIMED';
+      const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(urlDestino);
+
+      const r = await fetchComTimeout(proxyUrl, {
+        headers: {
+          'X-Auth-Token': TOKEN_API,
+          'Accept': 'application/json'
+        },
+        cache: 'no-store'
+      }, 8000);
     if(!r.ok)return;
     const dados=await r.json();
     if(!dados||!dados.matches||!dados.matches.length)return;
@@ -715,7 +725,17 @@ async function carregarProximos(){
 
 async function buscarAoVivo(){
   try{
-    const r=await fetchComTimeout('https://api.football-data.org/v4/competitions/WC/matches?status=IN_PLAY,PAUSED',{headers:{'X-Auth-Token':TOKEN_API,'Accept':'application/json'},cache:'no-store'},8000);
+    // Substitua a URL antiga por esta:
+      const urlDestino = 'https://api.football-data.org/v4/competitions/WC/matches?status=IN_PLAY,PAUSED';
+      const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(urlDestino);
+
+      const r = await fetchComTimeout(proxyUrl, {
+        headers: {
+          'X-Auth-Token': TOKEN_API,
+          'Accept': 'application/json'
+        },
+        cache: 'no-store'
+      }, 8000);
     estado.aoVivo=[];
     if(r.ok){
       const dados=await r.json();
