@@ -41,18 +41,20 @@ nav a.mata-nav:hover,nav a.mata-nav.ativo{background:var(--mata);color:#fff}
 .mata-hero-title{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:4px;color:var(--mata);text-shadow:0 0 30px rgba(255,107,53,0.6);text-align:center;margin-bottom:4px}
 .mata-hero-sub{font-size:10px;text-align:center;color:var(--muted);letter-spacing:4px;text-transform:uppercase;margin-bottom:24px}
 
-/* ── RANKING TIERS ── */
-.ranking-tier-group{margin-bottom:24px}
-.tier-label{font-family:'Bebas Neue',sans-serif;font-size:16px;color:var(--muted);letter-spacing:2px;text-align:center;margin-bottom:12px;text-transform:uppercase;border-bottom:1px solid var(--borda);padding-bottom:6px}
-.mata-ranking-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+/* ── RANKING MATA-MATA ── */
+.mata-ranking-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:24px}
 .mata-rank-card{background:var(--azul-card);border:1px solid var(--borda);border-radius:var(--radius);padding:14px;text-align:center;transition:transform .2s,border-color .2s;position:relative;overflow:hidden}
 .mata-rank-card:hover{transform:translateY(-3px);border-color:var(--mata)}
+.mata-rank-card.pos-1{border-color:var(--ouro);background:linear-gradient(135deg,rgba(255,215,0,0.08),var(--azul-card))}
+.mata-rank-card.pos-2{border-color:var(--prata)}
+.mata-rank-card.pos-3{border-color:var(--bronze)}
 .mata-rank-pos{font-family:'Bebas Neue',sans-serif;font-size:13px;color:var(--muted);letter-spacing:1px;margin-bottom:6px}
 .mata-rank-avatar{width:54px;height:54px;border-radius:50%;border:2px solid var(--borda);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:var(--amarelo);background:linear-gradient(135deg,var(--verde-esc),var(--azul-mid));overflow:hidden;margin:0 auto 8px;flex-shrink:0}
 .mata-rank-avatar img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:50%}
 .mata-rank-nome{font-weight:700;font-size:11px;line-height:1.3;color:#fff;margin-bottom:6px}
 .mata-rank-pts{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--mata);line-height:1}
 .mata-rank-pts small{font-size:10px;font-family:'Inter',sans-serif;color:var(--muted);font-weight:400}
+.mata-rank-detail{font-size:10px;color:var(--muted);margin-top:4px}
 .mata-rank-fire{position:absolute;top:6px;right:8px;font-size:18px;animation:float-1st 2s infinite ease-in-out}
 @keyframes float-1st{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 
@@ -66,6 +68,7 @@ nav a.mata-nav:hover,nav a.mata-nav.ativo{background:var(--mata);color:#fff}
 .confronto-card::before{content:'';display:block;height:3px;background:linear-gradient(90deg,var(--mata),var(--amarelo))}
 .conf-header{padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--borda)}
 .conf-fase{font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--mata)}
+.conf-data{font-size:10px;color:var(--muted)}
 .conf-placar-area{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;padding:16px}
 .conf-time{display:flex;flex-direction:column;align-items:center;gap:4px}
 .conf-time-flag{font-size:22px}
@@ -78,6 +81,7 @@ nav a.mata-nav:hover,nav a.mata-nav.ativo{background:var(--mata);color:#fff}
 .conf-status-badge.live{background:var(--vivo);color:#fff;animation:piscar 1.5s infinite}
 .conf-status-badge.done{background:rgba(0,166,81,0.15);color:var(--verde)}
 
+/* Apostas dos lados */
 .conf-apostas{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--borda)}
 .conf-lado{padding:12px 14px}
 .conf-lado:first-child{border-right:1px solid var(--borda)}
@@ -290,6 +294,7 @@ footer strong{color:var(--mata)}
 .mural-pts{font-family:'Bebas Neue',sans-serif;font-size:20px}
 .mural-pts.ouro{color:var(--amarelo)}.mural-pts.erro{color:var(--vivo)}
 
+/* ── PONTOS CORRIDOS (agora é legado/histórico) ── */
 .pc-section{background:linear-gradient(135deg,rgba(0,166,81,0.05) 0%,rgba(13,27,42,0) 60%);border:1px solid rgba(0,166,81,0.15);border-radius:var(--radius);padding:24px 20px 28px;margin-bottom:52px;position:relative;overflow:hidden;opacity:0.9}
 .pc-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(0,166,81,0.06) 0%,transparent 70%);pointer-events:none}
 .pc-titulo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:var(--verde);text-align:center;margin-bottom:4px}
@@ -316,6 +321,7 @@ footer strong{color:var(--mata)}
 .pc-item:nth-child(3) .pc-base{height:44px;background:linear-gradient(180deg,rgba(140,94,42,0.7),rgba(92,61,26,0.7));width:76px}
 .pc-label-base{font-size:9px;color:rgba(255,255,255,.4);font-family:'Inter',sans-serif;font-weight:700;letter-spacing:1px;text-transform:uppercase}
 
+/* ── LEGADO PILL ── */
 .legado-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(0,166,81,0.1);border:1px solid rgba(0,166,81,0.2);border-radius:20px;padding:3px 10px;font-size:10px;color:var(--verde);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
 
 @media(max-width:680px){
@@ -341,7 +347,7 @@ footer strong{color:var(--mata)}
   .rival-grid{grid-template-columns:1fr}
   .possivel-grid{grid-template-columns:1fr 1fr}
   .confronto-grid{grid-template-columns:1fr}
-  .mata-ranking-grid{grid-template-columns:repeat(2,1fr)}
+  .mata-ranking-grid{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:380px){.possivel-grid{grid-template-columns:1fr}.mata-ranking-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
@@ -381,21 +387,7 @@ footer strong{color:var(--mata)}
     <div class="mata-hero">
       <div class="mata-hero-title">🔥 QUEM ESTÁ NA FRENTE?</div>
       <div class="mata-hero-sub">Classificação do Mata-Mata · Atualizada em tempo real</div>
-      
-      <!-- Agrupamento solicitado -->
-      <div id="ranking-snipers" class="ranking-tier-group">
-        <div class="tier-label">Snipers</div>
-        <div class="mata-ranking-grid"></div>
-      </div>
-      <div id="ranking-zueira" class="ranking-tier-group">
-        <div class="tier-label">Medianos (Inúteis)</div>
-        <div class="mata-ranking-grid"></div>
-      </div>
-      <div id="ranking-volei" class="ranking-tier-group">
-        <div class="tier-label">Vai assistir vôlei, mermão</div>
-        <div class="mata-ranking-grid"></div>
-      </div>
-
+      <div class="mata-ranking-grid" id="mata-ranking-grid"></div>
       <!-- Confrontos -->
       <div class="confronto-section">
         <div class="confronto-title">⚔️ Confrontos &amp; Apostas</div>
@@ -406,11 +398,23 @@ footer strong{color:var(--mata)}
     </div>
   </section>
 
-  <!-- RANKING GERAL -->
+  <!-- RANKING GERAL (pontos mata-mata) -->
   <section id="ranking">
     <div class="section-title">🏆 Classificação Geral</div>
     <div id="loading-banner"><div class="spinner"></div> Carregando palpites...</div>
-    
+    <div class="countdown-bar" id="countdown-bar">
+      <div class="cd-jogo">
+        <span class="cd-label">Próximo jogo</span>
+        <span class="cd-times" id="cd-times">—</span>
+        <span class="cd-fase" id="cd-fase">—</span>
+      </div>
+      <div class="cd-timer">
+        <div class="cd-block"><div class="cd-num" id="cd-d">00</div><div class="cd-unit">dias</div></div>
+        <div class="cd-block"><div class="cd-num" id="cd-h">00</div><div class="cd-unit">horas</div></div>
+        <div class="cd-block"><div class="cd-num" id="cd-m">00</div><div class="cd-unit">min</div></div>
+        <div class="cd-block"><div class="cd-num" id="cd-s">00</div><div class="cd-unit">seg</div></div>
+      </div>
+    </div>
     <div class="podio" id="podio-container"></div>
     <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:8px">
       <div class="subsection-title" style="margin-bottom:0">Ranking por pontos do mata-mata</div>
@@ -427,24 +431,6 @@ footer strong{color:var(--mata)}
         </tr></thead>
         <tbody id="ranking-body"></tbody>
       </table>
-    </div>
-
-    <!-- Movei a barra de próximo jogo para baixo do ranking -->
-    <div style="margin-top:40px;">
-        <div class="subsection-title">📅 Próximo Duelo</div>
-        <div class="countdown-bar" id="countdown-bar">
-          <div class="cd-jogo">
-            <span class="cd-label">Próximo jogo</span>
-            <span class="cd-times" id="cd-times">—</span>
-            <span class="cd-fase" id="cd-fase">—</span>
-          </div>
-          <div class="cd-timer">
-            <div class="cd-block"><div class="cd-num" id="cd-d">00</div><div class="cd-unit">dias</div></div>
-            <div class="cd-block"><div class="cd-num" id="cd-h">00</div><div class="cd-unit">horas</div></div>
-            <div class="cd-block"><div class="cd-num" id="cd-m">00</div><div class="cd-unit">min</div></div>
-            <div class="cd-block"><div class="cd-num" id="cd-s">00</div><div class="cd-unit">seg</div></div>
-          </div>
-        </div>
     </div>
   </section>
 
@@ -516,18 +502,63 @@ footer strong{color:var(--mata)}
   <section id="chaveamento">
     <div class="section-title">⚔️ Caminho para o Título</div>
     <div class="bracket-wrapper"><div class="bracket">
-        <!-- Chaveamento simplificado (mantido seu original) -->
-        <div class="bracket-col">
-            <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">28 JUN · LOS ANGELES</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
-            <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">29 JUN · HOUSTON</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
-            <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">29 JUN · BOSTON</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
-            <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">29 JUN · MONTERREY</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
-            <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">30 JUN · DALLAS</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
-            <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">30 JUN · NY-NJ</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
-            <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">30 JUN · C. MÉXICO</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
-            <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">01 JUL · ATLANTA</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+      <div class="bracket-col">
+        <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">28 JUN · LOS ANGELES</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">29 JUN · HOUSTON</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">29 JUN · BOSTON</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">29 JUN · MONTERREY</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">30 JUN · DALLAS</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">30 JUN · NY-NJ</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">30 JUN · C. MÉXICO</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">01 JUL · ATLANTA</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+      </div>
+      <div class="bracket-col">
+        <div class="bracket-match"><div style="font-size:8px;color:var(--verde);text-align:center;margin-bottom:2px">04 JUL · HOUSTON</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--verde);text-align:center;margin-bottom:2px">04 JUL · FILADÉLFIA</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--verde);text-align:center;margin-bottom:2px">05 JUL · NY-NJ</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--verde);text-align:center;margin-bottom:2px">05 JUL · C. MÉXICO</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+      </div>
+      <div class="bracket-col">
+        <div class="bracket-match"><div style="font-size:8px;color:var(--ouro);text-align:center;margin-bottom:2px">09 JUL · BOSTON</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--ouro);text-align:center;margin-bottom:2px">10 JUL · LOS ANGELES</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+      </div>
+      <div class="bracket-col">
+        <div class="bracket-match"><div style="font-size:8px;color:#00d2ff;text-align:center;margin-bottom:2px">14 JUL · DALLAS</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+      </div>
+      <div class="bracket-center">
+        <div class="trophy-icon">🏆</div>
+        <div class="bracket-match match-final" style="width:100%;margin-bottom:12px">
+          <div style="font-size:9px;color:var(--amarelo);text-align:center;margin-bottom:3px;font-weight:700">19 JUL · NY-NEW JERSEY</div>
+          <div class="bracket-team" style="justify-content:center;color:#fff">FINAL</div>
         </div>
-      <!-- ... (Restante do chaveamento mantido igual) -->
+        <div class="bracket-match" style="width:100%;border-color:var(--bronze)">
+          <div style="font-size:9px;color:var(--bronze);text-align:center;margin-bottom:3px;font-weight:700">18 JUL · MIAMI</div>
+          <div class="bracket-team" style="justify-content:center;color:var(--bronze)">3º LUGAR</div>
+        </div>
+      </div>
+      <div class="bracket-col">
+        <div class="bracket-match"><div style="font-size:8px;color:#00d2ff;text-align:center;margin-bottom:2px">15 JUL · ATLANTA</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+      </div>
+      <div class="bracket-col">
+        <div class="bracket-match"><div style="font-size:8px;color:var(--ouro);text-align:center;margin-bottom:2px">11 JUL · MIAMI</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--ouro);text-align:center;margin-bottom:2px">11 JUL · KANSAS CITY</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+      </div>
+      <div class="bracket-col">
+        <div class="bracket-match"><div style="font-size:8px;color:var(--verde);text-align:center;margin-bottom:2px">06 JUL · DALLAS</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--verde);text-align:center;margin-bottom:2px">06 JUL · SEATTLE</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--verde);text-align:center;margin-bottom:2px">07 JUL · ATLANTA</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--verde);text-align:center;margin-bottom:2px">07 JUL · VANCOUVER</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+      </div>
+      <div class="bracket-col">
+        <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">01 JUL · SEATTLE</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">01 JUL · SÃO FRANCISCO</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">02 JUL · LOS ANGELES</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">02 JUL · TORONTO</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">03 JUL · VANCOUVER</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">03 JUL · DALLAS</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">03 JUL · MIAMI</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+        <div class="bracket-match"><div style="font-size:8px;color:var(--mata);text-align:center;margin-bottom:2px">03 JUL · KANSAS CITY</div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div><div class="bracket-team"><span>A confirmar</span><span class="bracket-score">-</span></div></div>
+      </div>
     </div></div>
   </section>
 
@@ -561,7 +592,7 @@ const estado={
   cdInterval:null
 };
 
-/* ── UTILS & BADGES (Preservadas) ── */
+/* ── BADGES ── */
 function totalAcertos(j){return j.palpitesGrupos.filter(p=>p.statusPlacar==='exato'||p.statusPlacar==='coluna').length+j.palpitesMata.filter(p=>p.statusPlacar==='exato-mata'||p.statusPlacar==='coluna-mata').length}
 function totalErros(j){return j.palpitesGrupos.filter(p=>p.statusPlacar==='err').length+j.palpitesMata.filter(p=>p.statusPlacar==='err').length}
 function totalExatos(j){return j.palpitesGrupos.filter(p=>p.statusPlacar==='exato').length+j.palpitesMata.filter(p=>p.statusPlacar==='exato-mata').length}
@@ -589,6 +620,7 @@ const BADGES_DEFS=[
   {id:'b15',icon:'🏆',nome:'O Especialista',desc:'Exato no mata-mata',check:j=>j.palpitesMata.some(p=>p.statusPlacar==='exato-mata')}
 ];
 
+/* ── UTILS ── */
 function pad(n){return String(n).padStart(2,'0')}
 function parseCSV(l){const r=[];let a='',q=false;for(const c of l){if(c==='"')q=!q;else if((c===','||c===';'||c==='\t')&&!q){r.push(a.trim());a='';}else a+=c;}r.push(a.trim());return r;}
 function iniciais(n){return n.split(' ').slice(0,2).map(w=>w[0].toUpperCase()).join('')}
@@ -599,7 +631,7 @@ function getClass(s){if(s==='exato'||s==='exato-mata')return'badge-exato';if(s==
 function normT(t){return t.replace(/[\u{1F1E0}-\u{1F1FF}\u{1F300}-\u{1FFFF}\u{2600}-\u{27FF}\uFE0F\uFEFF]/gu,'').replace(/🏴/g,'').trim().toLowerCase()}
 function showToast(msg){const c=document.getElementById('toast-container');const t=document.createElement('div');t.className='toast';t.textContent=msg;c.appendChild(t);setTimeout(()=>{t.classList.add('fade-out');setTimeout(()=>t.remove(),500)},3500)}
 
-/* ── COUNTDOWN & LOGIC ── */
+/* ── COUNTDOWN ── */
 function initCountdown(){
   if(estado.cdInterval)clearInterval(estado.cdInterval);
   const agora=new Date();
@@ -621,14 +653,7 @@ function initCountdown(){
   estado.cdInterval=setInterval(tick,1000);
 }
 
-function matchJogo(jogoNome,av){
-  const pN=normT(jogoNome).split(' x ');
-  if(pN.length<2)return null;
-  const pT1=pN[0].trim(),pT2=pN[1].trim(),avT1=normT(av.t1),avT2=normT(av.t2);
-  if((avT1.includes(pT1)||pT1.includes(avT1))&&(avT2.includes(pT2)||pT2.includes(avT2)))return{g1:av.g1,g2:av.g2};
-  if((avT1.includes(pT2)||pT2.includes(avT1))&&(avT2.includes(pT1)||pT1.includes(avT2)))return{g1:av.g2,g2:av.g1};
-  return null;
-}
+/* ── PONTOS AO VIVO ── */
 function calcPtsAoVivo(palpite,g1,g2,isMata=false){
   if(!palpite)return 0;
   const st=palpite.statusPlacar;
@@ -640,6 +665,14 @@ function calcPtsAoVivo(palpite,g1,g2,isMata=false){
   if(p1===g1&&p2===g2)return isMata?5:3;
   if((g1>g2?1:g1<g2?-1:0)===(p1>p2?1:p1<p2?-1:0))return isMata?2:1;
   return 0;
+}
+function matchJogo(jogoNome,av){
+  const pN=normT(jogoNome).split(' x ');
+  if(pN.length<2)return null;
+  const pT1=pN[0].trim(),pT2=pN[1].trim(),avT1=normT(av.t1),avT2=normT(av.t2);
+  if((avT1.includes(pT1)||pT1.includes(avT1))&&(avT2.includes(pT2)||pT2.includes(avT2)))return{g1:av.g1,g2:av.g2};
+  if((avT1.includes(pT2)||pT2.includes(avT1))&&(avT2.includes(pT1)||pT1.includes(avT2)))return{g1:av.g2,g2:av.g1};
+  return null;
 }
 function ptsProvisorios(j){
   if(!estado.aoVivo.length)return 0;
@@ -655,7 +688,7 @@ function calcMaxPossivel(j){
   return max;
 }
 
-/* ── FETCH & APIS ── */
+/* ── FETCH ── */
 async function fetchComTimeout(url,opts,ms=8000){
   const ctrl=new AbortController();
   const timer=setTimeout(()=>ctrl.abort(),ms);
@@ -664,10 +697,17 @@ async function fetchComTimeout(url,opts,ms=8000){
 
 async function carregarProximos(){
   try{
+    // Substitua a URL antiga por esta:
       const urlDestino = 'https://api.football-data.org/v4/competitions/WC/matches?status=SCHEDULED,TIMED';
       const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(urlDestino);
 
-      const r = await fetchComTimeout(proxyUrl, { headers: {'X-Auth-Token': TOKEN_API,'Accept': 'application/json'}, cache: 'no-store'}, 8000);
+      const r = await fetchComTimeout(proxyUrl, {
+        headers: {
+          'X-Auth-Token': TOKEN_API,
+          'Accept': 'application/json'
+        },
+        cache: 'no-store'
+      }, 8000);
     if(!r.ok)return;
     const dados=await r.json();
     if(!dados||!dados.matches||!dados.matches.length)return;
@@ -685,10 +725,17 @@ async function carregarProximos(){
 
 async function buscarAoVivo(){
   try{
+    // Substitua a URL antiga por esta:
       const urlDestino = 'https://api.football-data.org/v4/competitions/WC/matches?status=IN_PLAY,PAUSED';
       const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(urlDestino);
 
-      const r = await fetchComTimeout(proxyUrl, { headers: {'X-Auth-Token': TOKEN_API,'Accept': 'application/json'}, cache: 'no-store'}, 8000);
+      const r = await fetchComTimeout(proxyUrl, {
+        headers: {
+          'X-Auth-Token': TOKEN_API,
+          'Accept': 'application/json'
+        },
+        cache: 'no-store'
+      }, 8000);
     estado.aoVivo=[];
     if(r.ok){
       const dados=await r.json();
@@ -716,7 +763,9 @@ async function buscarAoVivo(){
 }
 
 function atualizarPontosAoVivoSemRerenderizar(){
-  const sorted=[...estado.jogadores].sort((a,b)=>(b.pontosMata+ptsProvisorios(b))-(a.pontosMata+ptsProvisorios(a))||a.nome.localeCompare(b.nome));
+  const sorted=[...estado.jogadores].sort((a,b)=>
+    (b.pontosMata+ptsProvisorios(b))-(a.pontosMata+ptsProvisorios(a))||a.nome.localeCompare(b.nome)
+  );
   sorted.forEach(j=>{
     const prov=ptsProvisorios(j);
     const totalMata=j.pontosMata+prov;
@@ -744,45 +793,113 @@ function renderAoVivo(){
     </div>`).join('');
 }
 
+/* ── RENDER MATA-MATA (hero + confrontos) ── */
 function renderMataMata(){
+  // Ranking mini
   const sorted=[...estado.jogadores].sort((a,b)=>b.pontosMata-a.pontosMata||a.nome.localeCompare(b.nome));
-  
-  function criarCard(j, i, posReal){
-     return `<div class="mata-rank-card">
-      ${posReal===0?'<div class="mata-rank-fire">🔥</div>':''}
-      <div class="mata-rank-pos">${posReal+1}º</div>
+  const posEmojis=['🔥','⚡','💥','🎯','😤','💀'];
+  const rankClasses=['pos-1','pos-2','pos-3','','',''];
+  document.getElementById('mata-ranking-grid').innerHTML=sorted.map((j,i)=>`
+    <div class="mata-rank-card ${rankClasses[i]||''}">
+      ${i===0?'<div class="mata-rank-fire">🔥</div>':''}
+      <div class="mata-rank-pos">${posEmojis[i]} ${i+1}º</div>
       <div class="mata-rank-avatar">${avatarHTML(j)}</div>
       <div class="mata-rank-nome">${j.nome.split(' ')[0]}</div>
-      <div class="mata-rank-pts">${j.pontosMata}<small>pts</small></div>
-    </div>`;
-  }
+      <div class="mata-rank-pts">${j.pontosMata}<small>pts MM</small></div>
+      <div class="mata-rank-detail">${j.palpitesMata.length} palpites</div>
+    </div>`).join('');
 
-  document.querySelector('#ranking-snipers .mata-ranking-grid').innerHTML=sorted.slice(0,2).map((j,i)=>criarCard(j,i,i)).join('');
-  document.querySelector('#ranking-zueira .mata-ranking-grid').innerHTML=sorted.slice(2,4).map((j,i)=>criarCard(j,i,i+2)).join('');
-  document.querySelector('#ranking-volei .mata-ranking-grid').innerHTML=sorted.slice(4,6).map((j,i)=>criarCard(j,i,i+4)).join('');
-
-  // Confrontos
+  // Confrontos - agrupa palpites mata-mata por jogo
   const jogosMap={};
-  estado.jogadores.forEach(j=>j.palpitesMata.forEach(p=>{if(!jogosMap[p.jogo])jogosMap[p.jogo]={jogo:p.jogo,apostas:[]};jogosMap[p.jogo].apostas.push({jogador:j,palpite:p});}));
+  estado.jogadores.forEach(j=>{
+    j.palpitesMata.forEach(p=>{
+      if(!jogosMap[p.jogo])jogosMap[p.jogo]={jogo:p.jogo,apostas:[]};
+      jogosMap[p.jogo].apostas.push({jogador:j,palpite:p});
+    });
+  });
   const jogosLista=Object.values(jogosMap);
-  if(jogosLista.length>0){
-    document.getElementById('confronto-grid').innerHTML=jogosLista.map(({jogo,apostas})=>{
-        const partes=jogo.split(/\s+[xX]\s+/); const timeA=partes[0]||''; const timeB=partes[1]||'';
-        const ladoA=apostas.filter(a=>a.palpite.palpitePassa&&normT(a.palpite.palpitePassa).includes(normT(timeA)));
-        const ladoB=apostas.filter(a=>a.palpite.palpitePassa&&normT(a.palpite.palpitePassa).includes(normT(timeB)));
-        return `<div class="confronto-card">
-            <div class="conf-header"><span class="conf-fase">${jogo}</span></div>
-            <div class="conf-apostas">
-                <div class="conf-lado"><div class="conf-lado-title time-a">Passa ${timeA}</div>${ladoA.map(a=>`<div class="apostador-chip"><span class="apostador-nome-sm">${a.jogador.nome.split(' ')[0]}</span><span class="apostador-palpite">${a.palpite.palpitePlacar}</span></div>`).join('')}</div>
-                <div class="conf-lado"><div class="conf-lado-title time-b">Passa ${timeB}</div>${ladoB.map(a=>`<div class="apostador-chip"><span class="apostador-nome-sm">${a.jogador.nome.split(' ')[0]}</span><span class="apostador-palpite">${a.palpite.palpitePlacar}</span></div>`).join('')}</div>
-            </div>
-        </div>`;
-    }).join('');
+  if(!jogosLista.length){
+    document.getElementById('confronto-grid').innerHTML='<div style="color:var(--muted);font-size:13px;grid-column:1/-1">Aguardando palpites do mata-mata...</div>';
+    return;
   }
+
+  document.getElementById('confronto-grid').innerHTML=jogosLista.map(({jogo,apostas})=>{
+    // Extrai times do nome do jogo (formato "Time A x Time B")
+    const partes=jogo.split(/\s+[xX]\s+/);
+    const timeA=partes[0]||'Time A';
+    const timeB=partes[1]||'Time B';
+
+    // Separa apostadores por lado (quem aposta no time que passa)
+    const ladoA=apostas.filter(a=>a.palpite.palpitePassa&&normT(a.palpite.palpitePassa).includes(normT(timeA)));
+    const ladoB=apostas.filter(a=>a.palpite.palpitePassa&&normT(a.palpite.palpitePassa).includes(normT(timeB)));
+    const semLado=apostas.filter(a=>!a.palpite.palpitePassa||(!normT(a.palpite.palpitePassa).includes(normT(timeA))&&!normT(a.palpite.palpitePassa).includes(normT(timeB))));
+
+    // Status geral do jogo
+    const temResultado=apostas.some(a=>a.palpite.statusPlacar&&a.palpite.statusPlacar!=='aguardando'&&a.palpite.statusPlacar!=='aguardando-mata'&&a.palpite.statusPlacar!=='');
+    const statusLabel=temResultado?'Encerrado':'Aguardando';
+    const statusClass=temResultado?'done':'upcoming';
+
+    // Placar do palpite mais comum ou do resultado
+    const exato=apostas.find(a=>a.palpite.statusPlacar==='exato-mata');
+    const resultadoPlacar=exato?exato.palpite.palpitePlacar:'';
+
+    function chipApostador(a){
+      const nomeFirst=a.jogador.nome.split(' ')[0];
+      const palpPts=a.palpite.palpitePlacar||'?';
+      let stPassa='';
+      if(a.palpite.statusPassa==='classificado')stPassa='<span class="badge-pass-ok">✓</span>';
+      else if(a.palpite.statusPassa==='err')stPassa='<span class="badge-pass-err">✗</span>';
+      else if(a.palpite.palpitePassa)stPassa='<span class="badge-pass-pend">⏳</span>';
+      return`<div class="apostador-chip">
+        <div class="apostador-avatar-sm">${avatarHTML(a.jogador)}</div>
+        <span class="apostador-nome-sm">${nomeFirst}</span>
+        <span class="apostador-palpite">${palpPts} ${stPassa}</span>
+      </div>`;
+    }
+
+    return`<div class="confronto-card">
+      <div class="conf-header">
+        <span class="conf-fase">⚔️ Mata-Mata</span>
+        <span class="conf-status-badge ${statusClass}">${statusLabel}</span>
+      </div>
+      <div class="conf-placar-area">
+        <div class="conf-time">
+          <div class="conf-time-flag">${timeA.match(/\p{Emoji}/u)?.[0]||'🏳️'}</div>
+          <div class="conf-time-nome">${timeA.replace(/\p{Emoji}/gu,'').trim()}</div>
+        </div>
+        <div class="conf-vs-box">
+          <div class="conf-placar ${resultadoPlacar?'':'aguardando'}">${resultadoPlacar||'? – ?'}</div>
+          <div style="font-size:9px;color:var(--muted);text-align:center;margin-top:4px;letter-spacing:1px">90 MIN</div>
+        </div>
+        <div class="conf-time">
+          <div class="conf-time-flag">${timeB.match(/\p{Emoji}/u)?.[0]||'🏳️'}</div>
+          <div class="conf-time-nome">${timeB.replace(/\p{Emoji}/gu,'').trim()}</div>
+        </div>
+      </div>
+      <div class="conf-apostas">
+        <div class="conf-lado">
+          <div class="conf-lado-title time-a">🟢 Passa ${timeA.replace(/\p{Emoji}/gu,'').trim().split(' ')[0]}</div>
+          ${ladoA.length?ladoA.map(chipApostador).join(''):'<div class="conf-sem-apostas">Ninguém apostou aqui</div>'}
+          ${semLado.length&&!ladoB.length?semLado.map(chipApostador).join(''):''}
+        </div>
+        <div class="conf-lado">
+          <div class="conf-lado-title time-b">🔴 Passa ${timeB.replace(/\p{Emoji}/gu,'').trim().split(' ')[0]}</div>
+          ${ladoB.length?ladoB.map(chipApostador).join(''):'<div class="conf-sem-apostas">Ninguém apostou aqui</div>'}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
 }
 
+/* ── RANKING GERAL (ordenado por pontos MATA-MATA) ── */
 function renderRanking(){
-  const sorted=[...estado.jogadores].sort((a,b)=>(b.pontosMata+ptsProvisorios(b))-(a.pontosMata+ptsProvisorios(a))||a.nome.localeCompare(b.nome));
+  // Ordena por pontos mata-mata primeiro, pontos grupos como desempate
+  const sorted=[...estado.jogadores].sort((a,b)=>{
+    const mA=a.pontosMata+ptsProvisorios(a);
+    const mB=b.pontosMata+ptsProvisorios(b);
+    if(mB!==mA)return mB-mA;
+    return b.pontosGrupos-a.pontosGrupos||a.nome.localeCompare(b.nome);
+  });
   document.getElementById('podio-container').innerHTML=sorted.slice(0,3).map((j,i)=>{
     const mataPts=j.pontosMata+ptsProvisorios(j);
     return`<div class="podio-item"><span>${['🥇','🥈','🥉'][i]}</span><div class="podio-avatar ${i===0?'campeao-glow':''}">${avatarHTML(j)}</div><div class="podio-nome">${j.nome}</div><div class="podio-pts" data-id="${j.id}">${mataPts}<small>Pts MM</small></div><div class="podio-base">${i+1}</div></div>`;
@@ -791,15 +908,25 @@ function renderRanking(){
   document.getElementById('ranking-body').innerHTML=sorted.map((j,posGlobal)=>{
     const prov=ptsProvisorios(j);
     const mataPts=j.pontosMata+prov;
-    return`<tr class="main-row">
-      <td><div class="rank-pos">${posGlobal+1}</div></td>
-      <td><div class="rank-player"><div class="rank-avatar">${avatarHTML(j)}</div><div><span class="rank-nome">${j.nome}</span></div></div></td>
-      <td><div class="rank-total" data-id="${j.id}">${mataPts}${prov>0?`<span class="pts-delta">+${prov}🔴</span>`:''}</div></td>
-      <td><div class="pontos-coluna">${j.pontosGrupos}</div></td>
-      <td><div class="pontos-coluna">${j.pontosGrupos+mataPts}</div></td>
-      <td><button class="btn-ver" onclick="toggleP('p${j.id}')">Ver ▾</button></td>
+    const total=j.pontosGrupos+j.pontosMata+prov;
+    const lider=posGlobal===0&&mataPts>0?'<span class="badge-lider">🔥 Líder</span>':'';
+    const azarao=posGlobal===sorted.length-1&&sorted.length>1?'<span class="badge-azarao">🐢 Azarão</span>':'';
+    const tem=j.palpitesGrupos.length>0||j.palpitesMata.length>0;
+    const diff=(j.posicaoAnterior||posGlobal+1)-(posGlobal+1);
+    let tr='<span class="trend flat">▪</span>';
+    if(diff>0)tr=`<span class="trend up">▴${diff}</span>`;if(diff<0)tr=`<span class="trend down">▾${Math.abs(diff)}</span>`;
+    return`<tr class="${prov>0?'main-row row-ao-vivo':'main-row'}">
+      <td><div class="rank-pos-wrapper"><div class="rank-pos">${posGlobal+1}</div>${tr}</div></td>
+      <td><div class="rank-player"><div class="rank-avatar">${avatarHTML(j)}</div><div><span class="rank-nome">${j.nome}</span>${lider}${azarao}</div></div></td>
+      <td><div class="rank-total" data-id="${j.id}" style="color:var(--mata)">${mataPts}${prov>0?`<span class="pts-delta">+${prov}🔴</span>`:''}<span class="pts-grupos-tag">pts mata-mata</span></div></td>
+      <td><div class="pontos-coluna" style="color:var(--muted)">${j.pontosGrupos}<small>grupos</small></div></td>
+      <td><div style="font-family:'Bebas Neue';font-size:20px;color:var(--texto);text-align:center">${total}<small style="font-size:9px;font-family:Inter;color:var(--muted);display:block">total</small></div></td>
+      <td>${tem?`<button class="btn-ver" onclick="toggleP('p${j.id}')">Ver ▾</button>`:'–'}</td>
     </tr>
-    <tr class="palpites-row" id="p${j.id}"><td colspan="6"><div class="palpites-inner">Aqui estariam os palpites detalhados...</div></td></tr>`;
+    ${tem?`<tr class="palpites-row" id="p${j.id}"><td colspan="6"><div class="palpites-inner">
+      ${j.palpitesMata.length?`<div class="subsection-title" style="color:var(--mata);margin-top:0">⚔️ Mata-Mata</div>${j.palpitesMata.map(p=>{let ptsAv=0,vivo=false;const m=estado.aoVivo.map(av=>matchJogo(p.jogo,av)).find(x=>x);if(m){vivo=true;ptsAv=calcPtsAoVivo(p,m.g1,m.g2,true);}return`<div class="palpite-item"><span style="flex:1"><b>${p.jogo}</b></span><div class="palpite-info"><span>90min: <b>${p.palpitePlacar}</b> <span class="${getClass(p.statusPlacar)}">${formatarBadge(p.statusPlacar)}</span></span><span>Avança: <b>${p.palpitePassa||'?'}</b> <span class="${getClass(p.statusPassa)}">${formatarBadge(p.statusPassa)}</span></span>${vivo&&(p.statusPlacar==='aguardando'||p.statusPlacar==='')?`<span class="badge-ao-vivo-pts">🔴 +${ptsAv}pt</span>`:''}</div></div>`;}).join('')}<hr style="border-top:1px solid var(--borda);margin:12px 0">`:''}
+      ${j.palpitesGrupos.length?`<div class="subsection-title" style="color:var(--muted);margin-top:0">⚽ Grupos (histórico)</div>${j.palpitesGrupos.map(p=>{let ptsAv=0,vivo=false;const m=estado.aoVivo.map(av=>matchJogo(p.jogo,av)).find(x=>x);if(m){vivo=true;ptsAv=calcPtsAoVivo(p,m.g1,m.g2,false);}return`<div class="palpite-item"><span style="flex:1"><b>${p.jogo}</b></span><div class="palpite-info"><span>Palpite: <b>${p.palpitePlacar}</b> <span class="${getClass(p.statusPlacar)}">${formatarBadge(p.statusPlacar)}</span></span>${vivo&&(p.statusPlacar==='aguardando'||p.statusPlacar==='')?`<span class="badge-ao-vivo-pts">🔴 +${ptsAv}pt</span>`:''}</div></div>`;}).join('')}`:''}
+    </div></td></tr>`:''}`;
   }).join('');
 }
 
@@ -808,26 +935,144 @@ function renderPossivel(){
   const maxGlobal=Math.max(...sorted.map(j=>calcMaxPossivel(j)),1);
   document.getElementById('possivel-grid').innerHTML=sorted.map(j=>{
     const atual=j.pontosMata,max=calcMaxPossivel(j);
-    return`<div class="possivel-card"><div class="poss-avatar">${avatarHTML(j)}</div><div class="poss-info"><div class="poss-nome">${j.nome}</div><div class="poss-bar-wrap"><div class="poss-bar" style="width:${Math.round((atual/maxGlobal)*100)}%"></div></div></div></div>`;
+    return`<div class="possivel-card"><div class="poss-avatar">${avatarHTML(j)}</div><div class="poss-info"><div class="poss-nome">${j.nome}</div><div class="poss-bar-wrap" title="Máx: ${max}"><div class="poss-bar" style="width:${Math.round((max/maxGlobal)*100)}%;opacity:.3"></div></div><div class="poss-bar-wrap" style="margin-top:3px"><div class="poss-bar" style="width:${Math.round((atual/maxGlobal)*100)}%"></div></div><div class="poss-nums"><span class="poss-atual">${atual} pts MM</span><span class="poss-max">máx ${max}</span></div></div></div>`;
   }).join('');
 }
 
-function renderGrafico(){ if(!estado.jogosOrdem.length)return; /* Preservar logica original */ }
-function renderEstatisticas(){ /* Preservar logica original */ }
-function renderChoradeira(){ /* Preservar logica original */ }
-function renderRivalidades(){ /* Preservar logica original */ }
-function renderProximos(){ /* Preservar logica original */ }
-function renderPontosCorreidos(){ /* Preservar logica original */ }
-function renderCarrossel(){ /* Preservar logica original */ }
-
-/* ── APP FLOW ── */
-async function carregarPlanilha(){
-    // [Lógica original de carregamento de planilha]
-    // ...
-    // Placeholder para não estender demais a resposta, mantenha sua logica original aqui.
-    // Apenas garanta que chamamos os renders.
+function renderGrafico(){
+  if(!estado.jogosOrdem.length)return;
+  const ctx=document.getElementById('grafico-historico');if(!ctx)return;
+  const qtdAtual=estado.graficoInstance?.data?.labels?.length||0;
+  if(estado.graficoInstance&&qtdAtual===estado.jogosOrdem.length){
+    estado.graficoInstance.data.datasets.forEach((ds,idx)=>{ds.data=estado.jogadores[idx]?.historico||[]});
+    estado.graficoInstance.update('none');return;
+  }
+  if(estado.graficoInstance)estado.graficoInstance.destroy();
+  estado.graficoInstance=new Chart(ctx,{type:'line',data:{labels:estado.jogosOrdem.map((_,i)=>`Jogo ${i+1}`),datasets:estado.jogadores.map((j,idx)=>({label:j.nome.split(' ')[0],data:j.historico,borderColor:CORES_JOGADORES[idx%CORES_JOGADORES.length],backgroundColor:'transparent',borderWidth:2,pointRadius:3,tension:.35}))},options:{responsive:true,maintainAspectRatio:true,animation:false,plugins:{legend:{labels:{color:'#8A9BB0',font:{size:11},boxWidth:12}},tooltip:{backgroundColor:'#1A2B42',borderColor:'rgba(255,255,255,.1)',borderWidth:1}},scales:{x:{grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#8A9BB0'}},y:{grid:{color:'rgba(255,255,255,.05)'},ticks:{color:'#8A9BB0'}}}}});
 }
 
+function renderEstatisticas(){
+  const jogs=estado.jogadores;
+  const sAcertos=[...jogs].sort((a,b)=>totalAcertos(b)-totalAcertos(a));
+  const sErros=[...jogs].sort((a,b)=>totalErros(b)-totalErros(a));
+  const sExatos=[...jogs].sort((a,b)=>totalExatos(b)-totalExatos(a));
+  const sEmpates=[...jogs].sort((a,b)=>totalEmpates(b)-totalEmpates(a));
+  const listStat=(arr,fn,cls)=>arr.slice(0,3).map((j,i)=>`<div class="stat-item"><span class="stat-rank">${i+1}</span><div class="stat-avatar-sm">${avatarHTML(j)}</div><span class="stat-nome">${j.nome.split(' ')[0]}</span><span class="stat-val ${cls}">${fn(j)}</span></div>`).join('');
+  document.getElementById('stats-grid').innerHTML=`<div class="stat-card"><div class="stat-card-title">🎯 Mais Acertos</div>${listStat(sAcertos,totalAcertos,'verde')}</div><div class="stat-card"><div class="stat-card-title">🏆 Placares Exatos</div>${listStat(sExatos,totalExatos,'ouro')}</div><div class="stat-card"><div class="stat-card-title">❌ Mais Erros</div>${listStat(sErros,totalErros,'vermelho')}</div><div class="stat-card"><div class="stat-card-title">🤝 Mestre do Empate</div>${listStat(sEmpates,totalEmpates,'')}</div>`;
+  const all=[];jogs.forEach(j=>j.palpitesGrupos.forEach(p=>all.push({...p,j})));
+  const exa=all.filter(p=>p.statusPlacar==='exato').slice(0,3);
+  const err=all.filter(p=>p.statusPlacar==='err').slice(0,3);
+  document.getElementById('mural-grid').innerHTML=`<div class="mural-card fama"><div class="mural-title" style="color:var(--amarelo)">🏅 Mural da Fama</div>${exa.map(p=>`<div class="mural-item"><span class="mural-emoji">⭐</span><div class="mural-txt"><strong>${p.j.nome.split(' ')[0]}</strong>${p.jogo} · ${p.palpitePlacar}</div><span class="mural-pts ouro">+3</span></div>`).join('')||'<div style="color:var(--muted);font-size:13px;padding:8px 0">Sem exatos ainda.</div>'}</div><div class="mural-card vergonha"><div class="mural-title" style="color:var(--vivo)">💀 Mural da Vergonha</div>${err.map(p=>`<div class="mural-item"><span class="mural-emoji">💀</span><div class="mural-txt"><strong>${p.j.nome.split(' ')[0]}</strong>${p.jogo} · tentou ${p.palpitePlacar}</div><span class="mural-pts erro">0</span></div>`).join('')||'<div style="color:var(--muted);font-size:13px;padding:8px 0">Galera tá afiada.</div>'}</div>`;
+}
+
+function renderChoradeira(){
+  const jogs=estado.jogadores;
+  const traves=[...jogs].sort((a,b)=>totalColuna(b)-totalColuna(a)).slice(0,3);
+  const zicas=[...jogs].sort((a,b)=>totalErros(b)-totalErros(a)).slice(0,3);
+  document.getElementById('choradeira-grid').innerHTML=`<div class="mural-card" style="border-color:rgba(0,210,255,0.3)"><div class="mural-title" style="color:#00d2ff">🥅 Reis da Trave</div>${traves.filter(j=>totalColuna(j)>0).map(j=>`<div class="mural-item"><span class="mural-emoji">😩</span><div class="mural-txt"><strong>${j.nome.split(' ')[0]}</strong>Acertou tendência mas errou placar</div><span class="mural-pts" style="color:#00d2ff">${totalColuna(j)}x</span></div>`).join('')||'<div style="color:var(--muted);font-size:13px;padding:8px 0">Ninguém na trave ainda.</div>'}</div><div class="mural-card" style="border-color:rgba(255,71,87,0.3)"><div class="mural-title" style="color:var(--vivo)">🤡 Cemitério de Palpites</div>${zicas.filter(j=>totalErros(j)>0).map(j=>`<div class="mural-item"><span class="mural-emoji">💩</span><div class="mural-txt"><strong>${j.nome.split(' ')[0]}</strong>Errou tudo</div><span class="mural-pts erro">${totalErros(j)}x</span></div>`).join('')||'<div style="color:var(--muted);font-size:13px;padding:8px 0">Incrível, sem erros!</div>'}</div>`;
+}
+
+function renderRivalidades(){
+  const jogs=estado.jogadores,pares=[];
+  for(let i=0;i<jogs.length;i++){for(let k=i+1;k<jogs.length;k++){const a=jogs[i],b=jogs[k];const comuns=a.palpitesGrupos.map(p=>p.jogo).filter(jn=>b.palpitesGrupos.find(p=>p.jogo===jn));if(!comuns.length)continue;let wA=0,wB=0,e=0,pA=0,pB=0;comuns.forEach(jn=>{const ptA=a.palpitesGrupos.find(p=>p.jogo===jn).statusPlacar==='exato'?3:a.palpitesGrupos.find(p=>p.jogo===jn).statusPlacar==='coluna'?1:0;const ptB=b.palpitesGrupos.find(p=>p.jogo===jn).statusPlacar==='exato'?3:b.palpitesGrupos.find(p=>p.jogo===jn).statusPlacar==='coluna'?1:0;pA+=ptA;pB+=ptB;if(ptA>ptB)wA++;else if(ptB>ptA)wB++;else e++;});pares.push({a,b,wA,wB,e,pA,pB,tot:comuns.length});}}
+  const top=pares.sort((x,y)=>Math.abs(x.pA-x.pB)-Math.abs(y.pA-y.pB)).slice(0,4);
+  if(!top.length){document.getElementById('rival-grid').innerHTML='<div style="color:var(--muted);font-size:13px">Ainda sem jogos suficientes.</div>';return}
+  document.getElementById('rival-grid').innerHTML=top.map(r=>{const pctA=(r.pA===0&&r.pB===0)?50:Math.round((r.pA/(r.pA+r.pB))*100),pctWA=(r.wA===0&&r.wB===0&&r.e===0)?50:Math.round((r.wA/(r.wA+r.wB+r.e))*100);return`<div class="rival-card"><div class="rival-header"><div class="rival-player"><div class="rival-avatar">${avatarHTML(r.a)}</div><div class="rival-nome-sm">${r.a.nome.split(' ')[0]}</div></div><span class="rival-vs">VS</span><div class="rival-player"><div class="rival-avatar">${avatarHTML(r.b)}</div><div class="rival-nome-sm">${r.b.nome.split(' ')[0]}</div></div></div><div class="rival-stat-row"><span class="rival-label">Pontos</span><div class="rival-bar-wrap"><span class="rival-pct-a">${r.pA}</span><div class="rival-bar-a" style="width:${pctA}%"></div><div class="rival-bar-b" style="width:${100-pctA}%"></div><span class="rival-pct-b">${r.pB}</span></div></div><div class="rival-stat-row"><span class="rival-label">Vitórias (${r.tot}j)</span><div class="rival-bar-wrap"><span class="rival-pct-a">${r.wA}v</span><div class="rival-bar-a" style="width:${pctWA}%"></div><div class="rival-bar-b" style="width:${100-pctWA}%"></div><span class="rival-pct-b">${r.wB}v</span></div></div></div>`;}).join('');
+}
+
+function renderProximos(){
+  const grid=document.getElementById('proximos-grid');
+  if(!estado.proximos.length){grid.innerHTML='<div style="color:var(--muted);font-size:13px">Nenhum jogo agendado encontrado.</div>';return}
+  grid.innerHTML=estado.proximos.map(j=>`
+    <div class="jogo-card">
+      <div class="jogo-fase">${j.fase}</div>
+      <div class="jogos-times">
+        <div class="jogo-time"><span class="jogo-time-nome">${j.time1}</span></div>
+        <span class="jogo-vs">VS</span>
+        <div class="jogo-time"><span class="jogo-time-nome">${j.time2}</span></div>
+      </div>
+      <div class="jogo-meta">
+        <span>📅 ${new Date(j.data).toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'})}</span>
+        <span>⏰ ${j.hora} (BRT)</span>
+      </div>
+    </div>`).join('');
+}
+
+function renderPontosCorreidos(){
+  const sorted=[...estado.jogadores].sort((a,b)=>(b.pontosGrupos)-(a.pontosGrupos)||a.nome.localeCompare(b.nome));
+  const top3=sorted.slice(0,3);
+  const emojis=['👑','🥈','🥉'],labels=['Campeão','Vice','3º Lugar'];
+  document.getElementById('pc-podio').innerHTML=top3.map((j,i)=>{
+    const pts=j.pontosGrupos;
+    return`<div class="pc-item">
+      ${i===0?`<div class="pc-coroa">👑</div>`:`<div class="pc-medalha">${emojis[i]}</div>`}
+      <div class="pc-avatar-wrap"><div class="pc-avatar">${avatarHTML(j)}</div></div>
+      <div class="pc-nome">${j.nome}</div>
+      <div class="pc-pts">${pts}<small>Pts</small></div>
+      <div class="pc-base"><span class="pc-label-base">${labels[i]}</span></div>
+    </div>`;
+  }).join('');
+}
+
+function renderCarrossel(){
+  document.getElementById('carousel-track').innerHTML=[...estado.jogadores,...estado.jogadores].map(j=>{
+    const badgesHtml=`<div class="badges-grid">`+BADGES_DEFS.map(b=>`<div class="badge-icon ${b.check(j)?'unlocked':'locked'}" title="${b.nome}\n${b.desc}">${b.icon}</div>`).join('')+`</div>`;
+    return`<div class="card-participante">${fotoCardHTML(j)}<div class="card-nome">${j.nome}</div><div class="card-desc">${j.descricao||'Pronto!'}</div>${badgesHtml}</div>`;
+  }).join('');
+}
+
+function toggleP(id){
+  const row=document.getElementById(id);if(!row)return;
+  const ab=row.classList.contains('open');
+  document.querySelectorAll('.palpites-row.open').forEach(r=>r.classList.remove('open'));
+  if(!ab)row.classList.add('open');
+}
+
+/* ── CARREGA PLANILHA ── */
+let _csvCache=null;
+async function carregarPlanilha(){
+  try{
+    const ctrl=new AbortController();
+    const timer=setTimeout(()=>ctrl.abort(),8000);
+    let texto;
+    try{
+      const r=await fetch("https://docs.google.com/spreadsheets/d/e/2PACX-1vTbH86mCclRAWsdCJ5mHibzeRAKR-EOOx-Z6r-j031dYyc0zDn9o7XzfY64OBTtCnSgt25fPDjTrUrt/pub?gid=425039932&single=true&output=csv&cb="+Date.now(),{signal:ctrl.signal});
+      clearTimeout(timer);if(!r.ok)throw new Error('HTTP '+r.status);texto=await r.text();_csvCache=texto;
+    }catch(fe){clearTimeout(timer);if(_csvCache)texto=_csvCache;else throw fe;}
+    const linhas=texto.split('\n').slice(1);
+    estado.jogadores.forEach(j=>{j.palpitesGrupos=[];j.palpitesMata=[];j.pontosGrupos=0;j.pontosMata=0;j.historico=[];j.pontosAnteriores=0});
+    const jogosComputados=[];
+    linhas.forEach(linha=>{
+      if(!linha.trim())return;
+      const c=parseCSV(linha);if(c.length<4)return;
+      const dono=estado.jogadores.find(j=>j.id===parseInt(c[0],10));if(!dono)return;
+      let isMata=false,palpitePassa='',stPlacar=(c[3]||'').toLowerCase().trim(),stPassa='';
+      if(!['exato','coluna','err','aguardando',''].includes(stPlacar)){isMata=true;palpitePassa=c[3];stPlacar=(c[4]||'').toLowerCase().trim();stPassa=(c[5]||'').toLowerCase().trim();}
+      if(stPlacar&&stPlacar!=='aguardando'&&stPlacar!=='aguardando-mata'&&!jogosComputados.includes(c[1]))jogosComputados.push(c[1]);
+      if(isMata){
+        dono.palpitesMata.push({jogo:c[1],palpitePlacar:c[2],palpitePassa,statusPlacar:stPlacar,statusPassa:stPassa});
+        if(stPlacar==='exato-mata')dono.pontosMata+=5;if(stPlacar==='coluna-mata')dono.pontosMata+=2;if(stPassa==='classificado')dono.pontosMata+=3;
+      }else{
+        dono.palpitesGrupos.push({jogo:c[1],palpitePlacar:c[2],statusPlacar:stPlacar});
+        if(stPlacar==='exato')dono.pontosGrupos+=3;if(stPlacar==='coluna')dono.pontosGrupos+=1;
+      }
+    });
+    estado.jogosOrdem=jogosComputados;
+    estado.jogadores.forEach(j=>{
+      let acc=0;
+      j.historico=jogosComputados.map(jn=>{
+        const pg=j.palpitesGrupos.find(p=>p.jogo===jn),pm=j.palpitesMata.find(p=>p.jogo===jn);
+        if(pg){if(pg.statusPlacar==='exato')acc+=3;if(pg.statusPlacar==='coluna')acc+=1;}
+        if(pm){if(pm.statusPlacar==='exato-mata')acc+=5;if(pm.statusPlacar==='coluna-mata')acc+=2;if(pm.statusPassa==='classificado')acc+=3;}
+        return acc;
+      });
+    });
+    [...estado.jogadores].sort((a,b)=>b.pontosMata-a.pontosMata||b.pontosGrupos-a.pontosGrupos||a.nome.localeCompare(b.nome)).forEach((j,i)=>j.posicaoAnterior=i+1);
+    document.getElementById('loading-banner').style.display='none';
+  }catch(e){console.error('Planilha:',e)}
+}
+
+/* ── INIT ── */
 let _hadLiveGames=false;
 async function iniciarApp(){
   await carregarPlanilha();
@@ -838,9 +1083,23 @@ async function iniciarApp(){
 }
 iniciarApp();
 
-// Atualizado para 30 segundos conforme solicitado
-setInterval(buscarAoVivo, 30*1000); 
-setInterval(carregarPlanilha, 2*60*1000);
+setInterval(()=>{
+  carregarPlanilha().then(()=>{
+    renderMataMata();renderPontosCorreidos();renderRanking();renderPossivel();renderGrafico();
+    renderEstatisticas();renderChoradeira();renderRivalidades();renderCarrossel();
+  }).catch(e=>console.warn('Planilha:',e));
+},2*60*1000);
+setInterval(carregarProximos,10*60*1000);
+setInterval(buscarAoVivo,60*1000);
+
+let _ultimaAtualizacao=Date.now();
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState!=='visible')return;
+  const agora=Date.now(),inativo=agora-_ultimaAtualizacao;
+  if(inativo>45000){buscarAoVivo();if(inativo>90000){carregarPlanilha().then(()=>{renderMataMata();renderRanking();renderPossivel();renderEstatisticas();renderChoradeira();renderRivalidades();});}}
+  _ultimaAtualizacao=agora;
+});
+setInterval(()=>{_ultimaAtualizacao=Date.now();},30000);
 </script>
 </body>
 </html>
