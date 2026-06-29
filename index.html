@@ -864,10 +864,7 @@ function calcStreak(j){
 }
 function renderMataMata(){
   const sorted=[...estado.jogadores].sort((a,b)=>b.pontosMata-a.pontosMata||a.nome.localeCompare(b.nome));
-// Pega placar real da coluna G (qualquer apostador do jogo tem)
-const placarDaPlanilha = apostas.map(a=>a.palpite.placarReal).find(p=>p&&p.length>0) || '';
-if(aoVivoMatch){ isAoVivo=true; placarReal=`${aoVivoMatch.g1} – ${aoVivoMatch.g2}`; }
-else if(placarDaPlanilha){ placarReal=placarDaPlanilha.replace(/[-xX]/,' – '); }
+
   // Divide em 3 zonas dinâmicas
   const n=sorted.length;
   const topN=Math.ceil(n/3);
@@ -876,10 +873,10 @@ else if(placarDaPlanilha){ placarReal=placarDaPlanilha.replace(/[-xX]/,' – ');
   const zonas=[
     {nome:'🏆 ZONA LENDA',desc:'Os escolhidos',cls:'zona-lenda',jogadores:sorted.slice(0,topN)},
     {nome:'🔥 ZONA FOGO',desc:'Ainda dá',cls:'zona-fogo',jogadores:sorted.slice(topN,topN+midN)},
-    {nome:'💀 ZONA DA VERGONHA',desc:'Deus tenha pena',cls:'zona-vergonha',jogadores:sorted.slice(topN+midN)},
+    {nome:'💀 ZONA VERGONHA',desc:'Deus tenha pena',cls:'zona-vergonha',jogadores:sorted.slice(topN+midN)},
   ].filter(z=>z.jogadores.length>0);
 
-  const posEmojis=['🥇','🥈','🥉','Quase lá','Ruim Demais','Azarão'];
+  const posEmojis=['🥇','🥈','🥉','4º','5º','6º'];
 
   let html='';
   zonas.forEach(zona=>{
@@ -939,17 +936,11 @@ else if(placarDaPlanilha){ placarReal=placarDaPlanilha.replace(/[-xX]/,' – ');
     const qualquerResultado=apostas.find(a=>a.palpite.statusPlacar&&a.palpite.statusPlacar!=='aguardando'&&a.palpite.statusPlacar!=='aguardando-mata'&&a.palpite.statusPlacar!=='');
     // Placar ao vivo
     const aoVivoMatch=estado.aoVivo.map(av=>matchJogo(jogo,av)).find(x=>x);
-    let resultadoPlacar='';
+    const placarDaPlanilha=apostas.map(a=>a.palpite.placarReal).find(p=>p&&p.length>0)||'';
     let placarReal='';
     let isAoVivo=false;
     if(aoVivoMatch){isAoVivo=true;placarReal=`${aoVivoMatch.g1} – ${aoVivoMatch.g2}`;}
-    else if(exato){resultadoPlacar=exato.palpite.palpitePlacar;placarReal=resultadoPlacar.replace(/[-xX]/,' – ');}
-    else if(qualquerResultado){
-      // tenta inferir placar a partir dos palpites: procura o mais votado
-      const contagem={};apostas.forEach(a=>{const k=a.palpite.palpitePlacar;contagem[k]=(contagem[k]||0)+1;});
-      const mais=Object.entries(contagem).sort((a,b)=>b[1]-a[1])[0];
-      if(mais)placarReal='';// não temos o placar real, só os palpites
-    }
+    else if(placarDaPlanilha){placarReal=placarDaPlanilha.replace(/[-xX]/,' – ');}
 
     // Barra de virada: quem tá ganhando em número de acertos nesse jogo
     const totalApostasJogo=apostas.length;
@@ -1178,9 +1169,8 @@ async function carregarPlanilha(){
       let isMata=false,palpitePassa='',stPlacar=(c[3]||'').toLowerCase().trim(),stPassa='';
       if(!['exato','coluna','err','aguardando',''].includes(stPlacar)){isMata=true;palpitePassa=c[3];stPlacar=(c[4]||'').toLowerCase().trim();stPassa=(c[5]||'').toLowerCase().trim();}
       if(stPlacar&&stPlacar!=='aguardando'&&stPlacar!=='aguardando-mata'&&!jogosComputados.includes(c[1]))jogosComputados.push(c[1]);
-     if(isMata){
-        const placarRealJogo=(c[6]||'').trim();
-        dono.palpitesMata.push({jogo:c[1],palpitePlacar:c[2],palpitePassa,statusPlacar:stPlacar,statusPassa:stPassa,placarReal:placarRealJogo});
+      if(isMata){
+        dono.palpitesMata.push({jogo:c[1],palpitePlacar:c[2],palpitePassa,statusPlacar:stPlacar,statusPassa:stPassa});
         if(stPlacar==='exato-mata')dono.pontosMata+=5;if(stPlacar==='coluna-mata')dono.pontosMata+=2;if(stPassa==='classificado')dono.pontosMata+=3;
       }else{
         dono.palpitesGrupos.push({jogo:c[1],palpitePlacar:c[2],statusPlacar:stPlacar});
