@@ -1170,7 +1170,8 @@ async function carregarPlanilha(){
       if(!['exato','coluna','err','aguardando',''].includes(stPlacar)){isMata=true;palpitePassa=c[3];stPlacar=(c[4]||'').toLowerCase().trim();stPassa=(c[5]||'').toLowerCase().trim();}
       if(stPlacar&&stPlacar!=='aguardando'&&stPlacar!=='aguardando-mata'&&!jogosComputados.includes(c[1]))jogosComputados.push(c[1]);
       if(isMata){
-        dono.palpitesMata.push({jogo:c[1],palpitePlacar:c[2],palpitePassa,statusPlacar:stPlacar,statusPassa:stPassa});
+        const placarRealJogo=(c[6]||'').trim();
+        dono.palpitesMata.push({jogo:c[1],palpitePlacar:c[2],palpitePassa,statusPlacar:stPlacar,statusPassa:stPassa,placarReal:placarRealJogo});
         if(stPlacar==='exato-mata')dono.pontosMata+=5;if(stPlacar==='coluna-mata')dono.pontosMata+=2;if(stPassa==='classificado')dono.pontosMata+=3;
       }else{
         dono.palpitesGrupos.push({jogo:c[1],palpitePlacar:c[2],statusPlacar:stPlacar});
