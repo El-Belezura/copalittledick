@@ -350,6 +350,81 @@ footer strong{color:var(--mata)}
   .mata-ranking-grid{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:380px){.possivel-grid{grid-template-columns:1fr}.mata-ranking-grid{grid-template-columns:repeat(2,1fr)}}
+
+/* ── CATEGORIAS CLASSIFICAÇÃO ── */
+.categoria-divider{
+  display:flex;align-items:center;gap:10px;margin:6px 0 8px;
+  font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+}
+.categoria-divider::before,.categoria-divider::after{content:'';flex:1;height:1px}
+.cat-zona-lenda .categoria-divider{color:#FFD700}
+.cat-zona-lenda .categoria-divider::before,.cat-zona-lenda .categoria-divider::after{background:rgba(255,215,0,0.3)}
+.cat-zona-fogo .categoria-divider{color:#ff6b35}
+.cat-zona-fogo .categoria-divider::before,.cat-zona-fogo .categoria-divider::after{background:rgba(255,107,53,0.3)}
+.cat-zona-vergonha .categoria-divider{color:#8A9BB0}
+.cat-zona-vergonha .categoria-divider::before,.cat-zona-vergonha .categoria-divider::after{background:rgba(138,155,176,0.2)}
+
+.mata-rank-card.zona-lenda{
+  border-color:#FFD700;
+  background:linear-gradient(135deg,rgba(255,215,0,0.1),rgba(255,107,53,0.06),var(--azul-card));
+  box-shadow:0 0 18px rgba(255,215,0,0.12);
+}
+.mata-rank-card.zona-fogo{
+  border-color:#ff6b35;
+  background:linear-gradient(135deg,rgba(255,107,53,0.08),var(--azul-card));
+}
+.mata-rank-card.zona-vergonha{
+  border-color:rgba(138,155,176,0.3);
+  background:var(--azul-card);
+  opacity:0.85;
+}
+.zona-label{
+  display:inline-block;
+  font-size:8px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+  padding:2px 8px;border-radius:20px;margin-bottom:6px;
+}
+.zona-lenda .zona-label{background:rgba(255,215,0,0.15);color:#FFD700;border:1px solid rgba(255,215,0,0.3)}
+.zona-fogo .zona-label{background:rgba(255,107,53,0.15);color:#ff6b35;border:1px solid rgba(255,107,53,0.3)}
+.zona-vergonha .zona-label{background:rgba(138,155,176,0.1);color:var(--muted);border:1px solid rgba(138,155,176,0.2)}
+
+/* ── STREAK BADGE ── */
+.streak-badge{
+  display:inline-flex;align-items:center;gap:3px;
+  font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;
+  margin-top:4px;
+}
+.streak-hot{background:rgba(255,71,87,0.15);color:var(--vivo);border:1px solid rgba(255,71,87,0.3)}
+.streak-ice{background:rgba(0,210,255,0.1);color:#00d2ff;border:1px solid rgba(0,210,255,0.2)}
+.streak-ok{background:rgba(0,166,81,0.1);color:var(--verde);border:1px solid rgba(0,166,81,0.2)}
+
+/* ── PLACAR REAL NO CONFRONTO ── */
+.conf-placar-real{
+  font-family:'Bebas Neue',sans-serif;font-size:36px;color:#fff;
+  letter-spacing:6px;text-align:center;
+  background:linear-gradient(135deg,rgba(255,107,53,0.3),rgba(255,215,0,0.15));
+  padding:4px 14px;border-radius:8px;
+  border:1px solid rgba(255,107,53,0.4);
+  text-shadow:0 0 20px rgba(255,107,53,0.6);
+}
+.conf-placar-aguardando{
+  font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--muted);
+  letter-spacing:3px;text-align:center;
+  background:rgba(255,255,255,0.03);
+  padding:4px 14px;border-radius:8px;
+  border:1px solid var(--borda);
+}
+.conf-palpites-mini{
+  font-size:9px;color:var(--muted);text-align:center;margin-top:4px;letter-spacing:1px;
+}
+
+/* ── MOMENTO DA VIRADA (novidade) ── */
+.virada-section{margin-top:16px;padding-top:16px;border-top:1px solid var(--borda)}
+.virada-title{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;text-align:center}
+.virada-bar{display:flex;height:28px;border-radius:6px;overflow:hidden;width:100%}
+.virada-bar-a{background:linear-gradient(90deg,var(--verde),rgba(0,166,81,0.7));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;transition:width .6s ease;min-width:0}
+.virada-bar-b{background:linear-gradient(90deg,rgba(255,71,87,0.7),var(--vivo));display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;transition:width .6s ease;min-width:0}
+.virada-labels{display:flex;justify-content:space-between;font-size:9px;color:var(--muted);margin-top:4px}
+
 </style>
 </head>
 <body>
@@ -697,17 +772,7 @@ async function fetchComTimeout(url,opts,ms=8000){
 
 async function carregarProximos(){
   try{
-    // Substitua a URL antiga por esta:
-      const urlDestino = 'https://api.football-data.org/v4/competitions/WC/matches?status=SCHEDULED,TIMED';
-      const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(urlDestino);
-
-      const r = await fetchComTimeout(proxyUrl, {
-        headers: {
-          'X-Auth-Token': TOKEN_API,
-          'Accept': 'application/json'
-        },
-        cache: 'no-store'
-      }, 8000);
+    const r=await fetchComTimeout('https://api.football-data.org/v4/competitions/WC/matches?status=SCHEDULED,TIMED',{headers:{'X-Auth-Token':TOKEN_API,'Accept':'application/json'},cache:'no-store'},8000);
     if(!r.ok)return;
     const dados=await r.json();
     if(!dados||!dados.matches||!dados.matches.length)return;
@@ -725,17 +790,7 @@ async function carregarProximos(){
 
 async function buscarAoVivo(){
   try{
-    // Substitua a URL antiga por esta:
-      const urlDestino = 'https://api.football-data.org/v4/competitions/WC/matches?status=IN_PLAY,PAUSED';
-      const proxyUrl = 'https://corsproxy.io/?' + encodeURIComponent(urlDestino);
-
-      const r = await fetchComTimeout(proxyUrl, {
-        headers: {
-          'X-Auth-Token': TOKEN_API,
-          'Accept': 'application/json'
-        },
-        cache: 'no-store'
-      }, 8000);
+    const r=await fetchComTimeout('https://api.football-data.org/v4/competitions/WC/matches?status=IN_PLAY,PAUSED',{headers:{'X-Auth-Token':TOKEN_API,'Accept':'application/json'},cache:'no-store'},8000);
     estado.aoVivo=[];
     if(r.ok){
       const dados=await r.json();
@@ -794,20 +849,57 @@ function renderAoVivo(){
 }
 
 /* ── RENDER MATA-MATA (hero + confrontos) ── */
+function calcStreak(j){
+  // últimos 3 palpites do mata-mata com resultado
+  const finalizados=j.palpitesMata.filter(p=>p.statusPlacar&&p.statusPlacar!=='aguardando'&&p.statusPlacar!=='aguardando-mata'&&p.statusPlacar!=='');
+  if(!finalizados.length)return null;
+  const ultimos=finalizados.slice(-3);
+  const acertos=ultimos.filter(p=>p.statusPlacar==='exato-mata'||p.statusPlacar==='coluna-mata').length;
+  const erros=ultimos.filter(p=>p.statusPlacar==='err').length;
+  if(acertos===3)return{cls:'streak-ok',txt:'🔥 3 seguidos!'};
+  if(erros===3)return{cls:'streak-ice',txt:'🧊 3 erros seguidos'};
+  if(erros>=2)return{cls:'streak-hot',txt:'💀 Derrapando'};
+  if(acertos>=2)return{cls:'streak-ok',txt:'✅ Em forma'};
+  return null;
+}
 function renderMataMata(){
-  // Ranking mini
   const sorted=[...estado.jogadores].sort((a,b)=>b.pontosMata-a.pontosMata||a.nome.localeCompare(b.nome));
-  const posEmojis=['🔥','⚡','💥','🎯','😤','💀'];
-  const rankClasses=['pos-1','pos-2','pos-3','','',''];
-  document.getElementById('mata-ranking-grid').innerHTML=sorted.map((j,i)=>`
-    <div class="mata-rank-card ${rankClasses[i]||''}">
-      ${i===0?'<div class="mata-rank-fire">🔥</div>':''}
-      <div class="mata-rank-pos">${posEmojis[i]} ${i+1}º</div>
-      <div class="mata-rank-avatar">${avatarHTML(j)}</div>
-      <div class="mata-rank-nome">${j.nome.split(' ')[0]}</div>
-      <div class="mata-rank-pts">${j.pontosMata}<small>pts MM</small></div>
-      <div class="mata-rank-detail">${j.palpitesMata.length} palpites</div>
-    </div>`).join('');
+
+  // Divide em 3 zonas dinâmicas
+  const n=sorted.length;
+  const topN=Math.ceil(n/3);
+  const midN=Math.ceil(n/3);
+
+  const zonas=[
+    {nome:'🏆 ZONA LENDA',desc:'Os escolhidos',cls:'zona-lenda',jogadores:sorted.slice(0,topN)},
+    {nome:'🔥 ZONA FOGO',desc:'Ainda dá',cls:'zona-fogo',jogadores:sorted.slice(topN,topN+midN)},
+    {nome:'💀 ZONA VERGONHA',desc:'Deus tenha pena',cls:'zona-vergonha',jogadores:sorted.slice(topN+midN)},
+  ].filter(z=>z.jogadores.length>0);
+
+  const posEmojis=['🥇','🥈','🥉','4º','5º','6º'];
+
+  let html='';
+  zonas.forEach(zona=>{
+    html+=`<div style="grid-column:1/-1"><div class="categoria-divider cat-${zona.cls}"><span>${zona.nome}</span></div></div>`;
+    zona.jogadores.forEach(j=>{
+      const pos=sorted.indexOf(j);
+      const streak=calcStreak(j);
+      const isLider=pos===0&&j.pontosMata>0;
+      html+=`
+      <div class="mata-rank-card ${zona.cls}">
+        ${isLider?'<div class="mata-rank-fire">🔥</div>':''}
+        <div class="zona-label">${zona.nome.split(' ').slice(1).join(' ')}</div>
+        <div class="mata-rank-pos">${posEmojis[pos]} ${pos+1}º</div>
+        <div class="mata-rank-avatar">${avatarHTML(j)}</div>
+        <div class="mata-rank-nome">${j.nome.split(' ')[0]}</div>
+        <div class="mata-rank-pts">${j.pontosMata}<small>pts MM</small></div>
+        <div class="mata-rank-detail">${j.palpitesMata.length} palpite${j.palpitesMata.length!==1?'s':''}</div>
+        ${streak?`<div class="streak-badge ${streak.cls}">${streak.txt}</div>`:''}
+      </div>`;
+    });
+  });
+
+  document.getElementById('mata-ranking-grid').innerHTML=html;
 
   // Confrontos - agrupa palpites mata-mata por jogo
   const jogosMap={};
@@ -839,9 +931,30 @@ function renderMataMata(){
     const statusLabel=temResultado?'Encerrado':'Aguardando';
     const statusClass=temResultado?'done':'upcoming';
 
-    // Placar do palpite mais comum ou do resultado
+    // Placar real: pega de quem acertou exato, ou de qualquer um com resultado
     const exato=apostas.find(a=>a.palpite.statusPlacar==='exato-mata');
-    const resultadoPlacar=exato?exato.palpite.palpitePlacar:'';
+    const qualquerResultado=apostas.find(a=>a.palpite.statusPlacar&&a.palpite.statusPlacar!=='aguardando'&&a.palpite.statusPlacar!=='aguardando-mata'&&a.palpite.statusPlacar!=='');
+    // Placar ao vivo
+    const aoVivoMatch=estado.aoVivo.map(av=>matchJogo(jogo,av)).find(x=>x);
+    let resultadoPlacar='';
+    let placarReal='';
+    let isAoVivo=false;
+    if(aoVivoMatch){isAoVivo=true;placarReal=`${aoVivoMatch.g1} – ${aoVivoMatch.g2}`;}
+    else if(exato){resultadoPlacar=exato.palpite.palpitePlacar;placarReal=resultadoPlacar.replace(/[-xX]/,' – ');}
+    else if(qualquerResultado){
+      // tenta inferir placar a partir dos palpites: procura o mais votado
+      const contagem={};apostas.forEach(a=>{const k=a.palpite.palpitePlacar;contagem[k]=(contagem[k]||0)+1;});
+      const mais=Object.entries(contagem).sort((a,b)=>b[1]-a[1])[0];
+      if(mais)placarReal='';// não temos o placar real, só os palpites
+    }
+
+    // Barra de virada: quem tá ganhando em número de acertos nesse jogo
+    const totalApostasJogo=apostas.length;
+    const acertosA=ladoA.filter(a=>a.palpite.statusPassa==='classificado').length;
+    const acertosB=ladoB.filter(a=>a.palpite.statusPassa==='classificado').length;
+    const totalAB=acertosA+acertosB;
+    const pctVA=totalAB>0?Math.round((acertosA/totalAB)*100):50;
+    const pctVB=100-pctVA;
 
     function chipApostador(a){
       const nomeFirst=a.jogador.nome.split(' ')[0];
@@ -868,8 +981,12 @@ function renderMataMata(){
           <div class="conf-time-nome">${timeA.replace(/\p{Emoji}/gu,'').trim()}</div>
         </div>
         <div class="conf-vs-box">
-          <div class="conf-placar ${resultadoPlacar?'':'aguardando'}">${resultadoPlacar||'? – ?'}</div>
-          <div style="font-size:9px;color:var(--muted);text-align:center;margin-top:4px;letter-spacing:1px">90 MIN</div>
+          ${placarReal
+            ?`<div class="conf-placar-real">${isAoVivo?'<span class="piscar-vermelho" style="font-size:14px">🔴</span> ':' '}${placarReal}</div>
+               <div class="conf-palpites-mini">${isAoVivo?'AO VIVO':'RESULTADO FINAL'}</div>`
+            :`<div class="conf-placar-aguardando">? – ?</div>
+               <div class="conf-palpites-mini">AGUARDANDO</div>`
+          }
         </div>
         <div class="conf-time">
           <div class="conf-time-flag">${timeB.match(/\p{Emoji}/u)?.[0]||'🏳️'}</div>
@@ -887,6 +1004,15 @@ function renderMataMata(){
           ${ladoB.length?ladoB.map(chipApostador).join(''):'<div class="conf-sem-apostas">Ninguém apostou aqui</div>'}
         </div>
       </div>
+      ${totalAB>0?`
+      <div class="virada-section">
+        <div class="virada-title">⚔️ quem tá certo aqui?</div>
+        <div class="virada-bar">
+          <div class="virada-bar-a" style="width:${pctVA}%">${pctVA>15?timeA.replace(/\p{Emoji}/gu,'').trim().split(' ')[0]:''}${acertosA>0?' ✓':''}</div>
+          <div class="virada-bar-b" style="width:${pctVB}%">${pctVB>15?timeB.replace(/\p{Emoji}/gu,'').trim().split(' ')[0]:''}${acertosB>0?' ✓':''}</div>
+        </div>
+        <div class="virada-labels"><span>${acertosA} certo${acertosA!==1?'s':''} em ${ladoA.length} aposta${ladoA.length!==1?'s':''}</span><span>${acertosB} certo${acertosB!==1?'s':''} em ${ladoB.length} aposta${ladoB.length!==1?'s':''}</span></div>
+      </div>`:''}
     </div>`;
   }).join('');
 }
